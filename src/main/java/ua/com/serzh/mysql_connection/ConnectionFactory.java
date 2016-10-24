@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    private static final String PROP_PATH = "/db.properties";
-    private static Properties properties = new Properties();
+    private /*static*/ final String PROP_PATH = "/db.properties";
+    private /*static*/ Properties properties = new Properties();
     private static ConnectionFactory instance = new ConnectionFactory();
+
+    static Connection connection;
 
     private ConnectionFactory() {
         try {
@@ -22,7 +24,7 @@ public class ConnectionFactory {
 
     }
 
-    private static /*Properties*/ void getProperties() {
+    private /*static*/ /*Properties*/ void getProperties() {
         try {
             InputStream  is = ConnectionFactory.class.getResourceAsStream(PROP_PATH);
             properties.load(is);
@@ -33,7 +35,6 @@ public class ConnectionFactory {
     }
 
     private Connection createConnection() {
-        Connection connection = null;
 
         try {
             connection = DriverManager.getConnection(properties.getProperty("DB_URL"),
@@ -47,6 +48,9 @@ public class ConnectionFactory {
     }
 
     public static Connection getConnection() {
+        if (connection != null) {
+            return connection;
+        }
         return instance.createConnection();
     }
 }

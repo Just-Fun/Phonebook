@@ -18,28 +18,34 @@ public class UserDao {
     private static String SEARCH_BY_NAME_AND_PASSWORD_SQL = "SELECT user_id, name, password FROM users WHERE name = ? AND password = ?";
     private static String SEARCH_BY_NAME_SQL = "SELECT user_id, name, password FROM users WHERE name = ?";
 
+
+    private Connection connection = null;
+
+    private Connection getConnection() {
+        if (connection != null) {
+            return connection;
+        }
+        return ConnectionFactory.getConnection();
+    }
+
     public UserDao() {
     }
 
     public void insertUser(User user) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            executeInsertStatement(connection, user);
+        try (PreparedStatement ps = getConnection().prepareStatement(INSERT_SQL)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void executeInsertStatement(Connection connection, User user) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement(INSERT_SQL);
-        ps.setString(1, user.getName());
-        ps.setString(2, user.getPassword());
-        ps.executeUpdate();
-    }
-
     public User searchByNameAndPassword(String name, String password) {
         User user = null;
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement ps = executeSearchByNameAndPasswordStatement(connection, name, password);
+        try (PreparedStatement ps = getConnection().prepareStatement(SEARCH_BY_NAME_AND_PASSWORD_SQL)) {
+            ps.setString(1, name);
+            ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     user = new User();
@@ -54,19 +60,10 @@ public class UserDao {
         return user;
     }
 
-    private PreparedStatement executeSearchByNameAndPasswordStatement(Connection connection,
-                                                                      String name,
-                                                                      String password) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement(SEARCH_BY_NAME_AND_PASSWORD_SQL);
-        ps.setString(1, name);
-        ps.setString(2, password);
-        return ps;
-    }
-
     public User searchByName(String name) {
         User user = null;
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement ps = this.executeSearchByNameStatement(connection, name);
+        try (PreparedStatement ps = getConnection().prepareStatement(SEARCH_BY_NAME_SQL)) {
+            ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 user = new User();
@@ -78,11 +75,5 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
-    }
-
-    private PreparedStatement executeSearchByNameStatement(Connection connection, String name) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement(SEARCH_BY_NAME_SQL);
-        ps.setString(1, name);
-        return ps;
     }
 }
