@@ -1,8 +1,9 @@
-package com.iva.controllers;
+package ua.com.serzh.controllers;
 
-import com.iva.dao.ContactDao;
-import com.iva.entities.User;
-import com.iva.service.ContactManager;
+import ua.com.serzh.dao.ContactDao;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.service.ContactManager;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +30,7 @@ public class MainController extends HttpServlet {
 
         Integer pageNumber = (Integer)session.getAttribute("pageNumber");
         contactManager.action(req, contactDao, session, user);
-        contactManager.pagination(req, contactDao, session, user, pageNumber.intValue());
+        contactManager.pagination(req, contactDao, session, user, pageNumber);
         RequestDispatcher view;
         if("logout".equals(req.getParameter("button"))) {
             session.invalidate();
@@ -45,6 +46,7 @@ public class MainController extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
+//        this.doGet(req, resp);
+        doGet(req, resp);
     }
 }

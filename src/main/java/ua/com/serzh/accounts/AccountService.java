@@ -1,8 +1,8 @@
-package com.iva.accounts;
+package ua.com.serzh.accounts;
 
 import java.util.HashMap;
 import java.util.Map;
-
+// TODO For future
 public class AccountService {
     private final Map<String, UserProfile> loginToProfile;
     private final Map<String, UserProfile> sessionIdToProfile;

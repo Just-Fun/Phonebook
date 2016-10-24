@@ -3,10 +3,11 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.iva.dao;
+package ua.com.serzh.dao;
 
-import com.iva.entities.Contact;
-import com.iva.mysql_connection.ConnectionFactory;
+import ua.com.serzh.entities.Contact;
+import ua.com.serzh.mysql_connection.ConnectionFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

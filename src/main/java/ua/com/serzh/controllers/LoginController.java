@@ -3,12 +3,13 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.iva.controllers;
+package ua.com.serzh.controllers;
 
-import com.iva.dao.ContactDao;
-import com.iva.dao.UserDao;
-import com.iva.entities.User;
-import com.iva.service.ContactManager;
+import ua.com.serzh.dao.ContactDao;
+import ua.com.serzh.dao.UserDao;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.service.ContactManager;
+
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;

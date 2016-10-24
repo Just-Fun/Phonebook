@@ -8,7 +8,7 @@
 
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>com.iva.controllers.LoginController</servlet-class>
+        <servlet-class>ua.com.serzh.controllers.LoginController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>registry</servlet-name>
-        <servlet-class>com.iva.controllers.RegistryController</servlet-class>
+        <servlet-class>ua.com.serzh.controllers.RegistryController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registry</servlet-name>
@@ -26,7 +26,7 @@
 
     <servlet>
         <servlet-name>main</servlet-name>
-        <servlet-class>com.iva.controllers.MainController</servlet-class>
+        <servlet-class>ua.com.serzh.controllers.MainController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>main</servlet-name>

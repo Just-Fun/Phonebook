@@ -1,4 +1,4 @@
-package com.iva.entities;
+package ua.com.serzh.entities;
 
 public class User {
     private Integer userId;

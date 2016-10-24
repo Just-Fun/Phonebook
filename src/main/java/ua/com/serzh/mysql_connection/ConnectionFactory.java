@@ -1,4 +1,4 @@
-package com.iva.mysql_connection;
+package ua.com.serzh.mysql_connection;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,10 +23,10 @@ public class ConnectionFactory {
     }
 
     private static Properties getProperties() {
-        InputStream is = null;
+        InputStream is;
 
         try {
-            is = ConnectionFactory.class.getResourceAsStream("/db.properties");
+            is = ConnectionFactory.class.getResourceAsStream(PROP_PATH);
             properties.load(is);
         } catch (IOException e) {
             e.printStackTrace();

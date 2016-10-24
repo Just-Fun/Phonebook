@@ -1,5 +1,6 @@
-package com.iva.accounts;
+package ua.com.serzh.accounts;
 
+// TODO For future
 public class UserProfile {
     private final String login;
     private final String pass;

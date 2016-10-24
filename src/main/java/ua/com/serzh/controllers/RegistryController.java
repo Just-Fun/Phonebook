@@ -1,8 +1,9 @@
-package com.iva.controllers;
+package ua.com.serzh.controllers;
 
-import com.iva.dao.UserDao;
-import com.iva.entities.User;
-import com.iva.validation.Validation;
+import ua.com.serzh.dao.UserDao;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.validation.Validation;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,8 +27,10 @@ public class RegistryController extends HttpServlet {
         boolean isPasswordsMatch = false;
         if(name != null) {
             user = userDao.searchByName(name);
-            isValidName = Validation.validate(name, "\\w{5,}");
+            isValidName = Validation.validate(name, "\\w{5,}"); //TODO change on 3?
         }
+
+        // TODO ФИО (минимум 5 символов)
 
         if(password != null) {
             isValidPassword = Validation.validate(password, "[a-zA-Z0-9]{5,}");

@@ -1,9 +1,9 @@
-package com.iva.service;
+package ua.com.serzh.service;
 
-import com.iva.dao.ContactDao;
-import com.iva.entities.Contact;
-import com.iva.entities.User;
-import com.iva.validation.Validation;
+import ua.com.serzh.dao.ContactDao;
+import ua.com.serzh.entities.Contact;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.validation.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

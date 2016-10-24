@@ -1,4 +1,4 @@
-package com.iva.validation;
+package ua.com.serzh.validation;
 
 public class Validation {
     public Validation() {
