@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    private /*static*/ final String PROP_PATH = "/db.properties";
-    private /*static*/ Properties properties = new Properties();
-    private static ConnectionFactory instance = new ConnectionFactory();
+    private Properties properties;
+    private static Connection connection;
 
-    static Connection connection;
+    // TODO look to Singleton, because this looks strange
+    private static ConnectionFactory instance = new ConnectionFactory();
 
     private ConnectionFactory() {
         try {
@@ -21,29 +21,27 @@ public class ConnectionFactory {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
-    private /*static*/ /*Properties*/ void getProperties() {
+    private void getProperties() {
         try {
-            InputStream  is = ConnectionFactory.class.getResourceAsStream(PROP_PATH);
+            properties = new Properties();
+            InputStream is = ConnectionFactory.class.getResourceAsStream("/db.properties");
             properties.load(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        return properties;
     }
 
     private Connection createConnection() {
-
         try {
-            connection = DriverManager.getConnection(properties.getProperty("DB_URL"),
-                                                    properties.getProperty("USER_NAME"),
-                                                    properties.getProperty("USER_PASSWORD"));
+            connection = DriverManager.getConnection(
+                    properties.getProperty("DB_URL"),
+                    properties.getProperty("USER_NAME"),
+                    properties.getProperty("USER_PASSWORD"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return connection;
     }
 
