@@ -22,16 +22,14 @@ public class ConnectionFactory {
 
     }
 
-    private static Properties getProperties() {
-        InputStream is;
-
+    private static /*Properties*/ void getProperties() {
         try {
-            is = ConnectionFactory.class.getResourceAsStream(PROP_PATH);
+            InputStream  is = ConnectionFactory.class.getResourceAsStream(PROP_PATH);
             properties.load(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return properties;
+//        return properties;
     }
 
     private Connection createConnection() {

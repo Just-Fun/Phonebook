@@ -34,13 +34,12 @@ public class ContactManager {
 
     }
 
-    private void showContacts(ContactDao contactDao, User user, HttpSession session, HttpServletRequest req) {
+    private void showContacts(ContactDao contactDao, User user, HttpSession session) {
         List contacts = (List)session.getAttribute("contacts");
         if(contacts == null) {
             contacts = contactDao.allUserContacts(user.getUserId());
             session.setAttribute("contacts", contacts);
         }
-
     }
 
     private void addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -57,7 +56,7 @@ public class ContactManager {
             contactDao.insertContact(contact);
             req.setAttribute("validPhone", true);
             session.setAttribute("add", false);
-            this.showContacts(contactDao, user, session, req);
+            this.showContacts(contactDao, user, session);
         } else if("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("add", false);
         }
@@ -80,7 +79,7 @@ public class ContactManager {
                 contact.setMobileNumber(mobileNumber);
                 contactDao.updateContact(contact);
                 session.setAttribute("edit", false);
-                this.showContacts(contactDao, user, session, req);
+                this.showContacts(contactDao, user, session);
             }
         } else if("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("edit", false);
@@ -93,7 +92,7 @@ public class ContactManager {
         if(contactId != null) {
             Contact contact = contactDao.searchContactById(Integer.parseInt(contactId));
             contactDao.deleteContact(contact);
-            this.showContacts(contactDao, user, session, req);
+            this.showContacts(contactDao, user, session);
         }
 
     }
@@ -107,7 +106,7 @@ public class ContactManager {
 
         if("All Contacts".equals(req.getParameter("allContacts")) && user != null) {
             session.setAttribute("contacts", (Object)null);
-            this.showContacts(contactDao, user, session, req);
+            this.showContacts(contactDao, user, session);
         }
 
     }
@@ -120,7 +119,7 @@ public class ContactManager {
         }
 
         session.setAttribute("pageNumber", Integer.valueOf(pageNumber));
-        this.showContacts(contactDao, user, session, req);
+        this.showContacts(contactDao, user, session);
     }
 
     public int getAmountOfContacts(ContactDao contactDao, User user) {
