@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package ua.com.serzh.dao;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,7 +9,6 @@ import ua.com.serzh.entities.ContactRowMapper;
 import ua.com.serzh.mysql_connection.ConnectionFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDao extends JdbcDaoSupport {
@@ -54,7 +48,7 @@ public class ContactDao extends JdbcDaoSupport {
         return template.queryForObject(sql, new Object[]{contactId}, new BeanPropertyRowMapper<>(Contact.class));
     }
 
-    // just in case
+    // 2nd variant, just in case
     public Contact searchContactById2(int contactId) {
         getConnection2();
         String sql = "SELECT * FROM contacts WHERE contact_id = ?";
@@ -68,15 +62,11 @@ public class ContactDao extends JdbcDaoSupport {
     }
 
     public void updateContact(Contact contact) {
+        getConnection2();
         String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
-        try (PreparedStatement ps = getConnection2().prepareStatement(sql)) {
-            ps.setString(1, contact.getName());
-            ps.setString(2, contact.getMobileNumber());
-            ps.setInt(3, contact.getContactId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        template.update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());
+        // or:
+//        template.update(sql, new Object[]{contact.getName(), contact.getMobileNumber(), contact.getContactId()});
     }
 
     public void deleteContact(Contact contact) {
