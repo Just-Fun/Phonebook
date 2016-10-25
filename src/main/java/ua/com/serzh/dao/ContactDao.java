@@ -27,8 +27,8 @@ public class ContactDao extends JdbcDaoSupport {
         return connection;
     }
 
-    public ContactDao() {
-    }
+  /*  public ContactDao() {
+    }*/
 
     public void insertContact(Contact contact) {
         getConnection2();
