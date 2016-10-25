@@ -70,11 +70,8 @@ public class ContactDao extends JdbcDaoSupport {
     }
 
     public void deleteContact(Contact contact) {
+        getConnection2();
         String sql = "DELETE FROM contacts WHERE contact_id = ?";
-        try (PreparedStatement ps = getConnection2().prepareStatement(sql)) {
-            ps.setInt(1, contact.getUserId()); // TODO check, hope its right, before was empty...
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        template.update(sql, contact.getContactId());
     }
 }
