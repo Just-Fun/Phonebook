@@ -33,7 +33,7 @@ public class ContactDao extends JdbcDaoSupport {
     public void insertContact(Contact contact) {
         getConnection2();
         String sql = "INSERT INTO contacts (name, mobile_number, user_id) VALUES (?, ?, ?)";
-        template.update(sql, new Object[]{contact.getName(), contact.getMobileNumber(), contact.getUserId()});
+        template.update(sql, contact.getName(), contact.getMobileNumber(), contact.getUserId());
     }
 
     public List<Contact> searchContactByName(String name, int userId) {
@@ -65,8 +65,6 @@ public class ContactDao extends JdbcDaoSupport {
         getConnection2();
         String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
         template.update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());
-        // or:
-//        template.update(sql, new Object[]{contact.getName(), contact.getMobileNumber(), contact.getContactId()});
     }
 
     public void deleteContact(Contact contact) {
