@@ -11,12 +11,13 @@ import ua.com.serzh.mysql_connection.ConnectionFactory;
 import java.sql.*;
 import java.util.List;
 
-public class ContactDao extends JdbcDaoSupport {
+public class ContactDao /*extends JdbcDaoSupport*/ {
 
     private Connection connection = null;
     private JdbcTemplate template;
 
     //TODO make new only firs time
+//    https://www.mkyong.com/spring/spring-jdbctemplate-jdbcdaosupport-examples/ !!!!!
     private Connection getConnection2() {
         if (connection == null) {
             connection = ConnectionFactory.getConnection();
