@@ -10,10 +10,10 @@ public class ContactRowMapper implements RowMapper {
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Contact contact = new Contact();
 
-        contact.setContactId(rs.getInt("contactId"));
+        contact.setContactId(rs.getInt("contact_id"));
+        contact.setMobileNumber(rs.getString("mobile_number"));
         contact.setName(rs.getString("name"));
-        contact.setMobileNumber(rs.getString("mobileNumber"));
-        contact.setUserId(rs.getInt("userId"));
+        contact.setUserId(rs.getInt("user_id"));
 
         return contact;
     }
