@@ -39,7 +39,11 @@ public class UserDao extends JdbcDaoSupport {
     public User searchByNameAndPassword(String name, String password) {
         getConnection2();
         String sql = "SELECT * FROM users WHERE name = ? AND password = ?";
-        return template.queryForObject(sql, new Object[]{name, password}, new BeanPropertyRowMapper<>(User.class));
+        try {
+            return template.queryForObject(sql, new Object[]{name, password}, new BeanPropertyRowMapper<>(User.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public User searchByName(String name) {
