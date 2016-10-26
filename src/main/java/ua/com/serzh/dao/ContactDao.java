@@ -38,7 +38,7 @@ public class ContactDao /*extends JdbcDaoSupport*/ {
 
     public List<Contact> searchContactByName(String name, int userId) {
         getConnection2();
-        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name = '%s'", userId, name);
+        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
         return template.query(sql, new BeanPropertyRowMapper(Contact.class));
     }
 
