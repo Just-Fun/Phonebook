@@ -5,6 +5,8 @@
 
 package ua.com.serzh.controllers;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
@@ -20,12 +22,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
+    ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    UserDao userDao = (UserDao) context.getBean("userDao");
+    ContactDao contactDao =(ContactDao) context.getBean("contactDao");
     public LoginController() {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao userDao = new UserDao();
-        ContactDao contactDao = new ContactDao();
+//        UserDao userDao = new UserDao();
+//        ContactDao contactDao = new ContactDao();
         User user = null;
         resp.setContentType("text/html");
         String name = req.getParameter("name");

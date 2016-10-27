@@ -1,5 +1,7 @@
 package ua.com.serzh.controllers;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.validation.Validation;
@@ -12,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegistryController extends HttpServlet {
+
+    ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    UserDao userDao = (UserDao) context.getBean("userDao");
     public RegistryController() {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao userDao = new UserDao();
+//        UserDao userDao = new UserDao();
         User user = null;
         resp.setContentType("text/html");
         String name = req.getParameter("name");
