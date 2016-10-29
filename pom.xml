@@ -105,11 +105,23 @@
             <!--<version>4.3.3.RELEASE</version>-->
             <version>${springframework.version}</version>
         </dependency>
-     <!--   <dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+        <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.2.RELEASE</version>
-        </dependency>-->
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+            <!--<version>3.0.4.RELEASE</version>-->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+            <!--<version>4.3.3.RELEASE</version>-->
+        </dependency>
+
 
 
         <!--TEST-->

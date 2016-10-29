@@ -2,11 +2,13 @@ package ua.com.serzh.dao;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Component;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.entities.ContactRowMapper;
 
 import java.util.List;
 
+//@Component
 public class ContactDao extends JdbcDaoSupport {
 
     public void insertContact(Contact contact) {

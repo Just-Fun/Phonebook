@@ -22,11 +22,37 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
-    ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-    UserDao userDao = (UserDao) context.getBean("userDao");
-    ContactDao contactDao =(ContactDao) context.getBean("contactDao");
     public LoginController() {
     }
+
+  /*  public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public ContactDao getContactDao() {
+        return contactDao;
+    }
+
+    public void setContactDao(ContactDao contactDao) {
+        this.contactDao = contactDao;
+    }
+//    @Autowired(required=false)
+//    @Qualifier("userDao")
+    UserDao userDao;
+
+//    @Autowired(required=false)
+//    @Qualifier("contactDao")
+    ContactDao contactDao;
+*/
+
+//    ApplicationContext context = new ClassPathXmlApplicationContext("/WEB-INF/Spring-Module.xml");
+    ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
+    UserDao userDao = (UserDao) context.getBean("userDao");
+    ContactDao contactDao =(ContactDao) context.getBean("contactDao");
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        UserDao userDao = new UserDao();
@@ -43,12 +69,12 @@ public class LoginController extends HttpServlet {
         if(user != null && "Submit".equals(req.getParameter("Submit"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            List contacts = contactDao.allUserContacts(user.getUserId().intValue());
+            List contacts = contactDao.allUserContacts(user.getUserId()/*.intValue()*/);
             session.setMaxInactiveInterval(300);
             session.setAttribute("contacts", contacts);
             int amountOfContacts = (new ContactManager()).getAmountOfContacts(contactDao, user);
-            session.setAttribute("amountOfContacts", Integer.valueOf(amountOfContacts));
-            session.setAttribute("pageNumber", Integer.valueOf(1));
+            session.setAttribute("amountOfContacts", amountOfContacts);
+            session.setAttribute("pageNumber", 1);
             view = req.getRequestDispatcher("/WEB-INF/jsps/main.jsp");
         } else {
             view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");

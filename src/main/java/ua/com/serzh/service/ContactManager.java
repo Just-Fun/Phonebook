@@ -23,13 +23,13 @@ public class ContactManager {
         }
 
         if(session.getAttribute("add").equals(true)) {
-            this.addContact(req, contactDao, session, user);
+            addContact(req, contactDao, session, user);
         } else if(session.getAttribute("edit").equals(true)) {
-            this.editContact(req, contactDao, session, user);
+            editContact(req, contactDao, session, user);
         } else if("Delete".equals(req.getParameter("button"))) {
-            this.deleteContact(req, contactDao, session, user);
+            deleteContact(req, contactDao, session, user);
         } else {
-            this.searchContact(req, contactDao, session, user);
+            searchContact(req, contactDao, session, user);
         }
 
     }
@@ -56,7 +56,7 @@ public class ContactManager {
             contactDao.insertContact(contact);
             req.setAttribute("validPhone", true);
             session.setAttribute("add", false);
-            this.showContacts(contactDao, user, session);
+            showContacts(contactDao, user, session);
         } else if("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("add", false);
         }
@@ -92,7 +92,7 @@ public class ContactManager {
         if(contactId != null) {
             Contact contact = contactDao.searchContactById(Integer.parseInt(contactId));
             contactDao.deleteContact(contact);
-            this.showContacts(contactDao, user, session);
+            showContacts(contactDao, user, session);
         }
 
     }
@@ -100,13 +100,13 @@ public class ContactManager {
     private void searchContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String subscriberName = req.getParameter("subscriberName");
         if("Search".equals(req.getParameter("searchButton")) && subscriberName != null && user != null) {
-            List contacts = contactDao.searchContactByName(subscriberName, user.getUserId().intValue());
+            List contacts = contactDao.searchContactByName(subscriberName, user.getUserId());
             session.setAttribute("contacts", contacts);
         }
 
         if("All Contacts".equals(req.getParameter("allContacts")) && user != null) {
-            session.setAttribute("contacts", (Object)null);
-            this.showContacts(contactDao, user, session);
+            session.setAttribute("contacts", null);
+            showContacts(contactDao, user, session);
         }
 
     }
@@ -118,11 +118,11 @@ public class ContactManager {
             --pageNumber;
         }
 
-        session.setAttribute("pageNumber", Integer.valueOf(pageNumber));
-        this.showContacts(contactDao, user, session);
+        session.setAttribute("pageNumber", pageNumber);
+        showContacts(contactDao, user, session);
     }
 
     public int getAmountOfContacts(ContactDao contactDao, User user) {
-        return contactDao.allUserContacts(user.getUserId().intValue()).size();
+        return contactDao.allUserContacts(user.getUserId()).size();
     }
 }

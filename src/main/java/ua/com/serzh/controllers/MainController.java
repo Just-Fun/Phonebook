@@ -3,7 +3,6 @@ package ua.com.serzh.controllers;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.com.serzh.dao.ContactDao;
-import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.service.ContactManager;
 
@@ -17,11 +16,19 @@ import javax.servlet.http.HttpSession;
 
 public class MainController extends HttpServlet {
 
-    ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     ContactDao contactDao =(ContactDao) context.getBean("contactDao");
 
     public MainController() {
     }
+
+    /*public ContactDao getContactDao() {
+        return contactDao;
+    }
+
+    public void setContactDao(ContactDao contactDao) {
+        this.contactDao = contactDao;
+    }*/
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        ContactDao contactDao = new ContactDao();

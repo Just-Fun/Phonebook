@@ -33,7 +33,7 @@
                 <tr>
                     <td>
                         <form action="registry.jsp">
-                            <input type="Submit" value="Sign in" name="Sign in">
+                            <input type="button" value="go to registry" name="go to registry">
                         </form>
                     </td>
                 </tr>

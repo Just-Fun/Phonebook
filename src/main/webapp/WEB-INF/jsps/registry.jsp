@@ -64,6 +64,15 @@
             <td><input type="submit" name="Submit"></td>
         </tr>
     </table>
+
+    <p class="message">Already registered? <%--<a href="#">Create an account</a>--%></p>
+    <tr>
+        <td>
+            <form action="login.jsp">
+                <input type="button" value="Sign in" name="Sign in">
+            </form>
+        </td>
+    </tr>
 </form>
 </body>
 </html>

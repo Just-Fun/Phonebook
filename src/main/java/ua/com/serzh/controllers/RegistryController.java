@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RegistryController extends HttpServlet {
 
-    ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     UserDao userDao = (UserDao) context.getBean("userDao");
     public RegistryController() {
     }
@@ -23,7 +23,7 @@ public class RegistryController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        UserDao userDao = new UserDao();
         User user = null;
-        resp.setContentType("text/html");
+        resp.setContentType("text/html");// надо это?
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
@@ -66,4 +66,20 @@ public class RegistryController extends HttpServlet {
 
         view.forward(req, resp);
     }
+/*
+    public ApplicationContext getContext() {
+        return context;
+    }
+
+    public void setContext(ApplicationContext context) {
+        this.context = context;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }*/
 }

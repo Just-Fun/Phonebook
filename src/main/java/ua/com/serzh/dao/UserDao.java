@@ -3,8 +3,10 @@ package ua.com.serzh.dao;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Component;
 import ua.com.serzh.entities.User;
 
+//@Component
 public class UserDao extends JdbcDaoSupport /*implements UserInterface*/ {
 
     public void insertUser(User user) {
