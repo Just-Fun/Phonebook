@@ -5,6 +5,8 @@
 
 package ua.com.serzh.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,7 @@ public class LoginController extends HttpServlet {
     public LoginController() {
     }
 
-  /*  public UserDao getUserDao() {
+   /* public UserDao getUserDao() {
         return userDao;
     }
 
@@ -53,7 +55,6 @@ public class LoginController extends HttpServlet {
 //    @Qualifier("contactDao")
     ContactDao contactDao;
 */
-
 //    ApplicationContext context = new ClassPathXmlApplicationContext("/WEB-INF/Spring-Module.xml");
     ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     UserDao userDao = (UserDao) context.getBean("userDao");

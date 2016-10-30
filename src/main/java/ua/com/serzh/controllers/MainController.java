@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.ContactDao;
+import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.service.ContactManager;
 
@@ -24,10 +25,13 @@ public class MainController extends HttpServlet {
     ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     ContactDao contactDao = (ContactDao) context.getBean("contactDao");
 
+
     public MainController() {
     }
 
-    /*public ContactDao getContactDao() {
+    /*ContactDao contactDao;
+
+    public ContactDao getContactDao() {
         return contactDao;
     }
 

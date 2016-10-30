@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.validation.Validation;
@@ -20,6 +21,17 @@ public class RegistryController extends HttpServlet {
 
     ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     UserDao userDao = (UserDao) context.getBean("userDao");
+
+/*    UserDao userDao;
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }*/
+
     public RegistryController() {
     }
 
@@ -69,20 +81,4 @@ public class RegistryController extends HttpServlet {
          return "registry";
         }
     }
-/*
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }*/
 }
