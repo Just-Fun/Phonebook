@@ -59,16 +59,18 @@ public class LoginController extends HttpServlet {
     UserDao userDao = (UserDao) context.getBean("userDao");
     ContactDao contactDao =(ContactDao) context.getBean("contactDao");
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String main() {
+        return "redirect:/login";
+    }
 
-    @RequestMapping(value = {"/", "/login"/*, "/phonebook"*/}, method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/login"/*, "/phonebook"*/}, method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String menu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        UserDao userDao = new UserDao();
-//        ContactDao contactDao = new ContactDao();
         User user = null;
         resp.setContentType("text/html");
         String name = req.getParameter("name");
@@ -76,8 +78,6 @@ public class LoginController extends HttpServlet {
         if(name != null && password != null && !name.isEmpty() && !password.isEmpty()) {
             user = userDao.searchByNameAndPassword(name, password);
         }
-
-//        RequestDispatcher view;
         if(user != null && "Submit".equals(req.getParameter("Submit"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
@@ -87,21 +87,11 @@ public class LoginController extends HttpServlet {
             int amountOfContacts = (new ContactManager()).getAmountOfContacts(contactDao, user);
             session.setAttribute("amountOfContacts", amountOfContacts);
             session.setAttribute("pageNumber", 1);
-//            view = req.getRequestDispatcher("/WEB-INF/jsps/main.jsp");
-            return "main";
+//            return "main";
+            return "redirect:/main";
         } else {
-//            view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");
             req.setAttribute("rightInput", false);
             return "login";
         }
-
-//        view.forward(req, resp);
     }
-
-
-  /*  private String getAction(HttpServletRequest req) {
-        String requestURI = req.getRequestURI();
-//        return requestURI.substring(req.getContextPath().length(), requestURI.length());
-        return requestURI.substring(req.getContextPath().length());
-    }*/
 }
