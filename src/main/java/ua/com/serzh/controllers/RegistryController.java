@@ -22,16 +22,6 @@ public class RegistryController extends HttpServlet {
     UserDao userDao = (UserDao) context.getBean("userDao");
     public RegistryController() {
     }
-/*
-    @RequestMapping(value = {"/registry.do"}, method = RequestMethod.GET)
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("registry.jsp").forward(req, resp);
-    }*/
-
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String main() {
-//        return "registry.do";
-//    }
 
     @RequestMapping(value = "registry", method = RequestMethod.GET)
     public String registry() {
