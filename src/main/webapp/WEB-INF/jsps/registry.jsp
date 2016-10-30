@@ -69,7 +69,7 @@
     <tr>
         <td>
             <form action="login.jsp">
-                <input type="button" value="Sign in" name="Sign in">
+                <input type="Submit" value="Sign up" name="Sign up">
             </form>
         </td>
     </tr>

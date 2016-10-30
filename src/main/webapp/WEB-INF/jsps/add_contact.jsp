@@ -8,7 +8,7 @@
         </tr>
         <tr>
             <td>
-                <input type="text" name="mobileNumber" placeholder="+XXXXXXXXXXXX">
+                <input type="text" name="mobileNumber" placeholder="+380XXXXXXXXX">
             </td>
         </tr>
         <tr>

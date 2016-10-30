@@ -2,6 +2,9 @@ package ua.com.serzh.controllers;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.validation.Validation;
@@ -12,13 +15,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@Controller
 public class RegistryController extends HttpServlet {
 
     ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
     UserDao userDao = (UserDao) context.getBean("userDao");
     public RegistryController() {
     }
+/*
+    @RequestMapping(value = {"/registry.do"}, method = RequestMethod.GET)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("registry.jsp").forward(req, resp);
+    }*/
+
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String main() {
+//        return "registry.do";
+//    }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        UserDao userDao = new UserDao();

@@ -29,11 +29,12 @@
                     </tr>
                 </table>
                 </br>
-                <p class="message">Not registered? <%--<a href="#">Create an account</a>--%></p>
+                <p class="message">Not registered? <a href="registry.do">Create an account</a></p>
                 <tr>
                     <td>
                         <form action="registry.jsp">
-                            <input type="button" value="go to registry" name="go to registry">
+                            <%--<input type="button" value="Sing up" name="Sing up">--%>
+                            <input type="Submit" value="Sign in" name="Sign in">
                         </form>
                     </td>
                 </tr>
