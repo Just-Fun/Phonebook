@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,9 +20,23 @@
         <div class="form">
 
             <form class="login-form" action="login.do" method="POST">
+                <%--<form class="login-form" action="main" method="POST">--%>
+
                 <table>
                     <tr>
-                        <td><input type="text" name="name" size="30" placeholder="Name"></td>
+                        <td><input type="text" name="name" size="30"
+                                   placeholder="Enter" value="${requestScope.name}"></td>
+                        <c:if test="${empty requestScope.rightInput}">
+                            <c:set var="rightInput" value="true" scope="request"/>
+                        </c:if>
+                        <c:choose>
+                            <c:when test="${!requestScope.rightInput}">
+                                <td style="color: red">
+                                    The username or password is incorrect.
+                                </td>
+                            </c:when>
+                            <c:otherwise> </c:otherwise>
+                        </c:choose>
                     </tr>
                     <tr>
                         <td><input type="password" name="password" size="30" placeholder="Password"></td>
@@ -33,15 +48,6 @@
                 Not registered?
                 <a href="registry">registry</a><br>
 
-                <%--<p class="message">Not registered? <a href="registry.do">Create an account</a></p>
-                <tr>
-                    <td>
-                        <form action="registry.jsp">
-                            &lt;%&ndash;<input type="button" value="Sing up" name="Sing up">&ndash;%&gt;
-                            <input type="Submit" value="Sign in" name="Sign in">
-                        </form>
-                    </td>
-                </tr>--%>
             </form>
 
         </div>

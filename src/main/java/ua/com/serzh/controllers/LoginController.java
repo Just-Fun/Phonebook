@@ -60,12 +60,12 @@ public class LoginController extends HttpServlet {
     ContactDao contactDao =(ContactDao) context.getBean("contactDao");
 
 
-    @RequestMapping(value = {"/", "/login", "/phonebook"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/login"/*, "/phonebook"*/}, method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/login", "/phonebook"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/", "/login"/*, "/phonebook"*/}, method = RequestMethod.POST)
     public String menu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        UserDao userDao = new UserDao();
 //        ContactDao contactDao = new ContactDao();
@@ -77,7 +77,7 @@ public class LoginController extends HttpServlet {
             user = userDao.searchByNameAndPassword(name, password);
         }
 
-        RequestDispatcher view;
+//        RequestDispatcher view;
         if(user != null && "Submit".equals(req.getParameter("Submit"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
@@ -91,7 +91,8 @@ public class LoginController extends HttpServlet {
             return "main";
         } else {
 //            view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");
-            return "registry";
+            req.setAttribute("rightInput", false);
+            return "login";
         }
 
 //        view.forward(req, resp);
