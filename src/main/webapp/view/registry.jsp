@@ -11,7 +11,7 @@
             <td><input type="text" name="name" size="30"
                        placeholder="Enter name" value="${requestScope.name}"></td>
             <c:if test="${empty requestScope.validUserName}">
-                <c:set var="validUserName" value="true" scope="request" />
+                <c:set var="validUserName" value="true" scope="request"/>
             </c:if>
             <c:choose>
                 <c:when test="${!requestScope.validUserName}">
@@ -32,7 +32,7 @@
             <td><input type="password" name="password" size="30"
                        placeholder="Enter password" value="${requestScope.password}"></td>
             <c:if test="${empty requestScope.correctPassword}">
-                <c:set var="correctPassword" value="true" scope="request" />
+                <c:set var="correctPassword" value="true" scope="request"/>
             </c:if>
             <c:choose>
                 <c:when test="${!requestScope.correctPassword}">
@@ -48,7 +48,7 @@
             <td><input type="password" name="confirmPassword" size="30"
                        placeholder="Confirm password" value="${requestScope.confirmPassword}"></td>
             <c:if test="${empty requestScope.passwordsMatch}">
-                <c:set var="passwordsMatch" value="true" scope="request" />
+                <c:set var="passwordsMatch" value="true" scope="request"/>
             </c:if>
             <c:choose>
                 <c:when test="${!requestScope.passwordsMatch}">
@@ -65,14 +65,19 @@
         </tr>
     </table>
 
-    <p class="message">Already registered? <%--<a href="#">Create an account</a>--%></p>
-    <tr>
+
+    Already registered? </br>
+
+    <a href="login">login</a><br>
+
+
+    <%--<tr>
         <td>
             <form action="login.jsp">
                 <input type="Submit" value="Sign up" name="Sign up">
             </form>
         </td>
-    </tr>
+    </tr>--%>
 </form>
 </body>
 </html>

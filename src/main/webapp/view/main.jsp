@@ -30,7 +30,8 @@
             <tr>
                 <td>Logged as <a href="#" class="button username">${sessionScope.user.name}</a></td>
                 <td>
-                    <input type="submit" name="button" value="logout"/>
+                    <%--<input type="submit" name="button" value="logout"/>--%>
+                    <a href="logout">logout</a><br>
                 </td>
             </tr>
         </c:if>

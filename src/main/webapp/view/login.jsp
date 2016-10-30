@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="css/login.css" type="text/css" rel="stylesheet"/>
+    <%--<link href="css/login.css" type="text/css" rel="stylesheet"/>--%>
     <%--???--%>
 </head>
 <body>
@@ -29,15 +29,19 @@
                     </tr>
                 </table>
                 </br>
-                <p class="message">Not registered? <a href="registry.do">Create an account</a></p>
+
+                Not registered?
+                <a href="registry">registry</a><br>
+
+                <%--<p class="message">Not registered? <a href="registry.do">Create an account</a></p>
                 <tr>
                     <td>
                         <form action="registry.jsp">
-                            <%--<input type="button" value="Sing up" name="Sing up">--%>
+                            &lt;%&ndash;<input type="button" value="Sing up" name="Sing up">&ndash;%&gt;
                             <input type="Submit" value="Sign in" name="Sign in">
                         </form>
                     </td>
-                </tr>
+                </tr>--%>
             </form>
 
         </div>
