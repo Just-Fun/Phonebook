@@ -5,7 +5,7 @@
     <title>Sign in</title>
 </head>
 <body>
-<form action="registry.do" method="POST">
+<form action="registry" method="POST">
     <table>
         <tr>
             <td><input type="text" name="name" size="30"

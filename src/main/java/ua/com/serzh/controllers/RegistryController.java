@@ -29,11 +29,9 @@ public class RegistryController extends HttpServlet {
     }
 
     @RequestMapping(value = "registry", method = RequestMethod.POST)
-    // TODO check if the same name is ok
-    protected String registry(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        UserDao userDao = new UserDao();
+    protected String registryPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = null;
-        resp.setContentType("text/html");// надо это?
+//        resp.setContentType("text/html");// TODO is that need?
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
@@ -44,7 +42,6 @@ public class RegistryController extends HttpServlet {
             user = userDao.searchByName(name);
             isValidName = Validation.validate(name, "\\w{5,}"); //TODO change on 3?
         }
-
         // TODO ФИО (минимум 5 символов)
 
         if(password != null) {
@@ -55,27 +52,22 @@ public class RegistryController extends HttpServlet {
             isPasswordsMatch = password.equals(confirmPassword);
         }
 
-        RequestDispatcher view;
         if(user == null && isValidName && isValidPassword && isPasswordsMatch) {
             user = new User(name, password);
             userDao.insertUser(user);
-//            view = req.getRequestDispatcher("/WEB-INF/jsps/login.jsp");
             return "login";
         } else {
             if(user != null) {
                 req.setAttribute("userExist", true);
             }
-
-            req.setAttribute("validUserName", true);
+            req.setAttribute("validUserName", isValidName);
             req.setAttribute("correctPassword", isValidPassword);
             req.setAttribute("passwordsMatch", isPasswordsMatch);
             req.setAttribute("name", name);
             req.setAttribute("confirmPassword", confirmPassword);
             req.setAttribute("password", password);
-//            view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");
          return "registry";
         }
-//        view.forward(req, resp);
     }
 /*
     public ApplicationContext getContext() {

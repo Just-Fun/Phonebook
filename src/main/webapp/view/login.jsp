@@ -19,7 +19,7 @@
 
         <div class="form">
 
-            <form class="login-form" action="login.do" method="POST">
+            <form class="login-form" action="login" method="POST">
                 <%--<form class="login-form" action="main" method="POST">--%>
 
                 <table>

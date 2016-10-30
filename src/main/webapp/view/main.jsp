@@ -24,7 +24,7 @@
     <title>Phonebook</title>
 </head>
 <body>
-<form method="post" action="main.do">
+<form method="POST" action="main">
     <table>
         <c:if test='${not empty sessionScope.user}'>
             <tr>

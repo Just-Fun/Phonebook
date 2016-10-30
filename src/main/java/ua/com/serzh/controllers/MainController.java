@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 @Controller
 public class MainController extends HttpServlet {
 
     ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
-    ContactDao contactDao =(ContactDao) context.getBean("contactDao");
+    ContactDao contactDao = (ContactDao) context.getBean("contactDao");
 
     public MainController() {
     }
@@ -35,7 +36,7 @@ public class MainController extends HttpServlet {
     }*/
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String registry(HttpServletRequest req, HttpServletResponse resp) {
+    public String registry(HttpServletRequest req) {
         if ("logout".equals(req.getParameter("button"))) {
             HttpSession session = req.getSession(false);
             session.invalidate();
@@ -43,38 +44,40 @@ public class MainController extends HttpServlet {
         return "login";
     }
 
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "main", method = RequestMethod.GET)
+    public String main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        if (req.)
 //        ContactDao contactDao = new ContactDao();
-        ContactManager contactManager = new ContactManager();
-        resp.setContentType("text/html");
+//        resp.setContentType("text/html");
         HttpSession session = req.getSession(false);
-        User user = (User)session.getAttribute("user");
-        if("New".equals(req.getParameter("button"))) {
+        User user;
+        try {
+            user = (User) session.getAttribute("user");
+        } catch (NullPointerException e) {
+            return "redirect:/login";
+        }
+
+        ContactManager contactManager = new ContactManager(); // TODO bean
+
+        if ("New".equals(req.getParameter("button"))) {
             session.setAttribute("add", true);
-        } else if("Edit".equals(req.getParameter("button"))) {
+        } else if ("Edit".equals(req.getParameter("button"))) {
             session.setAttribute("edit", true);
         }
 
-        Integer pageNumber = (Integer)session.getAttribute("pageNumber");
+        Integer pageNumber = (Integer) session.getAttribute("pageNumber");
         contactManager.action(req, contactDao, session, user);
         contactManager.pagination(req, contactDao, session, user, pageNumber);
-        RequestDispatcher view;
-        if("logout".equals(req.getParameter("button"))) {
+        if ("logout".equals(req.getParameter("button"))) {
             session.invalidate();
-            view = req.getRequestDispatcher("/WEB-INF/jsps/login.jsp");
+            return "login";
         } else {
-            view = req.getRequestDispatcher("/WEB-INF/jsps/main.jsp");
-        }
-
-        if(view != null) {
-            view.forward(req, resp);
+            return "main";
         }
     }
 
-    @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        this.doGet(req, resp);
-        doGet(req, resp);
+    @RequestMapping(value = "main", method = RequestMethod.POST)
+    public void mainPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        main(req, resp);
     }
 }

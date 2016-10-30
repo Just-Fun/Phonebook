@@ -31,7 +31,6 @@ public class ContactManager {
         } else {
             searchContact(req, contactDao, session, user);
         }
-
     }
 
     private void showContacts(ContactDao contactDao, User user, HttpSession session) {
@@ -48,7 +47,7 @@ public class ContactManager {
         Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
         boolean isValidatePhone = false;
         if(mobileNumber != null) {
-            isValidatePhone = Validation.validate(mobileNumber, "[+]\\d{12}");
+            isValidatePhone = Validation.validate(mobileNumber, "[+]\\d{12}");// TODO "[+380]\\d{9}"
         }
 
         if("Ok".equals(req.getParameter("ok")) && isValidatePhone) {
@@ -60,7 +59,6 @@ public class ContactManager {
         } else if("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("add", false);
         }
-
     }
 
     private void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -84,7 +82,6 @@ public class ContactManager {
         } else if("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("edit", false);
         }
-
     }
 
     private void deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -94,7 +91,6 @@ public class ContactManager {
             contactDao.deleteContact(contact);
             showContacts(contactDao, user, session);
         }
-
     }
 
     private void searchContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -108,7 +104,6 @@ public class ContactManager {
             session.setAttribute("contacts", null);
             showContacts(contactDao, user, session);
         }
-
     }
 
     public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
