@@ -2,25 +2,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
-    <style type="text/css">
-        fieldset {
-            width: 20px;
-            border-radius: 8px;
-        }
+    <link type="text/css" rel="stylesheet" href="${ctx}/resources/css/main.css"/>
 
-        .contact_table {
-            border: 1px solid black;
-        }
-
-        .contact_table td {
-            border: 1px solid black;
-        }
-
-        .contact_table th {
-            border: 1px solid black;
-        }
-    </style>
     <title>Phonebook</title>
 </head>
 <body>
@@ -30,7 +15,7 @@
             <tr>
                 <td>Logged as <a href="#" class="button username">${sessionScope.user.name}</a></td>
                 <td>
-                    <%--<input type="submit" name="button" value="logout"/>--%>
+                        <%--<input type="submit" name="button" value="logout"/>--%>
                     <a href="logout">logout</a><br>
                 </td>
             </tr>

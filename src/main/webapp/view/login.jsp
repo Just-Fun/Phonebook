@@ -1,17 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
     <title>Login page</title>
-    <%--<link href="css/bootstrap.min.css" rel="stylesheet">--%>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <%--<link href="css/login.css" type="text/css" rel="stylesheet"/>--%>
-    <%--???--%>
+    <link type="text/css" rel="stylesheet" href="${ctx}/resources/css/login.css"/>
 </head>
 <body>
-
 
 <div class="login-page">
     <div class="container">
@@ -20,7 +18,6 @@
         <div class="form">
 
             <form class="login-form" action="login" method="POST">
-                <%--<form class="login-form" action="main" method="POST">--%>
 
                 <table>
                     <tr>
