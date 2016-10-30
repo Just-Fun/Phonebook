@@ -51,6 +51,9 @@
                 <version>6.1.10</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webApp>
+                        <contextPath>/phonebook</contextPath>
+                    </webApp>
                     <stopKey/>
                     <stopPort/>
                 </configuration>
