@@ -5,25 +5,6 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!--<context:annotation-config/>
-
-    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
-<!--<bean id="customer" class="com.mkyong.common.Customer" autowire="byName" />-->
-<!--
-
-    <bean id="loginController" class="ua.com.serzh.controllers.LoginController">
-        <property name="userDao" ref="userDao" />
-        <property name="contactDao" ref="contactDao" />
-    </bean>
-
-    <bean id="mainController" class="ua.com.serzh.controllers.MainController">
-        <property name="contactDao" ref="contactDao" />
-    </bean>
--->
-
-   <!-- <bean id="loginController" class="ua.com.serzh.controllers.LoginController" autowire="constructor">
-    </bean>
--->
 	<bean id="userDao" class="ua.com.serzh.dao.UserDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -31,12 +12,5 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.spri
 	<bean id="contactDao" class="ua.com.serzh.dao.ContactDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
-	<!--<mvc:resources mapping="/resources/**" location="/resources/" />
-
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/jsps/" />
-		<property name="suffix" value=".jsp" />
-	</bean>-->
 
 </beans>
