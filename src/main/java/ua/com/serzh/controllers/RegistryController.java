@@ -33,7 +33,14 @@ public class RegistryController extends HttpServlet {
 //        return "registry.do";
 //    }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "registry", method = RequestMethod.GET)
+    public String registry() {
+        return "registry";
+    }
+
+    @RequestMapping(value = "registry", method = RequestMethod.POST)
+    // TODO check if the same name is ok
+    protected String registry(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        UserDao userDao = new UserDao();
         User user = null;
         resp.setContentType("text/html");// надо это?
@@ -62,7 +69,8 @@ public class RegistryController extends HttpServlet {
         if(user == null && isValidName && isValidPassword && isPasswordsMatch) {
             user = new User(name, password);
             userDao.insertUser(user);
-            view = req.getRequestDispatcher("/WEB-INF/jsps/login.jsp");
+//            view = req.getRequestDispatcher("/WEB-INF/jsps/login.jsp");
+            return "login";
         } else {
             if(user != null) {
                 req.setAttribute("userExist", true);
@@ -74,10 +82,10 @@ public class RegistryController extends HttpServlet {
             req.setAttribute("name", name);
             req.setAttribute("confirmPassword", confirmPassword);
             req.setAttribute("password", password);
-            view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");
+//            view = req.getRequestDispatcher("/WEB-INF/jsps/registry.jsp");
+         return "registry";
         }
-
-        view.forward(req, resp);
+//        view.forward(req, resp);
     }
 /*
     public ApplicationContext getContext() {
