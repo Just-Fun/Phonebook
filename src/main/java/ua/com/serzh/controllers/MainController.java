@@ -18,12 +18,18 @@ import javax.servlet.http.HttpSession;
 public class MainController extends HttpServlet {
 
     private final ContactDao contactDao;
-//    ContactManager contactManager;
+    private ContactManager contactManager;
 
     @Autowired(required = false)
+    public MainController(ContactDao contactDao, ContactManager contactManager) {
+        this.contactDao = contactDao;
+        this.contactManager = contactManager;
+    }
+
+/*    @Autowired(required = false)
     public MainController(ContactDao contactDao) {
         this.contactDao = contactDao;
-    }
+    }*/
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
@@ -49,7 +55,7 @@ public class MainController extends HttpServlet {
 //            return "redirect:/login";
 //        }
 
-        ContactManager contactManager = new ContactManager(); // TODO bean
+//        ContactManager contactManager = new ContactManager(); // TODO bean
 
         if ("New".equals(req.getParameter("button"))) {
             session.setAttribute("add", true);
@@ -79,5 +85,4 @@ public class MainController extends HttpServlet {
     private boolean sessionIsInvalid(HttpServletRequest req) {
         return req.getSession(false) == null || !req.isRequestedSessionIdValid();
     }
-
 }
