@@ -68,7 +68,7 @@
 
     Already registered? </br>
 
-    <a href="login">login</a><br>
+    <a href="login">Log in</a><br>
 
 
     <%--<tr>

@@ -43,7 +43,7 @@
                 </br>
 
                 Not registered?
-                <a href="registry">registry</a><br>
+                <a href="registry">Sign up</a><br>
 
             </form>
 

@@ -41,9 +41,9 @@ public class LoginController extends HttpServlet {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String menu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String menu(HttpServletRequest req) throws ServletException, IOException {
         User user = null;
-        resp.setContentType("text/html");
+//        resp.setContentType("text/html");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         if (name != null && password != null && !name.isEmpty() && !password.isEmpty()) {
@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
         if (user != null && "Submit".equals(req.getParameter("Submit"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            List contacts = contactDao.allUserContacts(user.getUserId()/*.intValue()*/);
+            List contacts = contactDao.allUserContacts(user.getUserId());
             session.setMaxInactiveInterval(300);
             session.setAttribute("contacts", contacts);
             int amountOfContacts = (new ContactManager()).getAmountOfContacts(contactDao, user);

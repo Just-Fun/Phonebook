@@ -1,8 +1,8 @@
 package ua.com.serzh.validation;
 
 public class Validation {
-    public Validation() {
-    }
+  /*  public Validation() {
+    }*/
 
     public static boolean validate(String str, String regex) {
         boolean isCorrect = str.matches(regex);
