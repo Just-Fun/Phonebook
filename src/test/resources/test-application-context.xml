@@ -11,12 +11,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="ua.com.serzh"/>
 
- <!--   <bean id="loginController" class="ua.com.serzh.controllers.LoginController">
-
-        <constructor-arg index="0" ref="userDao"/>
-        <constructor-arg index="1" ref="contactDao"/>
-    </bean>-->
-
     <bean id="userDao" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="ua.com.serzh.dao.UserDaoImpl"/>
     </bean>

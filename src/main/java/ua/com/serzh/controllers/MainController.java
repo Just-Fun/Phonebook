@@ -37,7 +37,7 @@ public class MainController extends HttpServlet {
         User user;
         try {
             user = (User) session.getAttribute("user");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e) { // crutch, temp
             return "redirect:/login";
         }
 
