@@ -28,27 +28,9 @@
         <!--init-param> to change setvlet config location
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/servlet-context.xml</param-value>
-        </init-param-->
+        </init-param>
+        <load-on-startup>1</load-on-startup>-->
     </servlet>
-
-    <!-- Handles all requests into the application -->
-    <!-- <servlet>
-         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-         <init-param>
-             <param-name>contextConfigLocation</param-name>
-             <param-value>
-                 WEB-INF/Spring-Module.xml
-             </param-value>
-         </init-param>
-         <load-on-startup>1</load-on-startup>
-     </servlet>
-
-     <servlet-mapping>
-         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-         <url-pattern>/</url-pattern>
-     </servlet-mapping>
--->
 
     <servlet-mapping>
         <servlet-name>main</servlet-name>
