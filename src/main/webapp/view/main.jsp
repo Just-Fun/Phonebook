@@ -9,13 +9,13 @@
     <title>Phonebook</title>
 </head>
 <body>
+<div class="main-page">
 <form method="POST" action="main">
     <table>
         <c:if test='${not empty sessionScope.user}'>
             <tr>
                 <td>Logged as <a href="#" class="button username">${sessionScope.user.name}</a></td>
                 <td>
-                        <%--<input type="submit" name="button" value="logout"/>--%>
                     <a href="logout">logout</a><br>
                 </td>
             </tr>
@@ -97,5 +97,6 @@
         </table>
     </table>
 </form>
+</div>
 </body>
 </html>
