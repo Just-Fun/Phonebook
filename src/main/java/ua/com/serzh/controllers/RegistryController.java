@@ -12,12 +12,16 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class RegistryController extends HttpServlet {
 
-    @Autowired(required=false)
-    UserDao userDao;
+    private final UserDao userDao;
+
+    @Autowired(required = false)
+    public RegistryController(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @RequestMapping(value = "registry", method = RequestMethod.GET)
     public String registry() {
@@ -25,7 +29,7 @@ public class RegistryController extends HttpServlet {
     }
 
     @RequestMapping(value = "registry", method = RequestMethod.POST)
-    protected String registryPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String registryPost(HttpServletRequest req) throws ServletException, IOException {
         User user = null;
 //        resp.setContentType("text/html");// TODO is that need?
         String name = req.getParameter("name");

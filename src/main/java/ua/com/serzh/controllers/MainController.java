@@ -1,30 +1,28 @@
 package ua.com.serzh.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.ContactDao;
-import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.service.ContactManager;
 
-import java.awt.*;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController extends HttpServlet {
 
-    @Autowired(required=false)
-    ContactDao contactDao;
+    private final ContactDao contactDao;
+
+    @Autowired(required = false)
+    public MainController(ContactDao contactDao) {
+        this.contactDao = contactDao;
+    }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String registry(HttpServletRequest req) {

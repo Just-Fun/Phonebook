@@ -1,11 +1,7 @@
 package ua.com.serzh.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.ContactDao;
@@ -15,7 +11,6 @@ import ua.com.serzh.service.ContactManager;
 
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +20,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController extends HttpServlet {
 
-    @Autowired(required=false)
-    UserDao userDao;
+    private final UserDao userDao;
 
-    @Autowired(required=false)
-    ContactDao contactDao;
+    private final ContactDao contactDao;
+
+    @Autowired(required = false)
+    public LoginController(UserDao userDao, ContactDao contactDao) {
+        this.userDao = userDao;
+        this.contactDao = contactDao;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String main() {
@@ -47,10 +46,10 @@ public class LoginController extends HttpServlet {
         resp.setContentType("text/html");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
-        if(name != null && password != null && !name.isEmpty() && !password.isEmpty()) {
+        if (name != null && password != null && !name.isEmpty() && !password.isEmpty()) {
             user = userDao.searchByNameAndPassword(name, password);
         }
-        if(user != null && "Submit".equals(req.getParameter("Submit"))) {
+        if (user != null && "Submit".equals(req.getParameter("Submit"))) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
             List contacts = contactDao.allUserContacts(user.getUserId()/*.intValue()*/);
