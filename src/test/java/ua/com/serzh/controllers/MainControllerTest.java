@@ -1,6 +1,6 @@
 package ua.com.serzh.controllers;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.com.serzh.dao.ContactDao;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.service.ContactManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,11 +30,14 @@ public class MainControllerTest {
     @Autowired
     private MainController mainController;
 
-    private static HttpServletRequest request;
-    private static HttpSession session;
+    @Autowired
+    private ContactManager contactManager;
 
-    @BeforeClass
-    public static void init() {
+    private HttpServletRequest request;
+    private HttpSession session;
+
+    @Before
+    public void init() {
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
     }
@@ -44,51 +49,88 @@ public class MainControllerTest {
     }
 
     @Test
-    public void testLogOutSessionInvald() throws Exception {
-        when(request.getParameter("button")).thenReturn("logout");
-        when(request.getSession(false)).thenReturn(session);
-
-        String result = mainController.logout(request);
-
-        verify(session).invalidate();
-        assertEquals("redirect:/login", result);
-    }
-
-    @Test
-    public void testLogOutSessionNotInvald() throws Exception {
-        when(request.getParameter("button")).thenReturn("someAnother");
-
-        String result = mainController.logout(request);
-
-        verify(session, never()).invalidate();
-        assertEquals("redirect:/login", result);
-    }
-
-    @Test
-    public void testMainSessionInvalid() throws Exception {
-//        session.invalidate();
-        when(request.getSession(false)).thenReturn(session);
-        String result = mainController.main(request);
+    public void testLogout() throws Exception {
+        String result = mainController.logout(session);
+        verify(session).setAttribute("user", null);
         assertEquals(result, "redirect:/login");
+    }
 
+    @Test
+    public void testMainRedirectLogin() throws Exception {
+        when(session.getAttribute("user")).thenReturn(null);
+        String result = mainController.main(request, session);
+        assertEquals(result, "redirect:/login");
     }
 
     @Test
     public void testMain() throws Exception {
-        session.setAttribute("add", true);
-        when(request.getSession(false)).thenReturn(session);
-        when(request.isRequestedSessionIdValid()).thenReturn(true);
-        String result = mainController.main(request);
-        verify(session, atLeastOnce()).getAttribute("user");
 
+        User user = setStuff();
+        Integer pageNumber = 1;
+        session.setAttribute("add", true);
+
+        String result = mainController.main(request, session);
+
+        verify(session, atLeastOnce()).getAttribute("user");
+        verify(contactManager).action(request, contactDao, session, user);
+        verify(contactManager).pagination(request, contactDao, session, user, pageNumber);
+
+        assertEquals(result, "main");
+    }
+
+    @Test
+    public void testMainNew() throws Exception {
+        setStuff();
+        when(request.getParameter("button")).thenReturn("New");
+
+        mainController.main(request, session);
+        verify(session, atLeastOnce()).setAttribute("add", true);
+    }
+
+    @Test
+    public void testMainEdit() throws Exception {
+        setStuff();
+        when(request.getParameter("button")).thenReturn("Edit");
+
+        mainController.main(request, session);
+
+        verify(session).setAttribute("edit", true);
     }
 
     @Test
     public void mainPost() throws Exception {
         MainController controller = Mockito.spy(mainController);
 
-        controller.mainPost(request);
+        controller.mainPost(request, session);
 
-        verify(controller).main(request);
+        verify(controller).main(request, session);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMainException() throws Exception {
+        session = null;
+        when(session.getAttribute("user")).thenThrow(new NullPointerException());
+
+        String result = mainController.main(request, session);
+
+        assertEquals(result, "redirect:/login");
+    }
+
+    private User setStuff() {
+        User user = createUser();
+        Integer pageNumber = 1;
+
+        when(session.getAttribute("user")).thenReturn(user);
+        when(session.getAttribute("pageNumber")).thenReturn(pageNumber);
+
+        return user;
+    }
+
+    private User createUser() {
+        String name = "Some Guy";
+        String password = "password1";
+        User user = new User(name, password);
+        user.setUserId(1);
+        return user;
     }
 }

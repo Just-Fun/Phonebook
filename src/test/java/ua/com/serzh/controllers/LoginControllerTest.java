@@ -64,6 +64,7 @@ public class LoginControllerTest {
     public void testMainContactDaoAllUserContacts() throws Exception {
         String name = "Vasiliy";
         String password = "password1";
+
         User user = new User(name, password);
         user.setUserId(1);
 
@@ -99,5 +100,4 @@ public class LoginControllerTest {
         String result = loginController.main();
         assertEquals("redirect:/login", result);
     }
-
 }
