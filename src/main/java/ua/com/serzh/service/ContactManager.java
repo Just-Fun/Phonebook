@@ -47,7 +47,8 @@ public class ContactManager {
         Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
         boolean isValidatePhone = false;
         if(mobileNumber != null) {
-            isValidatePhone = Validation.validate(mobileNumber, "[+]\\d{12}");// TODO "[+380]\\d{9}"
+            String phoneRegex = "^((\\+38)-?\\s?)(\\(?044\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
+            isValidatePhone = Validation.validate(mobileNumber, phoneRegex);
         }
 
         if("Ok".equals(req.getParameter("ok")) && isValidatePhone) {
