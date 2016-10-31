@@ -31,7 +31,6 @@ public class RegistryController extends HttpServlet {
     @RequestMapping(value = "registry", method = RequestMethod.POST)
     protected String registryPost(HttpServletRequest req) throws ServletException, IOException {
         User user = null;
-//        resp.setContentType("text/html");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
@@ -39,13 +38,17 @@ public class RegistryController extends HttpServlet {
         boolean isValidPassword = false;
         boolean isPasswordsMatch = false;
         if(name != null) {
+//            user = userDao.searchByName(name);
+            isValidName = Validation.validate(name, "[a-zA-Z]{3,}");
+        }
+
+        if (isValidName) {
             user = userDao.searchByName(name);
-            isValidName = Validation.validate(name, "\\w{5,}"); //TODO change on 3?
         }
         // TODO ФИО (минимум 5 символов)
 
         if(password != null) {
-            isValidPassword = Validation.validate(password, "[a-zA-Z0-9]{5,}");
+            isValidPassword = Validation.validate(password, "\\w{5,}");
         }
 
         if(password != null && confirmPassword != null) {
