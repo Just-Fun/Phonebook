@@ -1,7 +1,7 @@
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.com.serzh.dao.UserDao;
+import ua.com.serzh.dao.UserDaoImpl;
 import ua.com.serzh.entities.User;
 
 public class App {
@@ -13,7 +13,7 @@ public class App {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("/Users/Serzh/IdeaProjects/Temp/Phonebook/src/main/webapp/WEB-INF/application-context.xml");
         ApplicationContext context = new ClassPathXmlApplicationContext("/dao/application-context.xml");
 
-        UserDao cust = (UserDao) context.getBean("userDao");
+        UserDaoImpl cust = (UserDaoImpl) context.getBean("userDao");
         System.out.println(cust.getJdbcTemplate());
         System.out.println(cust);
 

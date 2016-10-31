@@ -7,7 +7,26 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <context:annotation-config/>
-    <context:component-scan base-package="ua.com.serzh"/>
+  <!--  <context:annotation-config/>
+    <context:component-scan base-package="ua.com.serzh"/>-->
+
+    <bean id="userDao" class="ua.com.serzh.dao.UserDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="contactDao" class="ua.com.serzh.dao.ContactDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+
+    </bean>
+
+    <context:property-placeholder location="classpath:db.properties"/>
 
 </beans>
