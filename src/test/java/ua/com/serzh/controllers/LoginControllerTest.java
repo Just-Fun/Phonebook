@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 /**
  * Created by Serzh on 10/31/16.
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ("classpath:test-application-context.xml"))
 public class LoginControllerTest {
@@ -75,7 +74,7 @@ public class LoginControllerTest {
 
         when(userDao.searchByNameAndPassword(name, password)).thenReturn(user);
         String result = loginController.menu(request);
-        verify(contactDao, atLeast(1)).allUserContacts(user.getUserId());
+        verify(contactDao, atLeastOnce()).allUserContacts(user.getUserId());
         assertEquals("redirect:/main", result);
     }
 
