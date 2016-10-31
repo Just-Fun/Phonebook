@@ -46,6 +46,7 @@ public class MainControllerTest {
     public void shouldAutowiredDependencies() {
         assertNotNull(contactDao);
         assertNotNull(mainController);
+        assertNotNull(contactManager);
     }
 
     @Test
