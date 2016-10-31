@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 public class MainController extends HttpServlet {
 
     private final ContactDao contactDao;
+//    ContactManager contactManager;
 
     @Autowired(required = false)
     public MainController(ContactDao contactDao) {
@@ -25,7 +26,7 @@ public class MainController extends HttpServlet {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String registry(HttpServletRequest req) {
+    public String logout(HttpServletRequest req) {
         if ("logout".equals(req.getParameter("button"))) {
             HttpSession session = req.getSession(false);
             session.invalidate();
@@ -35,14 +36,18 @@ public class MainController extends HttpServlet {
 
     @RequestMapping(value = "main", method = RequestMethod.GET)
     public String main(HttpServletRequest req) throws ServletException, IOException {
-//        resp.setContentType("text/html");
-        HttpSession session = req.getSession(false);
-        User user;
-        try {
-            user = (User) session.getAttribute("user");
-        } catch (NullPointerException e) {
+
+        if (sessionIsInvalid(req)) {
             return "redirect:/login";
         }
+        HttpSession session = req.getSession(false);
+//        resp.setContentType("text/html");
+        User user;
+//        try {
+        user = (User) session.getAttribute("user");
+//        } catch (NullPointerException e) {
+//            return "redirect:/login";
+//        }
 
         ContactManager contactManager = new ContactManager(); // TODO bean
 
@@ -65,6 +70,14 @@ public class MainController extends HttpServlet {
 
     @RequestMapping(value = "main", method = RequestMethod.POST)
     public void mainPost(HttpServletRequest req) throws ServletException, IOException {
+       /* if (sessionIsInvalid(req)) {
+            return "redirect:/login";
+        }*/
         main(req);
     }
+
+    private boolean sessionIsInvalid(HttpServletRequest req) {
+        return req.getSession(false) == null || !req.isRequestedSessionIdValid();
+    }
+
 }
