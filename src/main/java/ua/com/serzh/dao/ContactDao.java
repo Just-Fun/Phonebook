@@ -1,49 +1,26 @@
 package ua.com.serzh.dao;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.InitializingBean;
 import ua.com.serzh.entities.Contact;
-import ua.com.serzh.entities.ContactRowMapper;
 
 import java.util.List;
 
-//@Component
-public class ContactDao extends JdbcDaoSupport {
+/**
+ * Created by Serzh on 10/31/16.
+ */
+public interface ContactDao extends InitializingBean {
+    void insertContact(Contact contact);
 
-    public void insertContact(Contact contact) {
-        String sql = "INSERT INTO contacts (name, mobile_number, user_id) VALUES (?, ?, ?)";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getUserId());
-    }
+    List<Contact> searchContactByName(String name, int userId);
 
-    public List<Contact> searchContactByName(String name, int userId) {
-        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
-        return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
-    }
-
-    public Contact searchContactById(int contactId) {
-        String sql = "SELECT * FROM contacts WHERE contact_id = ?";
-        return getJdbcTemplate().queryForObject(sql, new Object[]{contactId}, new BeanPropertyRowMapper<>(Contact.class));
-    }
+    Contact searchContactById(int contactId);
 
     // 2nd variant, just in case
-    public Contact searchContactById2(int contactId) {
-        String sql = "SELECT * FROM contacts WHERE contact_id = ?";
-        return (Contact) getJdbcTemplate().queryForObject(sql, new Object[]{contactId}, new ContactRowMapper());
-    }
+    Contact searchContactById2(int contactId);
 
-    public List<Contact> allUserContacts(int userId) {
-        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d", userId);
-        return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
-    }
+    List<Contact> allUserContacts(int userId);
 
-    public void updateContact(Contact contact) {
-        String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());
-    }
+    void updateContact(Contact contact);
 
-    public void deleteContact(Contact contact) {
-        String sql = "DELETE FROM contacts WHERE contact_id = ?";
-        getJdbcTemplate().update(sql, contact.getContactId());
-    }
+    void deleteContact(Contact contact);
 }
