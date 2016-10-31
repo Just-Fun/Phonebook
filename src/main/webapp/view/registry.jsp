@@ -65,19 +65,10 @@
         </tr>
     </table>
 
-
     Already registered? </br>
 
     <a href="login">Log in</a><br>
 
-
-    <%--<tr>
-        <td>
-            <form action="login.jsp">
-                <input type="Submit" value="Sign up" name="Sign up">
-            </form>
-        </td>
-    </tr>--%>
 </form>
 </body>
 </html>
