@@ -27,15 +27,13 @@ public class MainController extends HttpServlet {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
+    public String logout(HttpSession session) {
         session.setAttribute("user", null);
         return "redirect:/login";
     }
 
     @RequestMapping(value = "main", method = RequestMethod.GET)
-    public String main(HttpServletRequest req) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+    public String main(HttpServletRequest req, HttpSession session) throws ServletException, IOException {
         User user;
         try {
             user = (User) session.getAttribute("user");
@@ -61,7 +59,7 @@ public class MainController extends HttpServlet {
     }
 
     @RequestMapping(value = "main", method = RequestMethod.POST)
-    public void mainPost(HttpServletRequest req) throws ServletException, IOException {
-        main(req);
+    public void mainPost(HttpServletRequest req, HttpSession session) throws ServletException, IOException {
+        main(req, session);
     }
 }
