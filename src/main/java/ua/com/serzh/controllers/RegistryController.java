@@ -31,7 +31,7 @@ public class RegistryController extends HttpServlet {
     @RequestMapping(value = "registry", method = RequestMethod.POST)
     protected String registryPost(HttpServletRequest req) throws ServletException, IOException {
         User user = null;
-//        resp.setContentType("text/html");// TODO is that need?
+//        resp.setContentType("text/html");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
