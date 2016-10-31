@@ -26,36 +26,26 @@ public class MainController extends HttpServlet {
         this.contactManager = contactManager;
     }
 
-/*    @Autowired(required = false)
-    public MainController(ContactDao contactDao) {
-        this.contactDao = contactDao;
-    }*/
-
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req) {
-        if ("logout".equals(req.getParameter("button"))) {
-            HttpSession session = req.getSession(false);
-            session.invalidate();
-        }
+        HttpSession session = req.getSession(false);
+        session.setAttribute("user", null);
         return "redirect:/login";
     }
 
     @RequestMapping(value = "main", method = RequestMethod.GET)
     public String main(HttpServletRequest req) throws ServletException, IOException {
-
-        if (sessionIsInvalid(req)) {
+        HttpSession session = req.getSession(false);
+        User user;
+        try {
+            user = (User) session.getAttribute("user");
+        } catch (NullPointerException e) {
             return "redirect:/login";
         }
-        HttpSession session = req.getSession(false);
-//        resp.setContentType("text/html");
-        User user;
-//        try {
-        user = (User) session.getAttribute("user");
-//        } catch (NullPointerException e) {
-//            return "redirect:/login";
-//        }
 
-//        ContactManager contactManager = new ContactManager(); // TODO bean
+        if (user == null) {
+            return "redirect:/login";
+        }
 
         if ("New".equals(req.getParameter("button"))) {
             session.setAttribute("add", true);
@@ -66,23 +56,12 @@ public class MainController extends HttpServlet {
         Integer pageNumber = (Integer) session.getAttribute("pageNumber");
         contactManager.action(req, contactDao, session, user);
         contactManager.pagination(req, contactDao, session, user, pageNumber);
-        if ("logout".equals(req.getParameter("button"))) {
-            session.invalidate();
-            return "login";
-        } else {
-            return "main";
-        }
+
+        return "main";
     }
 
     @RequestMapping(value = "main", method = RequestMethod.POST)
     public void mainPost(HttpServletRequest req) throws ServletException, IOException {
-       /* if (sessionIsInvalid(req)) {
-            return "redirect:/login";
-        }*/
         main(req);
-    }
-
-    private boolean sessionIsInvalid(HttpServletRequest req) {
-        return req.getSession(false) == null || !req.isRequestedSessionIdValid();
     }
 }
