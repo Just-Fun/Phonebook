@@ -3,7 +3,7 @@
     <table>
         <tr>
             <td>
-                <input type="text" name="newSubscriberName" placeholder="New contact">
+                <input type="text" name="newSubscriberName" placeholder="Name"> name
             </td>
         </tr>
 
@@ -34,7 +34,7 @@
 
         <tr>
             <td>
-                <input type="text" name="mobileNumber" placeholder="+380XXXXXXXXX">
+                <input type="text" name="mobileNumber" placeholder="+380XXXXXXXXX"> phone
             </td>
         </tr>
         <tr>
