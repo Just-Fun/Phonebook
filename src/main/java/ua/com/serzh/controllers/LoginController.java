@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package ua.com.serzh.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,36 +24,12 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController extends HttpServlet {
-    public LoginController() {
-    }
 
-   /* public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public ContactDao getContactDao() {
-        return contactDao;
-    }
-
-    public void setContactDao(ContactDao contactDao) {
-        this.contactDao = contactDao;
-    }
-//    @Autowired(required=false)
-//    @Qualifier("userDao")
+    @Autowired(required=false)
     UserDao userDao;
 
-//    @Autowired(required=false)
-//    @Qualifier("contactDao")
+    @Autowired(required=false)
     ContactDao contactDao;
-*/
-//    ApplicationContext context = new ClassPathXmlApplicationContext("/WEB-INF/Spring-Module.xml");
-    ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
-    UserDao userDao = (UserDao) context.getBean("userDao");
-    ContactDao contactDao =(ContactDao) context.getBean("contactDao");
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String main() {

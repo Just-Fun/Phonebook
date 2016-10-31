@@ -1,5 +1,6 @@
 package ua.com.serzh.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,22 +23,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MainController extends HttpServlet {
 
-    ApplicationContext context = new ClassPathXmlApplicationContext("/Spring-Module.xml");
-    ContactDao contactDao = (ContactDao) context.getBean("contactDao");
-
-
-    public MainController() {
-    }
-
-    /*ContactDao contactDao;
-
-    public ContactDao getContactDao() {
-        return contactDao;
-    }
-
-    public void setContactDao(ContactDao contactDao) {
-        this.contactDao = contactDao;
-    }*/
+    @Autowired(required=false)
+    ContactDao contactDao;
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String registry(HttpServletRequest req) {
@@ -45,13 +32,11 @@ public class MainController extends HttpServlet {
             HttpSession session = req.getSession(false);
             session.invalidate();
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "main", method = RequestMethod.GET)
-    public String main(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        if (req.)
-//        ContactDao contactDao = new ContactDao();
+    public String main(HttpServletRequest req) throws ServletException, IOException {
 //        resp.setContentType("text/html");
         HttpSession session = req.getSession(false);
         User user;
@@ -81,7 +66,7 @@ public class MainController extends HttpServlet {
     }
 
     @RequestMapping(value = "main", method = RequestMethod.POST)
-    public void mainPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        main(req, resp);
+    public void mainPost(HttpServletRequest req) throws ServletException, IOException {
+        main(req);
     }
 }
