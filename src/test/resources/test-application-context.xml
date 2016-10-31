@@ -21,8 +21,12 @@
         <constructor-arg value="ua.com.serzh.dao.UserDaoImpl"/>
     </bean>
 
-    <bean id="contactDao" class="org.mockito.Mockito" factory-method="mock">
+       <bean id="contactDao" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="ua.com.serzh.dao.ContactDao"/>
+    </bean>
+
+    <bean id="contactManager" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="ua.com.serzh.service.ContactManager"/>
     </bean>
 
 </beans>
