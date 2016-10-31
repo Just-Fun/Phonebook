@@ -7,14 +7,14 @@ import ua.com.serzh.entities.User;
 
 public class App {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
+       /* ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
 //        ApplicationContext context = new ClassPathXmlApplicationContext("webapp/WEB-INF/application-context.xml");
 
         UserDaoImpl cust = (UserDaoImpl) context.getBean("userDao");
         System.out.println(cust.getJdbcTemplate());
         System.out.println(cust);
 
-       /* UserDao userDao = (UserDao) context.getBean("userDao");
+        UserDao userDao = (UserDao) context.getBean("userDao");
         User user = new User("VaniaTest8", "pass4");
         userDao.insertUser(user);
 
