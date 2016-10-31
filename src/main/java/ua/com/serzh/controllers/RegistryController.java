@@ -37,7 +37,8 @@ public class RegistryController extends HttpServlet {
         boolean isValidName = false;
         boolean isValidPassword = false;
         boolean isPasswordsMatch = false;
-        if(name != null) {
+        // TODO check if != null && !.isEmpty() bought need
+        if(name != null && !name.isEmpty()) {
 //            user = userDao.searchByName(name);
             isValidName = Validation.validate(name, "[a-zA-Z]{3,}");
         }
@@ -45,13 +46,12 @@ public class RegistryController extends HttpServlet {
         if (isValidName) {
             user = userDao.searchByName(name);
         }
-        // TODO ФИО (минимум 5 символов)
 
-        if(password != null) {
+        if(password != null && !password.isEmpty()) {
             isValidPassword = Validation.validate(password, "\\w{5,}");
         }
 
-        if(password != null && confirmPassword != null) {
+        if(password != null && !password.isEmpty() && confirmPassword != null && !confirmPassword.isEmpty()) {
             isPasswordsMatch = password.equals(confirmPassword);
         }
 
@@ -67,7 +67,7 @@ public class RegistryController extends HttpServlet {
             req.setAttribute("correctPassword", isValidPassword);
             req.setAttribute("passwordsMatch", isPasswordsMatch);
             req.setAttribute("name", name);
-            req.setAttribute("confirmPassword", confirmPassword);
+            req.setAttribute("confirmPassword", confirmPassword);// TODO is this need?
             req.setAttribute("password", password);
          return "registry";
         }
