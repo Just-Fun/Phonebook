@@ -80,8 +80,13 @@
                 <c:if test="${!sessionScope.add}">
                     <th></th>
                 </c:if>
+                <th>Surname</th>
                 <th>Name</th>
-                <th>Mob. number</th>
+                <th>Patronymic</th>
+                <th>Mob.number</th>
+                <th>Home phone</th>
+                <th>address</th>
+                <th>e-mail</th>
             </tr>
 
             <c:set var="start" value="${pageNumber * 5 - 5}"/>
@@ -94,8 +99,13 @@
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">
                         </td>
                     </c:if>
+                    <td>${contact.surname}</td>
                     <td>${contact.name}</td>
+                    <td>${contact.patronymic}</td>
                     <td>${contact.mobileNumber}</td>
+                    <td>${contact.homePhone}</td>
+                    <td>${contact.address}</td>
+                    <td>${contact.email}</td>
                 </tr>
             </c:forEach>
 
