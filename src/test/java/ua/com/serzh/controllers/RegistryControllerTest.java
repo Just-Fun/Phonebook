@@ -93,7 +93,6 @@ public class RegistryControllerTest {
         verify(request).setAttribute("correctPassword", true);
         verify(request).setAttribute("passwordsMatch", true);
         verify(request).setAttribute("name", name);
-        verify(request).setAttribute("confirmPassword", "Egypt");
         verify(request).setAttribute("password", password);
 
         assertEquals("registry", result);
@@ -118,7 +117,6 @@ public class RegistryControllerTest {
         verify(request).setAttribute("correctPassword", false);
         verify(request).setAttribute("passwordsMatch", false);
         verify(request).setAttribute("name", name);
-        verify(request).setAttribute("confirmPassword", "Ee");
         verify(request).setAttribute("password", password);
 
         assertEquals("registry", result);
