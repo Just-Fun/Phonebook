@@ -119,3 +119,9 @@ body {
 .contact_table th {
     border: 1px solid black;
 }
+
+.registry-page {
+    width: 500px;
+    padding: 3% 0 0;
+    margin: auto;
+}

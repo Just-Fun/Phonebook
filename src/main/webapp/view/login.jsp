@@ -3,11 +3,12 @@
 <html>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
-    <title>Login page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link type="text/css" rel="stylesheet" href="${ctx}/resources/css/main.css"/>
+
+    <title>Login page</title>
 </head>
 <body>
 
@@ -22,8 +23,8 @@
                 <table>
                     <tr>
                         <td><input type="text" name="name" size="30"
-                                   <%--TODO login istead of Enter--%>
-                                   placeholder="Enter" value="${requestScope.name}"></td>
+                        <%--TODO login istead of Enter--%>
+                                   placeholder="Login" value="${requestScope.name}"></td>
                         <c:if test="${empty requestScope.rightInput}">
                             <c:set var="rightInput" value="true" scope="request"/>
                         </c:if>
@@ -41,40 +42,17 @@
                         <td><input type="Submit" value="Submit" name="Submit"></td>
                     </tr>
                 </table>
-                </br>
+                <br>
 
-                Not registered?
-                <a href="registry">Sign up</a><br>
+                <p class="lead">
+                    Not registered?
+                    <a href="registry">Sign up</a>
+                </p>
 
             </form>
-
         </div>
-
     </div>
 </div>
-
-<%--
-<h2>Log-in to your account</h2>
-<form class="modal-content" action="login.do" method="POST">
-    <div class="container">
-
-        <label><b>Username</b></label>
-
-        <<input type="text" name="name" size="30" placeholder="Name">
-
-        <label><b>Password</b></label>
-
-        <input type="password" name="password" size="30" placeholder="Password">
-
-        <<input class="btn btn-default" type="Submit" value="Log-in" name="Submit">
-
-    </div>
-</form>
-<div class="container">
-    New to us?
-    <form action="registry.jsp">
-        <input class="btn btn-default" type="Submit" value="Sign in" name="Sign in">
-        <%--<button type="Submit" value="Sign in" name="Sign in">--%>
 
 </body>
 </html>
