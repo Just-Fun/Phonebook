@@ -34,66 +34,85 @@ public class ContactManager {
     }
 
     private void showContacts(ContactDao contactDao, User user, HttpSession session) {
+        // TODO refresh from DB? make attribut "list changed" and id true refresh and put false
+        Boolean listChanged = (Boolean) session.getAttribute("listChanged");
+        if (listChanged == null) {
+            listChanged = false;
+        }
+
         List contacts = (List) session.getAttribute("contacts");
-        if (contacts == null) {
+        if (contacts == null || listChanged) {
             contacts = contactDao.allUserContacts(user.getUserId());
             session.setAttribute("contacts", contacts);
         }
+        session.setAttribute("listChanged", false);
     }
 
     // TODO make GET & POST?
     private void addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
+        if ("Cancel".equals(req.getParameter("cancel"))) {
+            session.setAttribute("add", false);
+            return;
+        }
+
         String subscriberName = req.getParameter("newSubscriberName");
+        if (subscriberName == null) return;
+
         String mobileNumber = req.getParameter("mobileNumber");
 
-        if (subscriberName != null) { // TODO temp
-            boolean validSubscriberName = false;
-            boolean validMobileNumber = false;
+//        if (subscriberName != null) { // TODO temp
+        boolean validSubscriberName = false;
+        boolean validMobileNumber = false;
 
-            boolean subscriberNameEmpty = subscriberName.isEmpty();
-            boolean mobileNumberEmpty = mobileNumber.isEmpty();
+        boolean subscriberNameEmpty = subscriberName.isEmpty();
+        boolean mobileNumberEmpty = mobileNumber.isEmpty();
 
-            if (!subscriberNameEmpty) {
-//                validSubscriberName = Validation.validate(subscriberName, "\\w{4,}");
-                validSubscriberName = Validation.validate(subscriberName, Validation.getFourLetters());
-            }
-
-//        if (mobileNumber != null) { // TODO may be not null, but empty!!!
-            if (!mobileNumberEmpty) {
-//                String phoneRegex = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
-//                validMobileNumber = Validation.validate(mobileNumber, phoneRegex);
-                validMobileNumber = Validation.validate(mobileNumber, Validation.getPhoneRegex());
-            }
-
-            if ("Ok".equals(req.getParameter("ok"))/* && validMobileNumber && validSubscriberName*/) {
-
-                if (validMobileNumber && validSubscriberName) {
-                    Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
-//                  contact.setName(subscriberName);
-                    contactDao.insertContact(contact);
-                    /*req.setAttribute("emptySubscriberName", subscriberNameEmpty);
-                    req.setAttribute("validSubscriberName", validSubscriberName);
-                    req.setAttribute("newSubscriberName", subscriberName);*/
-
-                    req.setAttribute("validMobileNumber", true);
-                    session.setAttribute("add", false);
-                    showContacts(contactDao, user, session);
-                } else {
-                    req.setAttribute("emptySubscriberName", subscriberNameEmpty);
-                    req.setAttribute("validSubscriberName", validSubscriberName);
-                    req.setAttribute("newSubscriberName", subscriberName);
-
-                    req.setAttribute("mobileNumberEmpty", mobileNumberEmpty);
-                    req.setAttribute("validMobileNumber", validMobileNumber);
-                    req.setAttribute("mobileNumber", mobileNumber);
-
-                    session.setAttribute("add", true);
-                }
-            } else if ("Cancel".equals(req.getParameter("cancel"))) {
-
-                session.setAttribute("add", false);
-            }
+        if (!subscriberNameEmpty) {
+            validSubscriberName = Validation.validate(subscriberName, Validation.getFourLetters());
         }
+
+        if (!mobileNumberEmpty) {
+            validMobileNumber = Validation.validate(mobileNumber, Validation.getPhoneRegex());
+        }
+
+        if ("Ok".equals(req.getParameter("ok"))) {
+
+            if (validMobileNumber && validSubscriberName) {
+                Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
+                contactDao.insertContact(contact);
+
+                req.setAttribute("validMobileNumber", true); // TODO don't need?
+                session.setAttribute("add", false);
+                session.setAttribute("listChanged", true);
+
+                req.setAttribute("info", true);
+                String textInfo = subscriberName + " was added to the list of contacts";
+                req.setAttribute("textInfo", textInfo);
+
+                showContacts(contactDao, user, session);
+            } else {
+                setNameAttribute(req, subscriberName, validSubscriberName, subscriberNameEmpty);
+                setMobilPhoneAttribute(req, mobileNumber, validMobileNumber, mobileNumberEmpty);
+
+                session.setAttribute("add", true);
+            }
+       /* } else if ("Cancel".equals(req.getParameter("cancel"))) {
+
+            session.setAttribute("add", false);
+        }*/
+        }
+    }
+
+    private void setMobilPhoneAttribute(HttpServletRequest req, String mobileNumber, boolean validMobileNumber, boolean mobileNumberEmpty) {
+        req.setAttribute("mobileNumberEmpty", mobileNumberEmpty);
+        req.setAttribute("validMobileNumber", validMobileNumber);
+        req.setAttribute("mobileNumber", mobileNumber);
+    }
+
+    private void setNameAttribute(HttpServletRequest req, String subscriberName, boolean validSubscriberName, boolean subscriberNameEmpty) {
+        req.setAttribute("emptySubscriberName", subscriberNameEmpty);
+        req.setAttribute("validSubscriberName", validSubscriberName);
+        req.setAttribute("newSubscriberName", subscriberName);
     }
 
     private void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -111,9 +130,12 @@ public class ContactManager {
                 contact.setName(subscriberName);
                 contact.setMobileNumber(mobileNumber);
                 contactDao.updateContact(contact);
+
                 session.setAttribute("edit", false);
-                this.showContacts(contactDao, user, session);
+                session.setAttribute("listChanged", true);
+                showContacts(contactDao, user, session);
             }
+            // TODO moved to begin
         } else if ("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("edit", false);
         }
@@ -123,7 +145,14 @@ public class ContactManager {
         String contactId = req.getParameter("select");
         if (contactId != null) {
             Contact contact = contactDao.searchContactById(Integer.parseInt(contactId));
+
             contactDao.deleteContact(contact);
+
+            req.setAttribute("info", true);
+            String textInfo = contact.getName() + " was deleted from the list of contacts";
+            req.setAttribute("textInfo", textInfo);
+
+            session.setAttribute("listChanged", true);
             showContacts(contactDao, user, session);
         }
     }

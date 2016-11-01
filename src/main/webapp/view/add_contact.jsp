@@ -19,7 +19,7 @@
                 </c:when>
                 <c:when test="${!requestScope.validSubscriberName}">
                     <td style="color: red">
-                        Name must be at least 4 characters and consist only letters.
+                        Name must be at least 4 characters and consist only latin letters.
                     </td>
                 </c:when>
                 <c:otherwise>
@@ -32,13 +32,6 @@
                 </c:otherwise>
             </c:choose>
         </tr>
-
-
-     <%--   <tr>
-            <td>
-                <input type="text" name="mobileNumber" placeholder="+380XXXXXXXXX"> phone
-            </td>
-        </tr>--%>
 
         <tr>
             <td><input type="text" name="mobileNumber" size="20"
@@ -59,10 +52,7 @@
                 </c:when>
                 <c:otherwise>
                     <td style="color: black">
-                        Mobile Number ${requestScope.mobileNumber}
-                    </td>
-                    <td style="color: blue">
-                            ${requestScope.mobileNumber}
+                        Mobile Number
                     </td>
                 </c:otherwise>
             </c:choose>
