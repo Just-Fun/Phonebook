@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 @Controller
 public class LoginController extends HttpServlet {
 

@@ -5,6 +5,9 @@ import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.dao.UserDaoImpl;
 import ua.com.serzh.entities.User;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 public class App {
     public static void main(String[] args) {
        /* ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
