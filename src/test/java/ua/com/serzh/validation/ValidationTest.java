@@ -12,35 +12,56 @@ public class ValidationTest {
 
     @Test
     public void testValidateTrue() throws Exception {
-        boolean result = validate("Vasiliy", "\\w{5,}");
-        assertEquals(true, result);
+        assertEquals(true, validate("Vasiliy", Validation.getFiveLettersPattern()));
     }
 
     @Test
     public void testValidateFalse() throws Exception {
-        boolean result = validate("Vas", "\\w{5,}");
-        assertEquals(false, result);
+        assertEquals(false, validate("Vas", Validation.getFiveLettersPattern()));
     }
 
     @Test
-    public void testValidatePhoneNumber() throws Exception {
-        String regex = "[+]\\d{12}";
-        assertEquals(true, validate("+380665794456", regex));
+    public void testValidateEmailTrue() throws Exception {
+        String regex = Validation.getEmailPattern();
+        assertEquals(true, validate("mkyong@yahoo.com", regex));
+        assertEquals(true, validate("mkyong-100@yahoo.com", regex));
+        assertEquals(true, validate("mkyong.100@yahoo.com", regex));
+        assertEquals(true, validate("mkyong.100.test@yahoo.com", regex));
+        assertEquals(true, validate("mkyong-100@yahoo-test.com", regex));
+        assertEquals(true, validate("mkyong_100@yahoo-test.com.ua", regex));
+    }
+
+    @Test
+    public void testValidateEmailFalse() throws Exception {
+        String regex = Validation.getEmailPattern();
+        assertEquals(false, validate("mkyong – must", regex));
+        assertEquals(false, validate("mkyong@.com.my", regex));
+        assertEquals(false, validate("mkyong123@gmail.a", regex));
+        assertEquals(false, validate(".mkyong@mkyong.com", regex));
+        assertEquals(false, validate("mkyong()*@gmail.com", regex));
+        assertEquals(false, validate("mkyong@mkyong@gmail.com", regex));
+        assertEquals(false, validate("mkyong@gmail.com.1a", regex));
+    }
+
+    @Test
+    public void testValidateUkrainePhoneNumberFalse() throws Exception {
+        String regex = Validation.getPhoneRegex();
+        assertEquals(false, validate("+38066579445623", regex));
         assertEquals(false, validate("380665794456", regex));
         assertEquals(false, validate("80665794456", regex));
         assertEquals(false, validate("+38066579", regex));
     }
 
     @Test
-    public void testValidateUkrainePhoneNumber() throws Exception {
-        String regex = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
+    public void testValidateUkrainePhoneNumberTrue() throws Exception {
+        String regex = Validation.getPhoneRegex();
 
         assertEquals(true, validate("+38-066-283-93-57", regex));
         assertEquals(true, validate("+38-044-283-93-57", regex));
         assertEquals(true, validate("+380442839357", regex));
         assertEquals(true, validate("+38(044)537-28-07", regex));
         assertEquals(true, validate("+38044223-95-26", regex));
-        assertEquals(true, validate("+38044223-95-26", regex));
+        assertEquals(true, validate("+38063223-95-26", regex));
         assertEquals(true, validate("+38044 223 95 26", regex));
         assertEquals(true, validate("+38 044 223 95 26", regex));
 
