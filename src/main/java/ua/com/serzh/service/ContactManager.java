@@ -34,7 +34,6 @@ public class ContactManager {
     }
 
     private void showContacts(ContactDao contactDao, User user, HttpSession session) {
-        // TODO refresh from DB? make attribut "list changed" and id true refresh and put false
         Boolean listChanged = (Boolean) session.getAttribute("listChanged");
         if (listChanged == null) {
             listChanged = false;
