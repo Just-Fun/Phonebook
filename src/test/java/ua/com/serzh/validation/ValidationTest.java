@@ -33,8 +33,9 @@ public class ValidationTest {
 
     @Test
     public void testValidateUkrainePhoneNumber() throws Exception {
-        String regex = "^((\\+38)-?\\s?)(\\(?044\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
+        String regex = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
 
+        assertEquals(true, validate("+38-066-283-93-57", regex));
         assertEquals(true, validate("+38-044-283-93-57", regex));
         assertEquals(true, validate("+380442839357", regex));
         assertEquals(true, validate("+38(044)537-28-07", regex));
