@@ -55,7 +55,7 @@ public class RegistryController extends HttpServlet {
         }
 
         if (!passwordEmpty) {
-            isValidPassword = Validation.validate(password, Validation.getFiveLetters());
+            isValidPassword = Validation.validate(password, Validation.getFiveLettersPattern());
         }
 
         if (!passwordEmpty && !confirmPasswordEmpty) {
