@@ -52,8 +52,7 @@ public class RegistryController extends HttpServlet {
         }
 
         if (!passwordEmpty) {
-            //TODO get all regex from some properties and also use it in tests
-            isValidPassword = Validation.validate(password, "\\w{5,}");
+            isValidPassword = Validation.validate(password, Validation.getFiveLetters());
         }
 
         if (!passwordEmpty && !confirmPasswordEmpty) {
@@ -63,74 +62,28 @@ public class RegistryController extends HttpServlet {
         if (user == null && isValidName && isValidPassword && isPasswordsMatch) {
             user = new User(name, password);
             userDao.insertUser(user);
-            // TODO "account created, and?"
             return "login";
         } else {
             if (user != null) {
                 req.setAttribute("userExist", true);
             }
-            req.setAttribute("emptyUserName", nameEmpty);
-            req.setAttribute("validUserName", isValidName);
-
-            req.setAttribute("emptyPassword", passwordEmpty);
-            req.setAttribute("correctPassword", isValidPassword);
-
-            req.setAttribute("emptyConfirmPassword", confirmPasswordEmpty);
-            req.setAttribute("passwordsMatch", isPasswordsMatch);
-
-            req.setAttribute("name", name);
-            req.setAttribute("password", password);
+            setAttibute(req, isValidName, isValidPassword, isPasswordsMatch, name, password,
+                    nameEmpty, passwordEmpty, confirmPasswordEmpty);
             return "registry";
         }
     }
+
+    private void setAttibute(HttpServletRequest req, boolean isValidName, boolean isValidPassword, boolean isPasswordsMatch, String name, String password, boolean nameEmpty, boolean passwordEmpty, boolean confirmPasswordEmpty) {
+        req.setAttribute("emptyUserName", nameEmpty);
+        req.setAttribute("validUserName", isValidName);
+
+        req.setAttribute("emptyPassword", passwordEmpty);
+        req.setAttribute("correctPassword", isValidPassword);
+
+        req.setAttribute("emptyConfirmPassword", confirmPasswordEmpty);
+        req.setAttribute("passwordsMatch", isPasswordsMatch);
+
+        req.setAttribute("name", name);
+        req.setAttribute("password", password);
+    }
 }
-
-/*@RequestMapping(value = "registry", method = RequestMethod.POST)
-    protected String registryPost(HttpServletRequest req) throws ServletException, IOException {
-        User user = null;
-        String name = req.getParameter("name");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-        boolean isValidName = false;
-        boolean isValidPassword = false;
-        boolean isPasswordsMatch = false;
-        boolean nameNull = name == null;
-        boolean nameEmpty = name.isEmpty();
-        boolean passEmpty = password.isEmpty();
-        boolean passNull = password == null;
-        System.out.println("name == null: " + nameNull + ", name.isEmpty(): " + nameEmpty);
-        System.out.println("password == null: " + passNull + ", password.isEmpty(): " + passEmpty);
-        if (name != null && !name.isEmpty()) {
-//            user = userDao.searchByName(name);
-            isValidName = Validation.validate(name, "[a-zA-Z]{3,}");
-        }
-
-        if (isValidName) {
-            user = userDao.searchByName(name);
-        }
-
-        if (password != null && !password.isEmpty()) {
-            isValidPassword = Validation.validate(password, "\\w{5,}");
-        }
-
-        if (password != null && !password.isEmpty() && confirmPassword != null && !confirmPassword.isEmpty()) {
-            isPasswordsMatch = password.equals(confirmPassword);
-        }
-
-        if (user == null && isValidName && isValidPassword && isPasswordsMatch) {
-            user = new User(name, password);
-            userDao.insertUser(user);
-            return "login";
-        } else {
-            if (user != null) {
-                req.setAttribute("userExist", true);
-            }
-            req.setAttribute("validUserName", isValidName);
-            req.setAttribute("correctPassword", isValidPassword);
-            req.setAttribute("passwordsMatch", isPasswordsMatch);
-            req.setAttribute("name", name);
-            req.setAttribute("confirmPassword", confirmPassword);// TODO is this need?
-            req.setAttribute("password", password);
-            return "registry";
-        }
-    }*/
