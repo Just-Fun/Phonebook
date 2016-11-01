@@ -5,6 +5,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import ua.com.serzh.entities.User;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 //@Component
 public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 

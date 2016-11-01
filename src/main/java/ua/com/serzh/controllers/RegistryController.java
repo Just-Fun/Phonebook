@@ -13,6 +13,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 @Controller
 public class RegistryController extends HttpServlet {
 

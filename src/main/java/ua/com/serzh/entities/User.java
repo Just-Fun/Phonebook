@@ -1,5 +1,8 @@
 package ua.com.serzh.entities;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 public class User {
     private Integer userId;
     private String name;

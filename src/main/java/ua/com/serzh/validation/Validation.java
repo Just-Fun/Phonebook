@@ -1,5 +1,8 @@
 package ua.com.serzh.validation;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 public class Validation {
 
     private final static String phoneRegex = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
