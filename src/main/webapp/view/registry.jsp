@@ -14,10 +14,14 @@
                 <c:set var="validUserName" value="true" scope="request"/>
             </c:if>
             <c:choose>
+                <c:when test="${requestScope.emptyUserName}">
+                    <td style="color: red">
+                        User name can not be empty.
+                    </td>
+                </c:when>
                 <c:when test="${!requestScope.validUserName}">
                     <td style="color: red">
-                        User's name must consist only letters, digits and underline sign.
-                        Amount of signs mustn't be less than 5 signs.
+                        User's name must be at least 3 characters and consist only letters.
                     </td>
                 </c:when>
                 <c:when test="${requestScope.userExist}">
@@ -25,7 +29,14 @@
                         The user with specified name already exists! Please, change the user's name.
                     </td>
                 </c:when>
-                <c:otherwise> </c:otherwise>
+                <c:otherwise>
+                    <td style="color: black">
+                        User name <%--${requestScope.name}--%>
+                    </td>
+                    <td style="color: blue">
+                        ${requestScope.name}
+                    </td>
+                </c:otherwise>
             </c:choose>
         </tr>
         <tr>
@@ -35,12 +46,21 @@
                 <c:set var="correctPassword" value="true" scope="request"/>
             </c:if>
             <c:choose>
-                <c:when test="${!requestScope.correctPassword}">
+                <c:when test="${requestScope.emptyPassword}">
                     <td style="color: red">
-                        Your password must consist only letters and figures and be more than 4 signs.
+                        Password can not be empty.
                     </td>
                 </c:when>
-                <c:otherwise> </c:otherwise>
+                <c:when test="${!requestScope.correctPassword}">
+                    <td style="color: red">
+                        Passwords must be at least 5 characters and contain only letter or digits or "_".
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td style="color: black">
+                        Password
+                    </td>
+                </c:otherwise>
             </c:choose>
         </tr>
         <tr>
@@ -51,12 +71,21 @@
                 <c:set var="passwordsMatch" value="true" scope="request"/>
             </c:if>
             <c:choose>
+                <c:when test="${requestScope.emptyConfirmPassword}">
+                    <td style="color: red">
+                        This field can not be empty.
+                    </td>
+                </c:when>
                 <c:when test="${!requestScope.passwordsMatch}">
                     <td style="color: red">
                         Passwords do not match!
                     </td>
                 </c:when>
-                <c:otherwise> </c:otherwise>
+                <c:otherwise>
+                    <td style="color: black">
+                        Confirm password
+                    </td>
+                </c:otherwise>
             </c:choose>
         </tr>
 
