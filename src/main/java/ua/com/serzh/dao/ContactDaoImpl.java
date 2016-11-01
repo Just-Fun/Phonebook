@@ -7,13 +7,22 @@ import ua.com.serzh.entities.ContactRowMapper;
 
 import java.util.List;
 
+/**
+ * Created by Serzh on 10/25/16.
+ */
 //@Component
 public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
 
     @Override
     public void insertContact(Contact contact) {
-        String sql = "INSERT INTO contacts (name, mobile_number, user_id) VALUES (?, ?, ?)";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getUserId());
+        String sql = "INSERT INTO contacts (surname, name, patronymic, mobile_number, home_phone, address, email, user_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        getJdbcTemplate().update(sql, contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
+                contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId());
+
+
+        /*String sql = "INSERT INTO contacts (name, mobile_number, user_id) VALUES (?, ?, ?)";
+        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getUserId());*/
     }
 
     @Override
@@ -43,8 +52,16 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
 
     @Override
     public void updateContact(Contact contact) {
-        String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());
+        String sql = "UPDATE contacts SET surname = ?, name = ?, patronymic = ?, mobile_number = ?, home_phone = ?," +
+                " address = ?, email = ? WHERE contact_id = ?";
+        Object[] contactFields = {contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
+                contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId()};
+        getJdbcTemplate().update(sql, contactFields, contact.getContactId());
+
+
+
+        /*String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
+        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());*/
     }
 
     @Override
