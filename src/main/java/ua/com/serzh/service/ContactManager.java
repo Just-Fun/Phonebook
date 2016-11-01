@@ -14,19 +14,19 @@ public class ContactManager {
     }
 
     public void action(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
-        if(session.getAttribute("add") == null) {
+        if (session.getAttribute("add") == null) {
             session.setAttribute("add", false);
         }
 
-        if(session.getAttribute("edit") == null) {
+        if (session.getAttribute("edit") == null) {
             session.setAttribute("edit", false);
         }
 
-        if(session.getAttribute("add").equals(true)) {
+        if (session.getAttribute("add").equals(true)) {
             addContact(req, contactDao, session, user);
-        } else if(session.getAttribute("edit").equals(true)) {
+        } else if (session.getAttribute("edit").equals(true)) {
             editContact(req, contactDao, session, user);
-        } else if("Delete".equals(req.getParameter("button"))) {
+        } else if ("Delete".equals(req.getParameter("button"))) {
             deleteContact(req, contactDao, session, user);
         } else {
             searchContact(req, contactDao, session, user);
@@ -34,31 +34,65 @@ public class ContactManager {
     }
 
     private void showContacts(ContactDao contactDao, User user, HttpSession session) {
-        List contacts = (List)session.getAttribute("contacts");
-        if(contacts == null) {
+        List contacts = (List) session.getAttribute("contacts");
+        if (contacts == null) {
             contacts = contactDao.allUserContacts(user.getUserId());
             session.setAttribute("contacts", contacts);
         }
     }
 
+    // TODO make GET & POST?
     private void addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String subscriberName = req.getParameter("newSubscriberName");
         String mobileNumber = req.getParameter("mobileNumber");
-        Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
-        boolean isValidatePhone = false;
-        if(mobileNumber != null) {
-            String phoneRegex = "^((\\+38)-?\\s?)(\\(?044\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
-            isValidatePhone = Validation.validate(mobileNumber, phoneRegex);
-        }
 
-        if("Ok".equals(req.getParameter("ok")) && isValidatePhone) {
-            contact.setName(subscriberName);
-            contactDao.insertContact(contact);
-            req.setAttribute("validPhone", true);
-            session.setAttribute("add", false);
-            showContacts(contactDao, user, session);
-        } else if("Cancel".equals(req.getParameter("cancel"))) {
-            session.setAttribute("add", false);
+        if (subscriberName != null) { // TODO temp
+            boolean validSubscriberName = false;
+            boolean validMobileNumber = false;
+
+            boolean subscriberNameEmpty = subscriberName.isEmpty();
+            boolean mobileNumberEmpty = mobileNumber.isEmpty();
+
+            if (!subscriberNameEmpty) {
+//                validSubscriberName = Validation.validate(subscriberName, "\\w{4,}");
+                validSubscriberName = Validation.validate(subscriberName, Validation.getFourLetters());
+            }
+
+//        if (mobileNumber != null) { // TODO may be not null, but empty!!!
+            if (!mobileNumberEmpty) {
+//                String phoneRegex = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
+//                validMobileNumber = Validation.validate(mobileNumber, phoneRegex);
+                validMobileNumber = Validation.validate(mobileNumber, Validation.getPhoneRegex());
+            }
+
+            if ("Ok".equals(req.getParameter("ok"))/* && validMobileNumber && validSubscriberName*/) {
+
+                if (validMobileNumber && validSubscriberName) {
+                    Contact contact = new Contact(subscriberName, mobileNumber, user.getUserId());
+//                  contact.setName(subscriberName);
+                    contactDao.insertContact(contact);
+                    /*req.setAttribute("emptySubscriberName", subscriberNameEmpty);
+                    req.setAttribute("validSubscriberName", validSubscriberName);
+                    req.setAttribute("newSubscriberName", subscriberName);*/
+
+                    req.setAttribute("validMobileNumber", true);
+                    session.setAttribute("add", false);
+                    showContacts(contactDao, user, session);
+                } else {
+                    req.setAttribute("emptySubscriberName", subscriberNameEmpty);
+                    req.setAttribute("validSubscriberName", validSubscriberName);
+                    req.setAttribute("newSubscriberName", subscriberName);
+
+                    req.setAttribute("mobileNumberEmpty", mobileNumberEmpty);
+                    req.setAttribute("validMobileNumber", validMobileNumber);
+                    req.setAttribute("mobileNumber", mobileNumber);
+
+                    session.setAttribute("add", true);
+                }
+            } else if ("Cancel".equals(req.getParameter("cancel"))) {
+
+                session.setAttribute("add", false);
+            }
         }
     }
 
@@ -66,28 +100,28 @@ public class ContactManager {
         String subscriberName = req.getParameter("editName");
         String mobileNumber = req.getParameter("mobileNumber");
         String contactId = req.getParameter("select");
-        Contact contact = (Contact)session.getAttribute("contact");
-        if(contactId != null) {
+        Contact contact = (Contact) session.getAttribute("contact");
+        if (contactId != null) {
             contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
         }
 
-        if("Ok".equals(req.getParameter("ok"))) {
-            if(contact != null) {
+        if ("Ok".equals(req.getParameter("ok"))) {
+            if (contact != null) {
                 contact.setName(subscriberName);
                 contact.setMobileNumber(mobileNumber);
                 contactDao.updateContact(contact);
                 session.setAttribute("edit", false);
                 this.showContacts(contactDao, user, session);
             }
-        } else if("Cancel".equals(req.getParameter("cancel"))) {
+        } else if ("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("edit", false);
         }
     }
 
     private void deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String contactId = req.getParameter("select");
-        if(contactId != null) {
+        if (contactId != null) {
             Contact contact = contactDao.searchContactById(Integer.parseInt(contactId));
             contactDao.deleteContact(contact);
             showContacts(contactDao, user, session);
@@ -96,21 +130,21 @@ public class ContactManager {
 
     private void searchContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String subscriberName = req.getParameter("subscriberName");
-        if("Search".equals(req.getParameter("searchButton")) && subscriberName != null && user != null) {
+        if ("Search".equals(req.getParameter("searchButton")) && subscriberName != null && user != null) {
             List contacts = contactDao.searchContactByName(subscriberName, user.getUserId());
             session.setAttribute("contacts", contacts);
         }
 
-        if("All Contacts".equals(req.getParameter("allContacts")) && user != null) {
+        if ("All Contacts".equals(req.getParameter("allContacts")) && user != null) {
             session.setAttribute("contacts", null);
             showContacts(contactDao, user, session);
         }
     }
 
     public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
-        if("Next".equals(req.getParameter("pageButton"))) {
+        if ("Next".equals(req.getParameter("pageButton"))) {
             ++pageNumber;
-        } else if("Prev".equals(req.getParameter("pageButton"))) {
+        } else if ("Prev".equals(req.getParameter("pageButton"))) {
             --pageNumber;
         }
 

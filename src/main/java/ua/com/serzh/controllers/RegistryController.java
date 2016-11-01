@@ -52,6 +52,7 @@ public class RegistryController extends HttpServlet {
         }
 
         if (!passwordEmpty) {
+            //TODO get all regex from some properties and also use it in tests
             isValidPassword = Validation.validate(password, "\\w{5,}");
         }
 
