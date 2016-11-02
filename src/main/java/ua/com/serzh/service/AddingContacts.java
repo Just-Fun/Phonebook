@@ -13,15 +13,22 @@ import javax.servlet.http.HttpSession;
  */
 public class AddingContacts {
 
+    private boolean validSurname = false;
+    private boolean validName = false;
+    private boolean validPatronymic = false;
+    private boolean validMobileNumber = false;
+    private boolean validHomePhone = true; // if empty - don't validate
+    private boolean validEmail = true; // the same
+
     // TODO make GET & POST?
-    public void addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
+    public boolean addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         if ("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("add", false);
-            return;
+            return false;
         }
 
         String name = req.getParameter("newSubscriberName");
-        if (name == null) return;
+        if (name == null) return false;
 
         String surname = req.getParameter("surname");
         String mobileNumber = req.getParameter("mobileNumber");
@@ -29,14 +36,6 @@ public class AddingContacts {
         String homePhone = req.getParameter("homePhone");
         String address = req.getParameter("address");
         String email = req.getParameter("email");
-
-//        if (name != null) { // TODO temp
-        boolean validSurname = false;
-        boolean validName = false;
-        boolean validPatronymic = false;
-        boolean validMobileNumber = false;
-        boolean validHomePhone = true; // if empty - don't validate
-        boolean validEmail = true; // the same
 
         boolean surnameEmpty = surname.isEmpty();
         boolean nameEmpty = name.isEmpty();
@@ -82,9 +81,9 @@ public class AddingContacts {
                 req.setAttribute("info", true);
                 String textInfo = surname + " " + name + " was added to the list of contacts";
                 req.setAttribute("textInfo", textInfo);
-
+                return true;
                 // TODO autowired
-                new ContactManager().showContacts(contactDao, user, session);
+//                new ContactManager().showContacts(contactDao, user, session);
             } else {
                 setSurnameAttribute(req, surname, validSurname, surnameEmpty);
                 setNameAttribute(req, name, validName, nameEmpty);
@@ -94,10 +93,13 @@ public class AddingContacts {
                 setEmailAttribute(req, email, validEmail);
 
                 session.setAttribute("add", true);
+                return false;
             }
         }
+        return false;
     }
 
+    // TODO removed duplication
     private void setSurnameAttribute(HttpServletRequest req, String surname, boolean validSurname, boolean surnameEmpty) {
         req.setAttribute("emptySurname", surnameEmpty);
         req.setAttribute("validSurname", validSurname);

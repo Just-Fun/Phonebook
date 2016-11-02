@@ -3,7 +3,6 @@ package ua.com.serzh.service;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.entities.User;
-import ua.com.serzh.validation.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,7 +27,11 @@ public class ContactManager {
 
         if (session.getAttribute("add").equals(true)) {
             //TODO autowired
-            new AddingContacts().addContact(req, contactDao, session, user);
+            boolean add = new AddingContacts().addContact(req, contactDao, session, user);
+            if (add) {
+                showContacts(contactDao, user, session);
+            }
+
         } else if (session.getAttribute("edit").equals(true)) {
             editContact(req, contactDao, session, user);
         } else if ("Delete".equals(req.getParameter("button"))) {
@@ -38,7 +41,7 @@ public class ContactManager {
         }
     }
 
-    public void showContacts(ContactDao contactDao, User user, HttpSession session) {
+    private void showContacts(ContactDao contactDao, User user, HttpSession session) {
         Boolean listChanged = (Boolean) session.getAttribute("listChanged");
         if (listChanged == null) {
             listChanged = false;
