@@ -19,20 +19,6 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String name, String mobileNumber, Integer userId) {
-        this.name = name;
-        this.mobileNumber = mobileNumber;
-        this.userId = userId;
-    }
-
-    public Contact(String name, String surname, String patronymic, String mobileNumber, Integer userId) {
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.mobileNumber = mobileNumber;
-        this.userId = userId;
-    }
-
     public Contact(String surname, String name, String patronymic, String mobileNumber,
                    String homePhone, String address, String email, Integer userId) {
         this.surname = surname;

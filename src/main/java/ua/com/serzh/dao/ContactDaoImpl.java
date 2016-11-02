@@ -30,8 +30,8 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
         String sql = String.format("SELECT * FROM contacts WHERE user_id = '%d' AND" +
-                "(surname LIKE '%s%%' OR name LIKE '%s%%' OR patronymic LIKE '%s%%' OR mobile_number LIKE '%s%%' OR " +
-                "home_phone LIKE '%s%%' OR address LIKE '%s%%' OR email LIKE '%s%%')",
+                        "(surname LIKE '%s%%' OR name LIKE '%s%%' OR patronymic LIKE '%s%%' OR mobile_number LIKE '%s%%' OR " +
+                        "home_phone LIKE '%s%%' OR address LIKE '%s%%' OR email LIKE '%s%%')",
                 userId, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery);
         return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
     }
@@ -62,11 +62,6 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
         Object[] contactFields = {contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
                 contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId()};
         getJdbcTemplate().update(sql, contactFields, contact.getContactId());
-
-
-
-        /*String sql = "UPDATE contacts SET name = ?, mobile_number = ? WHERE contact_id = ?";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getContactId());*/
     }
 
     @Override

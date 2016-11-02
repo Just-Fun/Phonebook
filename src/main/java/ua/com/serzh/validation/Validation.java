@@ -6,7 +6,6 @@ package ua.com.serzh.validation;
 public class Validation {
 
     private final static String PHONE_REGEX = "^((\\+38)-?\\s?)(\\(?0\\d{2}\\)?)?-?\\s?\\d{3}-?\\s?\\d{2}-?\\s?\\d{2}$";
-//    private final static String FOUR_LETTERS = "\\w{4,}";
     private final static String FOUR_LETTERS = "[A-z]{4,}";
     private final static String FIVE_LETTERS = "[A-z]{5,}";
 
