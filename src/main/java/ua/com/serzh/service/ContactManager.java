@@ -7,6 +7,7 @@ import ua.com.serzh.validation.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,8 +109,8 @@ public class ContactManager {
 
             if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
 //                Contact contact = new Contact(name, mobileNumber, user.getUserId());
-                Contact contact = new Contact(name,  surname,  patronymic,  mobileNumber,
-                         homePhone,  address,  email, user.getUserId());
+                Contact contact = new Contact(name, surname, patronymic, mobileNumber,
+                        homePhone, address, email, user.getUserId());
                 contactDao.insertContact(contact);
 
 //                req.setAttribute("validMobileNumber", true); // TODO don't need?
@@ -211,9 +212,14 @@ public class ContactManager {
     }
 
     private void searchContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
-        String subscriberName = req.getParameter("subscriberName");
-        if ("Search".equals(req.getParameter("searchButton")) && subscriberName != null && user != null) {
-            List contacts = contactDao.searchContactByName(subscriberName, user.getUserId());
+        String searchQuery = req.getParameter("searchQuery");
+        if ("Search".equals(req.getParameter("searchButton")) && searchQuery != null && user != null) {
+            List contacts;
+            if (searchQuery.isEmpty()) {
+                contacts = new ArrayList();
+            } else {
+                contacts = contactDao.searchContactByAnyField(searchQuery, user.getUserId());
+            }
             session.setAttribute("contacts", contacts);
         }
 
