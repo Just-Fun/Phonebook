@@ -20,28 +20,62 @@ public class AddingContacts {
     private boolean validHomePhone = true; // if empty - don't validate
     private boolean validEmail = true; // the same
 
-    // TODO make GET & POST?
-    public boolean addContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
-        if ("Cancel".equals(req.getParameter("cancel"))) {
+    private boolean surnameEmpty;
+    private boolean nameEmpty;
+    private boolean patronymicEmpty;
+    private boolean mobileNumberEmpty;
+
+    private String surname;
+    private String name;
+    private String mobileNumber;
+    private String patronymic;
+    private String homePhone;
+    private String address;
+    private String email;
+
+    public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+        if ("Cancel".equals(request.getParameter("cancel"))) {
             session.setAttribute("add", false);
             return false;
         }
 
-        String name = req.getParameter("newSubscriberName");
-        if (name == null) return false;
+        surname = request.getParameter("surname");
+        if (surname == null) {
+            return false;
+        }
 
-        String surname = req.getParameter("surname");
-        String mobileNumber = req.getParameter("mobileNumber");
-        String patronymic = req.getParameter("patronymic");
-        String homePhone = req.getParameter("homePhone");
-        String address = req.getParameter("address");
-        String email = req.getParameter("email");
+        getFields(request);
 
-        boolean surnameEmpty = surname.isEmpty();
-        boolean nameEmpty = name.isEmpty();
-        boolean patronymicEmpty = name.isEmpty();
-        boolean mobileNumberEmpty = mobileNumber.isEmpty();
+        checkFildsIsEmpty();
 
+        validateFields();
+
+       /* boolean success = false;
+        if ("Ok".equals(request.getParameter("ok"))) {
+            success = insertContact(request, contactDao, session, user);
+        }
+        return success;*/
+
+        return insertContact(request, contactDao, session, user);
+    }
+
+    private void getFields(HttpServletRequest request) {
+        name = request.getParameter("newSubscriberName");
+        mobileNumber = request.getParameter("mobileNumber");
+        patronymic = request.getParameter("patronymic");
+        homePhone = request.getParameter("homePhone");
+        address = request.getParameter("address");
+        email = request.getParameter("email");
+    }
+
+    private void checkFildsIsEmpty() {
+        surnameEmpty = surname.isEmpty();
+        nameEmpty = name.isEmpty();
+        patronymicEmpty = name.isEmpty();
+        mobileNumberEmpty = mobileNumber.isEmpty();
+    }
+
+    private void validateFields() {
         if (!surnameEmpty) {
             validSurname = Validation.validate(surname, Validation.getFourLettersPattern());
         }
@@ -65,72 +99,81 @@ public class AddingContacts {
         if (!email.isEmpty()) {
             validEmail = Validation.validate(email, Validation.getEmailPattern());
         }
+    }
 
-        if ("Ok".equals(req.getParameter("ok"))) {
+    private boolean insertContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+        if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
 
-            if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
-//                Contact contact = new Contact(name, mobileNumber, user.getUserId());
-                Contact contact = new Contact(name, surname, patronymic, mobileNumber,
-                        homePhone, address, email, user.getUserId());
-                contactDao.insertContact(contact);
+            insertNewContact(contactDao, user);
 
-//                req.setAttribute("validMobileNumber", true); // TODO don't need?
-                session.setAttribute("add", false);
-                session.setAttribute("listChanged", true);
+            setAttributesTrue(request, session);
 
-                req.setAttribute("info", true);
-                String textInfo = surname + " " + name + " was added to the list of contacts";
-                req.setAttribute("textInfo", textInfo);
-                return true;
-                // TODO autowired
-//                new ContactManager().showContacts(contactDao, user, session);
-            } else {
-                setSurnameAttribute(req, surname, validSurname, surnameEmpty);
-                setNameAttribute(req, name, validName, nameEmpty);
-                setPatronymicAttribute(req, patronymic, validPatronymic, patronymicEmpty);
-                setMobilPhoneAttribute(req, mobileNumber, validMobileNumber, mobileNumberEmpty);
-                setHomePhoneAttribute(req, homePhone, validHomePhone);
-                setEmailAttribute(req, email, validEmail);
-
-                session.setAttribute("add", true);
-                return false;
-            }
+            return true;
+        } else {
+            setAttributesFalse(request, session);
+            return false;
         }
-        return false;
+    }
+
+    private void insertNewContact(ContactDao contactDao, User user) {
+        Contact contact = new Contact(
+                surname, name, patronymic, mobileNumber, homePhone, address, email, user.getUserId());
+
+        contactDao.insertContact(contact);
+    }
+
+    private void setAttributesTrue(HttpServletRequest request, HttpSession session) {
+        session.setAttribute("add", false);
+        session.setAttribute("listChanged", true);
+
+        request.setAttribute("info", true);
+        String textInfo = surname + " " + name + " was added to the list of contacts";
+        request.setAttribute("textInfo", textInfo);
+    }
+
+    private void setAttributesFalse(HttpServletRequest request, HttpSession session) {
+        setSurnameAttribute(request);
+        setNameAttribute(request);
+        setPatronymicAttribute(request);
+        setMobilPhoneAttribute(request);
+        setHomePhoneAttribute(request);
+        setEmailAttribute(request);
+
+        session.setAttribute("add", true);
     }
 
     // TODO removed duplication
-    private void setSurnameAttribute(HttpServletRequest req, String surname, boolean validSurname, boolean surnameEmpty) {
-        req.setAttribute("emptySurname", surnameEmpty);
-        req.setAttribute("validSurname", validSurname);
-        req.setAttribute("surname", surname);
+    private void setSurnameAttribute(HttpServletRequest request) {
+        request.setAttribute("emptySurname", surnameEmpty);
+        request.setAttribute("validSurname", validSurname);
+        request.setAttribute("surname", surname);
     }
 
-    private void setNameAttribute(HttpServletRequest req, String subscriberName, boolean validSubscriberName, boolean subscriberNameEmpty) {
-        req.setAttribute("emptySubscriberName", subscriberNameEmpty);
-        req.setAttribute("validSubscriberName", validSubscriberName);
-        req.setAttribute("newSubscriberName", subscriberName);
+    private void setNameAttribute(HttpServletRequest request) {
+        request.setAttribute("emptySubscriberName", nameEmpty);
+        request.setAttribute("validSubscriberName", validName);
+        request.setAttribute("newSubscriberName", name);
     }
 
-    private void setPatronymicAttribute(HttpServletRequest req, String patronymic, boolean validPatronymic, boolean patronymicEmpty) {
-        req.setAttribute("patronymicEmpty", patronymicEmpty);
-        req.setAttribute("validPatronymic", validPatronymic);
-        req.setAttribute("patronymic", patronymic);
+    private void setPatronymicAttribute(HttpServletRequest request) {
+        request.setAttribute("patronymicEmpty", patronymicEmpty);
+        request.setAttribute("validPatronymic", validPatronymic);
+        request.setAttribute("patronymic", patronymic);
     }
 
-    private void setMobilPhoneAttribute(HttpServletRequest req, String mobileNumber, boolean validMobileNumber, boolean mobileNumberEmpty) {
-        req.setAttribute("mobileNumberEmpty", mobileNumberEmpty);
-        req.setAttribute("validMobileNumber", validMobileNumber);
-        req.setAttribute("mobileNumber", mobileNumber);
+    private void setMobilPhoneAttribute(HttpServletRequest request) {
+        request.setAttribute("mobileNumberEmpty", mobileNumberEmpty);
+        request.setAttribute("validMobileNumber", validMobileNumber);
+        request.setAttribute("mobileNumber", mobileNumber);
     }
 
-    private void setHomePhoneAttribute(HttpServletRequest req, String homePhone, boolean validHomePhone) {
-        req.setAttribute("validHomePhone", validHomePhone);
-        req.setAttribute("homePhone", homePhone);
+    private void setHomePhoneAttribute(HttpServletRequest request) {
+        request.setAttribute("validHomePhone", validHomePhone);
+        request.setAttribute("homePhone", homePhone);
     }
 
-    private void setEmailAttribute(HttpServletRequest req, String email, boolean validEmail) {
-        req.setAttribute("validEmail", validEmail);
-        req.setAttribute("email", email);
+    private void setEmailAttribute(HttpServletRequest request) {
+        request.setAttribute("validEmail", validEmail);
+        request.setAttribute("email", email);
     }
 }
