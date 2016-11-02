@@ -11,13 +11,27 @@ import static ua.com.serzh.validation.Validation.validate;
 public class ValidationTest {
 
     @Test
-    public void testValidateTrue() throws Exception {
+    public void testValidateFiveLettersTrue() throws Exception {
         assertEquals(true, validate("Vasiliy", Validation.getFiveLettersPattern()));
     }
 
     @Test
-    public void testValidateFalse() throws Exception {
+    public void testValidateFiveLettersFalse() throws Exception {
         assertEquals(false, validate("Vas", Validation.getFiveLettersPattern()));
+        assertEquals(false, validate("Vasi", Validation.getFiveLettersPattern()));
+        assertEquals(false, validate("Vas123", Validation.getFiveLettersPattern()));
+    }
+
+    @Test
+    public void testValidateFourLettersTrue() throws Exception {
+        assertEquals(true, validate("Vasi", Validation.getFourLettersPattern()));
+        assertEquals(true, validate("Vasiliy", Validation.getFourLettersPattern()));
+    }
+
+    @Test
+    public void testValidateFourLettersFalse() throws Exception {
+        assertEquals(false, validate("Vas", Validation.getFourLettersPattern()));
+        assertEquals(false, validate("Vas123", Validation.getFourLettersPattern()));
     }
 
     @Test
