@@ -19,15 +19,20 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         getJdbcTemplate().update(sql, contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
                 contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId());
-
-
-        /*String sql = "INSERT INTO contacts (name, mobile_number, user_id) VALUES (?, ?, ?)";
-        getJdbcTemplate().update(sql, contact.getName(), contact.getMobileNumber(), contact.getUserId());*/
     }
 
     @Override
     public List<Contact> searchContactByName(String name, int userId) {
         String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
+        return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
+    }
+
+    @Override
+    public List searchContactByAnyField(String searchQuery, Integer userId) {
+        String sql = String.format("SELECT * FROM contacts WHERE user_id = '%d' AND" +
+                "(surname LIKE '%s%%' OR name LIKE '%s%%' OR patronymic LIKE '%s%%' OR mobile_number LIKE '%s%%' OR " +
+                "home_phone LIKE '%s%%' OR address LIKE '%s%%' OR email LIKE '%s%%')",
+                userId, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery);
         return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
     }
 

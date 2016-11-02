@@ -23,4 +23,6 @@ public interface ContactDao extends InitializingBean {
     void updateContact(Contact contact);
 
     void deleteContact(Contact contact);
+
+    List searchContactByAnyField(String searchQuery, Integer userId);
 }
