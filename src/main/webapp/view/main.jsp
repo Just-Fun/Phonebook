@@ -62,7 +62,8 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" name="subscriberName" placeholder="Name">
+                    <%--<input type="text" name="subscriberName" placeholder="Name">--%>
+                    <input type="text" name="searchQuery" placeholder="Name">
                 </td>
                 <td>
                     <input type="submit" name="searchButton" value="Search">

@@ -1,7 +1,10 @@
 <table>
     <tr>
         <td>
-            <input type="text" name="subscriberName" placeholder="Name">
+            <%--<input type="text" name="subscriberName" placeholder="Name">--%>
+            <input type="text" name="searchQuery" placeholder="Name">
+            <%--<input type="text" name="searchQuery" placeholder="search on name, surname, patronymic or phone">--%>
+            <%-- TODO check if empty or may not?--%>
         </td>
         <td>
             <input type="submit" name="searchButton" value="Search">
