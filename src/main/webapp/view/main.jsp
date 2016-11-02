@@ -63,7 +63,7 @@
             <tr>
                 <td>
                     <%--<input type="text" name="subscriberName" placeholder="Name">--%>
-                    <input type="text" name="searchQuery" placeholder="Name">
+                    <input type="text" name="searchQuery" placeholder="Any content...">
                 </td>
                 <td>
                     <input type="submit" name="searchButton" value="Search">

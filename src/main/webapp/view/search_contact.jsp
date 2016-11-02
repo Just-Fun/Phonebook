@@ -2,6 +2,7 @@
     <tr>
         <td>
             <%--<input type="text" name="subscriberName" placeholder="Name">--%>
+            <%--TODO check if it is used anywhere --%>
             <input type="text" name="searchQuery" placeholder="Name">
             <%--<input type="text" name="searchQuery" placeholder="search on name, surname, patronymic or phone">--%>
             <%-- TODO check if empty or may not?--%>

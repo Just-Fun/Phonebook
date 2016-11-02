@@ -14,7 +14,7 @@
             <c:choose>
                 <c:when test="${requestScope.emptySurname}">
                     <td style="color: red">
-                        Surname can not be empty.
+                        Field can not be empty.
                     </td>
                 </c:when>
                 <c:when test="${!requestScope.validSurname}">
@@ -42,7 +42,7 @@
             <c:choose>
                 <c:when test="${requestScope.emptySubscriberName}">
                     <td style="color: red">
-                        Name can not be empty.
+                        Field can not be empty.
                     </td>
                 </c:when>
                 <c:when test="${!requestScope.validSubscriberName}">
@@ -70,7 +70,7 @@
             <c:choose>
                 <c:when test="${requestScope.patronymicEmpty}">
                     <td style="color: red">
-                        Patronymic can not be empty.
+                        Field can not be empty.
                     </td>
                 </c:when>
                 <c:when test="${!requestScope.validPatronymic}">
@@ -98,7 +98,7 @@
             <c:choose>
                 <c:when test="${requestScope.mobileNumberEmpty}">
                     <td style="color: red">
-                        Mobile Number can not be empty.
+                        Field can not be empty.
                     </td>
                 </c:when>
                 <c:when test="${!requestScope.validMobileNumber}">
