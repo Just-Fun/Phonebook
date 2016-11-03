@@ -17,7 +17,7 @@ public class AddingContacts {
     private boolean validName = false;
     private boolean validPatronymic = false;
     private boolean validMobileNumber = false;
-    private boolean validHomePhone = true; // if empty - don't validate
+    private boolean validHomePhone = true; // if empty - don't validate(field can be NULL)
     private boolean validEmail = true; // the same
 
     private boolean surnameEmpty;
@@ -127,7 +127,7 @@ public class AddingContacts {
         session.setAttribute("listChanged", true);
 
         request.setAttribute("info", true);
-        String textInfo = surname + " " + name + " was added to the list of contacts";
+        String textInfo = String.format("'%s %s' was added to the list of contacts", surname, name);
         request.setAttribute("textInfo", textInfo);
     }
 

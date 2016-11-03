@@ -33,7 +33,8 @@ public class ContactManager {
             }
 
         } else if (session.getAttribute("edit").equals(true)) {
-            editContact(req, contactDao, session, user);
+            //TODO autowired
+            new EditingContact().editContact(req, contactDao, session, user);
         } else if ("Delete".equals(req.getParameter("button"))) {
             deleteContact(req, contactDao, session, user);
         } else {
@@ -41,7 +42,7 @@ public class ContactManager {
         }
     }
 
-    private void showContacts(ContactDao contactDao, User user, HttpSession session) {
+    public void showContacts(ContactDao contactDao, User user, HttpSession session) {
         Boolean listChanged = (Boolean) session.getAttribute("listChanged");
         if (listChanged == null) {
             listChanged = false;
@@ -55,9 +56,7 @@ public class ContactManager {
         session.setAttribute("listChanged", false);
     }
 
-
-
-    private void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
+    /*private void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String subscriberName = req.getParameter("editName");
         String mobileNumber = req.getParameter("mobileNumber");
         String contactId = req.getParameter("select");
@@ -81,7 +80,7 @@ public class ContactManager {
         } else if ("Cancel".equals(req.getParameter("cancel"))) {
             session.setAttribute("edit", false);
         }
-    }
+    }*/
 
     private void deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String contactId = req.getParameter("select");
@@ -91,7 +90,7 @@ public class ContactManager {
             contactDao.deleteContact(contact);
 
             req.setAttribute("info", true);
-            String textInfo = contact.getName() + " was deleted from the list of contacts";
+            String textInfo = String.format("'%s' was deleted from the list of contacts", contact.getName());
             req.setAttribute("textInfo", textInfo);
 
             session.setAttribute("listChanged", true);

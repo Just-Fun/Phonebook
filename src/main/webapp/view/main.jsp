@@ -100,6 +100,7 @@
                 <tr>
                     <c:if test="${!sessionScope.add}">
                         <td>
+                            <%--TODO rename select -> ~selectContactId--%>
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">
                         </td>
                     </c:if>
