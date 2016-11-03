@@ -35,8 +35,8 @@
                 <jsp:include page="edit_contact.jsp"/>
             </c:when>
 
-        <%--    &lt;%&ndash;TODO is it used?&ndash;%&gt;
-            <c:when test="${sessionScope.search}">
+            <%--TODO is it used?--%>
+           <%-- <c:when test="${sessionScope.search}">
                 <jsp:include page="search_contact.jsp"/>
             </c:when>--%>
 

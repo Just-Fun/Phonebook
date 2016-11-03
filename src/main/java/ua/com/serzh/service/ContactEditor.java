@@ -37,11 +37,6 @@ public class ContactEditor {
 
     public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
 
-//        surname = request.getParameter("surname");
-   /*     if (surname == null) {
-            return false;
-        }*/
-
         getFields(request);
         checkFieldsIsEmpty();
         validateFields();
@@ -53,8 +48,6 @@ public class ContactEditor {
 
         String contactId = request.getParameter("select");
 
-//        Contact contact = (Contact) session.getAttribute("contact");
-
         if (contactId != null) {
             contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
@@ -63,10 +56,6 @@ public class ContactEditor {
             contact = (Contact) session.getAttribute("contact");
         }
 
-//        surname = request.getParameter("surname");
-    /*    if (surname == null) {
-            return false;
-        }*/
         getFields(request);
         checkFieldsIsEmpty();
         validateFields();
