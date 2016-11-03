@@ -51,7 +51,7 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
 
     @Override
     public List<Contact> allUserContacts(int userId) {
-        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d", userId);
+        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d ORDER BY surname ASC", userId);
         return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
     }
 
