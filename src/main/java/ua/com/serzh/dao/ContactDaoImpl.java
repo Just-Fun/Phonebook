@@ -60,8 +60,8 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
         String sql = "UPDATE contacts SET surname = ?, name = ?, patronymic = ?, mobile_number = ?, home_phone = ?," +
                 " address = ?, email = ? WHERE contact_id = ?";
         Object[] contactFields = {contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
-                contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId()};
-        getJdbcTemplate().update(sql, contactFields, contact.getContactId());
+                contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getContactId()};
+        getJdbcTemplate().update(sql, contactFields);
     }
 
     @Override

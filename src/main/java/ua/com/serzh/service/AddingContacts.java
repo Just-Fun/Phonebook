@@ -33,11 +33,8 @@ public class AddingContacts {
     private String address;
     private String email;
 
-    public boolean run(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
-        if ("Cancel".equals(request.getParameter("cancel"))) {
-            session.setAttribute("add", false);
-            return false;
-        }
+    public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+//        boolean add = (boolean) session.getAttribute("add");
 
         surname = request.getParameter("surname");
         if (surname == null) {
@@ -45,22 +42,63 @@ public class AddingContacts {
         }
 
         getFields(request);
-
         checkFieldsIsEmpty();
-
         validateFields();
 
-       /* boolean success = false;
-        if ("Ok".equals(request.getParameter("ok"))) {
-            success = addContact(request, contactDao, session, user);
-        }
-        return success;*/
+        return insertContact(request, contactDao, session, user);
+    }
 
-        return addContact(request, contactDao, session, user);
+    public boolean editContact(HttpServletRequest request, HttpSession session, ContactDao contactDao, User user) {
+
+//        boolean edit = (boolean) session.getAttribute("edit");
+//        to show values of contact fields
+        String contactId = request.getParameter("select");
+
+        Contact contact = (Contact) session.getAttribute("contact"); // TODO is this need?
+        if (contactId != null) {// TODO is this need? may be if contact == null...
+            contact = contactDao.searchContactById(Integer.parseInt(contactId));
+            session.setAttribute("contact", contact);
+        }
+
+        surname = request.getParameter("surname");
+        if (surname == null) {
+            return false;
+        }
+        getFields(request);
+        checkFieldsIsEmpty();
+        validateFields();
+
+        return updateContact(request, session, contactDao, contact);
+    }
+
+    private boolean updateContact(HttpServletRequest request, HttpSession session, ContactDao contactDao, Contact contact) {
+        if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
+            contact.setSurname(surname);
+            contact.setName(name);
+            contact.setPatronymic(patronymic);
+            contact.setMobileNumber(mobileNumber);
+            contact.setHomePhone(homePhone);
+            contact.setAddress(address);
+            contact.setEmail(email);
+
+            contactDao.updateContact(contact);
+
+
+            String textInfo = "Contact was updated";
+            setAttributesTrue(request, session, textInfo);
+
+            session.setAttribute("edit", false);
+            session.setAttribute("listChanged", true);
+            return true;
+        } else {
+            setAttributesFalse(request, session);
+            session.setAttribute("edit", true);
+            return false;
+        }
     }
 
     private void getFields(HttpServletRequest request) {
-        name = request.getParameter("newSubscriberName");
+        name = request.getParameter("name");
         mobileNumber = request.getParameter("mobileNumber");
         patronymic = request.getParameter("patronymic");
         homePhone = request.getParameter("homePhone");
@@ -101,16 +139,19 @@ public class AddingContacts {
         }
     }
 
-    private boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+    private boolean insertContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
         if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
 
             insertNewContact(contactDao, user);
 
-            setAttributesTrue(request, session);
+            session.setAttribute("add", false);
+            String textInfo = String.format("'%s %s' was added to the list of contacts", surname, name);
+            setAttributesTrue(request, session, textInfo);
 
             return true;
         } else {
             setAttributesFalse(request, session);
+            session.setAttribute("add", true);
             return false;
         }
     }
@@ -122,13 +163,11 @@ public class AddingContacts {
         contactDao.insertContact(contact);
     }
 
-    private void setAttributesTrue(HttpServletRequest request, HttpSession session) {
-        session.setAttribute("add", false);
+    private void setAttributesTrue(HttpServletRequest request, HttpSession session, String message) {
         session.setAttribute("listChanged", true);
 
         request.setAttribute("info", true);
-        String textInfo = String.format("'%s %s' was added to the list of contacts", surname, name);
-        request.setAttribute("textInfo", textInfo);
+        request.setAttribute("textInfo", message);
     }
 
     private void setAttributesFalse(HttpServletRequest request, HttpSession session) {
@@ -139,7 +178,7 @@ public class AddingContacts {
         setHomePhoneAttribute(request);
         setEmailAttribute(request);
 
-        session.setAttribute("add", true);
+//        session.setAttribute("add", true);
     }
 
     // TODO removed duplication
@@ -152,7 +191,7 @@ public class AddingContacts {
     private void setNameAttribute(HttpServletRequest request) {
         request.setAttribute("emptySubscriberName", nameEmpty);
         request.setAttribute("validSubscriberName", validName);
-        request.setAttribute("newSubscriberName", name);
+        request.setAttribute("name", name);
     }
 
     private void setPatronymicAttribute(HttpServletRequest request) {

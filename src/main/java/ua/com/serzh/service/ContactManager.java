@@ -26,15 +26,30 @@ public class ContactManager {
         }
 
         if (session.getAttribute("add").equals(true)) {
-            //TODO autowired
-            boolean add = new AddingContacts().run(req, contactDao, session, user);
-            if (add) {
-                showContacts(contactDao, user, session);
+            if ("Cancel".equals(req.getParameter("cancel"))) {
+                session.setAttribute("add", false);
+            } else {
+                //TODO autowired
+                boolean add = new AddingContacts().addContact(req, contactDao, session, user);
+                if (add) {
+                    session.setAttribute("listChanged", true);
+                    showContacts(contactDao, user, session);
+                }
             }
 
         } else if (session.getAttribute("edit").equals(true)) {
-            //TODO autowired
-            new EditingContact().editContact(req, contactDao, session, user);
+            if ("Cancel".equals(req.getParameter("cancel"))) {
+                session.setAttribute("edit", false);
+            } else {
+                //TODO autowired
+
+                boolean edit = new AddingContacts().editContact(req, session, contactDao, user);
+                if (edit) {
+                    session.setAttribute("listChanged", true);
+                    showContacts(contactDao, user, session);
+                }
+            }
+
         } else if ("Delete".equals(req.getParameter("button"))) {
             deleteContact(req, contactDao, session, user);
         } else {
@@ -56,32 +71,6 @@ public class ContactManager {
         session.setAttribute("listChanged", false);
     }
 
-    /*private void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
-        String subscriberName = req.getParameter("editName");
-        String mobileNumber = req.getParameter("mobileNumber");
-        String contactId = req.getParameter("select");
-        Contact contact = (Contact) session.getAttribute("contact");
-        if (contactId != null) {
-            contact = contactDao.searchContactById(Integer.parseInt(contactId));
-            session.setAttribute("contact", contact);
-        }
-
-        if ("Ok".equals(req.getParameter("ok"))) {
-            if (contact != null) {
-                contact.setName(subscriberName);
-                contact.setMobileNumber(mobileNumber);
-                contactDao.updateContact(contact);
-
-                session.setAttribute("edit", false);
-                session.setAttribute("listChanged", true);
-                showContacts(contactDao, user, session);
-            }
-            // TODO moved to begin
-        } else if ("Cancel".equals(req.getParameter("cancel"))) {
-            session.setAttribute("edit", false);
-        }
-    }*/
-
     private void deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String contactId = req.getParameter("select");
         if (contactId != null) {
@@ -90,7 +79,8 @@ public class ContactManager {
             contactDao.deleteContact(contact);
 
             req.setAttribute("info", true);
-            String textInfo = String.format("'%s' was deleted from the list of contacts", contact.getName());
+            String textInfo = String.format("'%s %s' was removed from the list of contacts",
+                    contact.getSurname(), contact.getName());
             req.setAttribute("textInfo", textInfo);
 
             session.setAttribute("listChanged", true);

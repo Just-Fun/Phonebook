@@ -78,6 +78,7 @@
 
         <table class="contact_table">
             <tr>
+                <%--TODO whats this?--%>
                 <c:if test="${!sessionScope.add}">
                     <th></th>
                 </c:if>
@@ -98,7 +99,9 @@
             <%--TODO make scrolling--%>
             <c:forEach var="contact" items="${sessionScope.contacts}">
                 <tr>
-                    <c:if test="${!sessionScope.add}">
+
+                    <%--<c:if test="${!sessionScope.add}">--%>
+                        <c:if test="${!sessionScope.add && !sessionScope.edit}">
                         <td>
                             <%--TODO rename select -> ~selectContactId--%>
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">

@@ -34,8 +34,8 @@
         </tr>
 
         <tr>
-            <td><input type="text" name="newSubscriberName" size="20"
-                       placeholder="Name" value="${requestScope.newSubscriberName}"></td>
+            <td><input type="text" name="name" size="20"
+                       placeholder="Name" value="${requestScope.name}"></td>
             <c:if test="${empty requestScope.validSubscriberName}">
                 <c:set var="validSubscriberName" value="true" scope="request"/>
             </c:if>
@@ -55,7 +55,7 @@
                         Name
                     </td>
                     <td style="color: blue">
-                            <%--${requestScope.newSubscriberName}--%>
+                            <%--${requestScope.name}--%>
                     </td>
                 </c:otherwise>
             </c:choose>

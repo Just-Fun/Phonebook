@@ -3,6 +3,7 @@ package ua.com.serzh.service;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.entities.User;
+import ua.com.serzh.validation.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,17 +13,41 @@ import javax.servlet.http.HttpSession;
  */
 public class EditingContact {
 
-    public void editContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
-        String subscriberName = req.getParameter("editName");
-        String mobileNumber = req.getParameter("mobileNumber");
-        String contactId = req.getParameter("select");
+    private boolean validName;
+/*
+    public void editContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+
+        String contactId = request.getParameter("select");
+
         Contact contact = (Contact) session.getAttribute("contact");
         if (contactId != null) {
             contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
         }
 
-        if ("Ok".equals(req.getParameter("ok"))) {
+
+
+        String subscriberName = request.getParameter("editName");
+
+          if (subscriberName == null) {
+            return;
+        }
+
+
+        String mobileNumber = request.getParameter("mobileNumber");
+
+        if (!subscriberName.isEmpty()) {
+            validName = Validation.validate(subscriberName, Validation.getFourLettersPattern());
+        }
+        if (!validName) {
+            request.setAttribute("emptySubscriberName", subscriberName.isEmpty());
+            request.setAttribute("validSubscriberName", validName);
+            request.setAttribute("name", subscriberName);
+            return;
+        }
+
+
+        if ("Ok".equals(request.getParameter("ok"))) {
             if (contact != null) {
                 contact.setName(subscriberName);
                 contact.setMobileNumber(mobileNumber);
@@ -34,8 +59,8 @@ public class EditingContact {
                 new ContactManager().showContacts(contactDao, user, session);
             }
             // TODO moved to begin
-        } else if ("Cancel".equals(req.getParameter("cancel"))) {
+        } else if ("Cancel".equals(request.getParameter("cancel"))) {
             session.setAttribute("edit", false);
         }
-    }
+    }*/
 }
