@@ -34,10 +34,11 @@
             <c:when test="${sessionScope.edit}">
                 <jsp:include page="edit_contact.jsp"/>
             </c:when>
-            <%--TODO is it used?--%>
+
+        <%--    &lt;%&ndash;TODO is it used?&ndash;%&gt;
             <c:when test="${sessionScope.search}">
                 <jsp:include page="search_contact.jsp"/>
-            </c:when>
+            </c:when>--%>
 
 
             <c:when test="${sessionScope.delete}">
@@ -70,7 +71,6 @@
         <table>
             <tr>
                 <td>
-                    <%--<input type="text" name="subscriberName" placeholder="Name">--%>
                     <input type="text" name="searchQuery" placeholder="Any content...">
                 </td>
                 <td>
@@ -99,17 +99,10 @@
                 <th>e-mail</th>
             </tr>
 
-           <%-- <c:set var="start" value="${pageNumber * 5 - 5}"/>
-            <c:set var="stop" value="${pageNumber * 5 - 1}"/>
-
-            <c:forEach var="contact" items="${sessionScope.contacts}" begin="${start}" end="${stop}">--%>
-
             <%--TODO make scrolling--%>
             <c:forEach var="contact" items="${sessionScope.contacts}">
                 <tr>
-
-                    <%--<c:if test="${!sessionScope.add}">--%>
-                        <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.remove}">
+                        <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.delete}">
                         <td>
                             <%--TODO rename select -> ~selectContactId--%>
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">
@@ -125,24 +118,6 @@
                 </tr>
             </c:forEach>
 
-            <%--<table>
-                <tr>
-                    <td>
-                        <c:if test="${pageNumber gt 1}">
-                            <input type="submit" name="pageButton" value="Prev">
-                        </c:if>
-                    </td>
-                    <td></td>
-                    <td>
-                        <c:set var="amountOfPages" value="${sessionScope.amountOfContacts / 5 + sessionScope.delta}"
-                               scope="session"/>
-
-                        <c:if test="${pageNumber lt (sessionScope.amountOfPages)}">
-                            <input type="submit" name="pageButton" value="Next">
-                        </c:if>
-                    </td>
-                </tr>
-            </table>--%>
         </table>
     </form>
 </div>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
  */
 public class ContactEditor {
 
+    Contact contact;
+
     private boolean validSurname = false;
     private boolean validName = false;
     private boolean validPatronymic = false;
@@ -35,10 +37,10 @@ public class ContactEditor {
 
     public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
 
-        surname = request.getParameter("surname");
-        if (surname == null) {
+//        surname = request.getParameter("surname");
+   /*     if (surname == null) {
             return false;
-        }
+        }*/
 
         getFields(request);
         checkFieldsIsEmpty();
@@ -51,18 +53,20 @@ public class ContactEditor {
 
         String contactId = request.getParameter("select");
 
-        Contact contact;
+//        Contact contact = (Contact) session.getAttribute("contact");
+
         if (contactId != null) {
             contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
+            return false;
         } else {
             contact = (Contact) session.getAttribute("contact");
         }
 
-        surname = request.getParameter("surname");
-        if (surname == null) {
+//        surname = request.getParameter("surname");
+    /*    if (surname == null) {
             return false;
-        }
+        }*/
         getFields(request);
         checkFieldsIsEmpty();
         validateFields();
@@ -99,6 +103,7 @@ public class ContactEditor {
     }
 
     private void getFields(HttpServletRequest request) {
+        surname = request.getParameter("surname");
         name = request.getParameter("name");
         mobileNumber = request.getParameter("mobileNumber");
         patronymic = request.getParameter("patronymic");

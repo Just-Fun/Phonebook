@@ -13,6 +13,8 @@ import java.util.List;
  * Created by Serzh on 10/25/16.
  */
 public class ContactManager {
+    Contact contact;
+
     public ContactManager() {
     }
 
@@ -34,12 +36,13 @@ public class ContactManager {
             if ("Cancel".equals(req.getParameter("cancel"))) {
                 session.setAttribute("add", false);
             } else {
-
-                //TODO autowired
-                boolean add = new ContactEditor().addContact(req, contactDao, session, user);
-                if (add) {
-                    session.setAttribute("listChanged", true);
-                    showContacts(contactDao, user, session);
+                if ("Ok".equals(req.getParameter("ok"))) {
+                    //TODO autowired
+                    boolean add = new ContactEditor().addContact(req, contactDao, session, user);
+                    if (add) {
+                        session.setAttribute("listChanged", true);
+                        showContacts(contactDao, user, session);
+                    }
                 }
             }
 
@@ -56,7 +59,6 @@ public class ContactManager {
                 }
             }
 
-//        } else if ("Delete".equals(req.getParameter("button"))) {
         } else if (session.getAttribute("delete").equals(true)) {
             if ("Cancel".equals(req.getParameter("cancel"))) {
                 session.setAttribute("delete", false);
@@ -91,11 +93,10 @@ public class ContactManager {
     private boolean deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String contactId = req.getParameter("select");
 
-        Contact contact; // or = session.get... check
         if (contactId != null) {
-             contact = contactDao.searchContactById(Integer.parseInt(contactId));
+            contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
-        } else { // TODO is it need?
+        } else {
             contact = (Contact) session.getAttribute("contact");
         }
 
@@ -128,21 +129,5 @@ public class ContactManager {
             session.setAttribute("contacts", null);
             showContacts(contactDao, user, session);
         }
-    }
-
-    // TODO remove pages? show all contacts
-   /* public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
-        if ("Next".equals(req.getParameter("pageButton"))) {
-            ++pageNumber;
-        } else if ("Prev".equals(req.getParameter("pageButton"))) {
-            --pageNumber;
-        }
-
-        session.setAttribute("pageNumber", pageNumber);
-        showContacts(contactDao, user, session);
-    }*/
-
-    public int getAmountOfContacts(ContactDao contactDao, User user) {
-        return contactDao.allUserContacts(user.getUserId()).size();
     }
 }

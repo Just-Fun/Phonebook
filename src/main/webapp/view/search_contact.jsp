@@ -1,11 +1,12 @@
+<%--
 <table>
     <tr>
         <td>
-            <%--<input type="text" name="subscriberName" placeholder="Name">--%>
-            <%--TODO check if it is used anywhere --%>
+            &lt;%&ndash;<input type="text" name="subscriberName" placeholder="Name">&ndash;%&gt;
+            &lt;%&ndash;TODO check if it is used anywhere &ndash;%&gt;
             <input type="text" name="searchQuery" placeholder="Name">
-            <%--<input type="text" name="searchQuery" placeholder="search on name, surname, patronymic or phone">--%>
-            <%-- TODO check if empty or may not?--%>
+            &lt;%&ndash;<input type="text" name="searchQuery" placeholder="search on name, surname, patronymic or phone">&ndash;%&gt;
+            &lt;%&ndash; TODO check if empty or may not?&ndash;%&gt;
         </td>
         <td>
             <input type="submit" name="searchButton" value="Search">
@@ -20,4 +21,4 @@
             <input type="submit" name="button" value="Delete">
         </td>
     </tr>
-</table>
+</table>--%>
