@@ -4,9 +4,9 @@
 <html>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
- <%--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+    <%--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
 
     <link type="text/css" rel="stylesheet" href="${ctx}/resources/css/main.css"/>
 
@@ -34,12 +34,6 @@
             <c:when test="${sessionScope.edit}">
                 <jsp:include page="edit_contact.jsp"/>
             </c:when>
-
-            <%--TODO is it used?--%>
-           <%-- <c:when test="${sessionScope.search}">
-                <jsp:include page="search_contact.jsp"/>
-            </c:when>--%>
-
 
             <c:when test="${sessionScope.delete}">
                 <jsp:include page="remove.jsp"/>
@@ -86,10 +80,6 @@
 
         <table class="contact_table">
             <tr>
-                <%--TODO whats this?--%>
-                <c:if test="${!sessionScope.add}">
-                    <th></th>
-                </c:if>
                 <th>Surname</th>
                 <th>Name</th>
                 <th>Patronymic</th>
@@ -102,9 +92,9 @@
             <%--TODO make scrolling--%>
             <c:forEach var="contact" items="${sessionScope.contacts}">
                 <tr>
-                        <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.delete}">
+                    <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.delete}">
                         <td>
-                            <%--TODO rename select -> ~selectContactId--%>
+                                <%--TODO rename select -> ~selectContactId--%>
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">
                         </td>
                     </c:if>
