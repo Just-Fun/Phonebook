@@ -34,9 +34,17 @@
             <c:when test="${sessionScope.edit}">
                 <jsp:include page="edit_contact.jsp"/>
             </c:when>
+            <%--TODO is it used?--%>
             <c:when test="${sessionScope.search}">
                 <jsp:include page="search_contact.jsp"/>
             </c:when>
+
+
+            <c:when test="${sessionScope.delete}">
+                <jsp:include page="remove.jsp"/>
+            </c:when>
+
+
             <c:otherwise>
                 <jsp:include page="actions.jsp"/>
             </c:otherwise>
@@ -101,7 +109,7 @@
                 <tr>
 
                     <%--<c:if test="${!sessionScope.add}">--%>
-                        <c:if test="${!sessionScope.add && !sessionScope.edit}">
+                        <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.remove}">
                         <td>
                             <%--TODO rename select -> ~selectContactId--%>
                             <input type="radio" name="select" value="${contact.contactId}" checked="checked">

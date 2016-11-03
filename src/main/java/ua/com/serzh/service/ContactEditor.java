@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by Serzh on 11/2/16.
  */
-public class AddingContacts {
+public class ContactEditor {
 
     private boolean validSurname = false;
     private boolean validName = false;
@@ -34,7 +34,6 @@ public class AddingContacts {
     private String email;
 
     public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
-//        boolean add = (boolean) session.getAttribute("add");
 
         surname = request.getParameter("surname");
         if (surname == null) {
@@ -48,16 +47,16 @@ public class AddingContacts {
         return insertContact(request, contactDao, session, user);
     }
 
-    public boolean editContact(HttpServletRequest request, HttpSession session, ContactDao contactDao, User user) {
+    public boolean editContact(HttpServletRequest request, HttpSession session, ContactDao contactDao) {
 
-//        boolean edit = (boolean) session.getAttribute("edit");
-//        to show values of contact fields
         String contactId = request.getParameter("select");
 
-        Contact contact = (Contact) session.getAttribute("contact"); // TODO is this need?
-        if (contactId != null) {// TODO is this need? may be if contact == null...
+        Contact contact;
+        if (contactId != null) {
             contact = contactDao.searchContactById(Integer.parseInt(contactId));
             session.setAttribute("contact", contact);
+        } else {
+            contact = (Contact) session.getAttribute("contact");
         }
 
         surname = request.getParameter("surname");
@@ -73,28 +72,30 @@ public class AddingContacts {
 
     private boolean updateContact(HttpServletRequest request, HttpSession session, ContactDao contactDao, Contact contact) {
         if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
-            contact.setSurname(surname);
-            contact.setName(name);
-            contact.setPatronymic(patronymic);
-            contact.setMobileNumber(mobileNumber);
-            contact.setHomePhone(homePhone);
-            contact.setAddress(address);
-            contact.setEmail(email);
+            setContactFields(contact);
 
             contactDao.updateContact(contact);
 
-
             String textInfo = "Contact was updated";
-            setAttributesTrue(request, session, textInfo);
+            setAttributesTrue(request, textInfo);
 
             session.setAttribute("edit", false);
-            session.setAttribute("listChanged", true);
             return true;
         } else {
-            setAttributesFalse(request, session);
+            setAttributesFalse(request);
             session.setAttribute("edit", true);
             return false;
         }
+    }
+
+    private void setContactFields(Contact contact) {
+        contact.setSurname(surname);
+        contact.setName(name);
+        contact.setPatronymic(patronymic);
+        contact.setMobileNumber(mobileNumber);
+        contact.setHomePhone(homePhone);
+        contact.setAddress(address);
+        contact.setEmail(email);
     }
 
     private void getFields(HttpServletRequest request) {
@@ -145,12 +146,13 @@ public class AddingContacts {
             insertNewContact(contactDao, user);
 
             session.setAttribute("add", false);
+
             String textInfo = String.format("'%s %s' was added to the list of contacts", surname, name);
-            setAttributesTrue(request, session, textInfo);
+            setAttributesTrue(request, textInfo);
 
             return true;
         } else {
-            setAttributesFalse(request, session);
+            setAttributesFalse(request);
             session.setAttribute("add", true);
             return false;
         }
@@ -163,22 +165,18 @@ public class AddingContacts {
         contactDao.insertContact(contact);
     }
 
-    private void setAttributesTrue(HttpServletRequest request, HttpSession session, String message) {
-        session.setAttribute("listChanged", true);
-
+    private void setAttributesTrue(HttpServletRequest request, String message) {
         request.setAttribute("info", true);
         request.setAttribute("textInfo", message);
     }
 
-    private void setAttributesFalse(HttpServletRequest request, HttpSession session) {
+    private void setAttributesFalse(HttpServletRequest request) {
         setSurnameAttribute(request);
         setNameAttribute(request);
         setPatronymicAttribute(request);
         setMobilPhoneAttribute(request);
         setHomePhoneAttribute(request);
         setEmailAttribute(request);
-
-//        session.setAttribute("add", true);
     }
 
     // TODO removed duplication

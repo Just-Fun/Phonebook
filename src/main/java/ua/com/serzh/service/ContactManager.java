@@ -25,12 +25,18 @@ public class ContactManager {
             session.setAttribute("edit", false);
         }
 
+        if (session.getAttribute("delete") == null) {
+            session.setAttribute("delete", false);
+        }
+
+
         if (session.getAttribute("add").equals(true)) {
             if ("Cancel".equals(req.getParameter("cancel"))) {
                 session.setAttribute("add", false);
             } else {
+
                 //TODO autowired
-                boolean add = new AddingContacts().addContact(req, contactDao, session, user);
+                boolean add = new ContactEditor().addContact(req, contactDao, session, user);
                 if (add) {
                     session.setAttribute("listChanged", true);
                     showContacts(contactDao, user, session);
@@ -41,17 +47,28 @@ public class ContactManager {
             if ("Cancel".equals(req.getParameter("cancel"))) {
                 session.setAttribute("edit", false);
             } else {
-                //TODO autowired
 
-                boolean edit = new AddingContacts().editContact(req, session, contactDao, user);
+                //TODO autowired
+                boolean edit = new ContactEditor().editContact(req, session, contactDao);
                 if (edit) {
                     session.setAttribute("listChanged", true);
                     showContacts(contactDao, user, session);
                 }
             }
 
-        } else if ("Delete".equals(req.getParameter("button"))) {
-            deleteContact(req, contactDao, session, user);
+//        } else if ("Delete".equals(req.getParameter("button"))) {
+        } else if (session.getAttribute("delete").equals(true)) {
+            if ("Cancel".equals(req.getParameter("cancel"))) {
+                session.setAttribute("delete", false);
+            } else {
+                boolean delete = deleteContact(req, contactDao, session, user);
+                if (delete) {
+                    session.setAttribute("listChanged", true);
+                    showContacts(contactDao, user, session);
+                    session.setAttribute("delete", false);
+                }
+            }
+
         } else {
             searchContact(req, contactDao, session, user);
         }
@@ -71,11 +88,18 @@ public class ContactManager {
         session.setAttribute("listChanged", false);
     }
 
-    private void deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
+    private boolean deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
         String contactId = req.getParameter("select");
-        if (contactId != null) {
-            Contact contact = contactDao.searchContactById(Integer.parseInt(contactId));
 
+        Contact contact; // or = session.get... check
+        if (contactId != null) {
+             contact = contactDao.searchContactById(Integer.parseInt(contactId));
+            session.setAttribute("contact", contact);
+        } else { // TODO is it need?
+            contact = (Contact) session.getAttribute("contact");
+        }
+
+        if ("Ok".equals(req.getParameter("ok"))) {
             contactDao.deleteContact(contact);
 
             req.setAttribute("info", true);
@@ -83,9 +107,9 @@ public class ContactManager {
                     contact.getSurname(), contact.getName());
             req.setAttribute("textInfo", textInfo);
 
-            session.setAttribute("listChanged", true);
-            showContacts(contactDao, user, session);
+            return true;
         }
+        return false;
     }
 
     private void searchContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
@@ -107,7 +131,7 @@ public class ContactManager {
     }
 
     // TODO remove pages? show all contacts
-    public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
+   /* public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
         if ("Next".equals(req.getParameter("pageButton"))) {
             ++pageNumber;
         } else if ("Prev".equals(req.getParameter("pageButton"))) {
@@ -116,7 +140,7 @@ public class ContactManager {
 
         session.setAttribute("pageNumber", pageNumber);
         showContacts(contactDao, user, session);
-    }
+    }*/
 
     public int getAmountOfContacts(ContactDao contactDao, User user) {
         return contactDao.allUserContacts(user.getUserId()).size();

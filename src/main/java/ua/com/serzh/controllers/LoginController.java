@@ -58,9 +58,11 @@ public class LoginController extends HttpServlet {
             List contacts = contactDao.allUserContacts(user.getUserId());
             session.setMaxInactiveInterval(300);
             session.setAttribute("contacts", contacts);
+
+             /* // Autowired?
             int amountOfContacts = (new ContactManager()).getAmountOfContacts(contactDao, user);
             session.setAttribute("amountOfContacts", amountOfContacts);
-            session.setAttribute("pageNumber", 1);
+            session.setAttribute("pageNumber", 1);*/
 //            return "main";
             return "redirect:/main";
         } else {

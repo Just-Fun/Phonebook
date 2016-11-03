@@ -13,6 +13,7 @@
                 </td>
             </c:when>
         </c:choose>
+         <%--TODO whats this? --%>
         <td>${contact.name}</td>
         <td>${contact.mobileNumber}</td>
     </tr>

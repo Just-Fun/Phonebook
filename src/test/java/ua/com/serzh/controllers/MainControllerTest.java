@@ -74,7 +74,7 @@ public class MainControllerTest {
 
         verify(session, atLeastOnce()).getAttribute("user");
         verify(contactManager).action(request, contactDao, session, user);
-        verify(contactManager).pagination(request, contactDao, session, user, pageNumber);
+//        verify(contactManager).pagination(request, contactDao, session, user, pageNumber);
 
         assertEquals(result, "main");
     }

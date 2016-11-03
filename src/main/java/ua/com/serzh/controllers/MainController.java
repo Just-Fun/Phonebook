@@ -52,6 +52,8 @@ public class MainController extends HttpServlet {
             session.setAttribute("add", true);
         } else if ("Edit".equals(req.getParameter("button"))) {
             session.setAttribute("edit", true);
+        } else if ("Delete".equals(req.getParameter("button"))) {
+            session.setAttribute("delete", true);
         }
 
         Integer pageNumber = (Integer) session.getAttribute("pageNumber");
