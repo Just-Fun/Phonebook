@@ -90,10 +90,13 @@
                 <th>e-mail</th>
             </tr>
 
-            <c:set var="start" value="${pageNumber * 5 - 5}"/>
+           <%-- <c:set var="start" value="${pageNumber * 5 - 5}"/>
             <c:set var="stop" value="${pageNumber * 5 - 1}"/>
 
-            <c:forEach var="contact" items="${sessionScope.contacts}" begin="${start}" end="${stop}">
+            <c:forEach var="contact" items="${sessionScope.contacts}" begin="${start}" end="${stop}">--%>
+
+            <%--TODO make scrolling--%>
+            <c:forEach var="contact" items="${sessionScope.contacts}">
                 <tr>
                     <c:if test="${!sessionScope.add}">
                         <td>
@@ -110,7 +113,7 @@
                 </tr>
             </c:forEach>
 
-            <table>
+            <%--<table>
                 <tr>
                     <td>
                         <c:if test="${pageNumber gt 1}">
@@ -127,7 +130,7 @@
                         </c:if>
                     </td>
                 </tr>
-            </table>
+            </table>--%>
         </table>
     </form>
 </div>

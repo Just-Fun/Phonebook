@@ -56,7 +56,7 @@ public class MainController extends HttpServlet {
 
         Integer pageNumber = (Integer) session.getAttribute("pageNumber");
         contactManager.action(req, contactDao, session, user);
-        contactManager.pagination(req, contactDao, session, user, pageNumber);
+//        contactManager.pagination(req, contactDao, session, user, pageNumber);
 
         return "main";
     }
