@@ -33,7 +33,7 @@ public class AddingContacts {
     private String address;
     private String email;
 
-    public boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+    public boolean run(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
         if ("Cancel".equals(request.getParameter("cancel"))) {
             session.setAttribute("add", false);
             return false;
@@ -46,17 +46,17 @@ public class AddingContacts {
 
         getFields(request);
 
-        checkFildsIsEmpty();
+        checkFieldsIsEmpty();
 
         validateFields();
 
        /* boolean success = false;
         if ("Ok".equals(request.getParameter("ok"))) {
-            success = insertContact(request, contactDao, session, user);
+            success = addContact(request, contactDao, session, user);
         }
         return success;*/
 
-        return insertContact(request, contactDao, session, user);
+        return addContact(request, contactDao, session, user);
     }
 
     private void getFields(HttpServletRequest request) {
@@ -68,7 +68,7 @@ public class AddingContacts {
         email = request.getParameter("email");
     }
 
-    private void checkFildsIsEmpty() {
+    private void checkFieldsIsEmpty() {
         surnameEmpty = surname.isEmpty();
         nameEmpty = name.isEmpty();
         patronymicEmpty = name.isEmpty();
@@ -101,7 +101,7 @@ public class AddingContacts {
         }
     }
 
-    private boolean insertContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
+    private boolean addContact(HttpServletRequest request, ContactDao contactDao, HttpSession session, User user) {
         if (validSurname && validName && validPatronymic && validMobileNumber & validHomePhone & validEmail) {
 
             insertNewContact(contactDao, user);

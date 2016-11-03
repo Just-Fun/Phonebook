@@ -27,7 +27,7 @@ public class ContactManager {
 
         if (session.getAttribute("add").equals(true)) {
             //TODO autowired
-            boolean add = new AddingContacts().addContact(req, contactDao, session, user);
+            boolean add = new AddingContacts().run(req, contactDao, session, user);
             if (add) {
                 showContacts(contactDao, user, session);
             }
@@ -117,6 +117,7 @@ public class ContactManager {
         }
     }
 
+    // TODO remove pages? show all contacts
     public void pagination(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user, int pageNumber) {
         if ("Next".equals(req.getParameter("pageButton"))) {
             ++pageNumber;
