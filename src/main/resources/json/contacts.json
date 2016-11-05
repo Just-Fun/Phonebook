@@ -1,6 +1,5 @@
 {
   "name" : "contacts",
-  "countContacts" : 5,
   "contacts" : [ {
     "contactId" : 1,
     "surname" : "ASurname",
@@ -12,7 +11,7 @@
     "email" : "name@gmail.com",
     "userId" : 1
   }, {
-    "contactId" : 1,
+    "contactId" : 2,
     "surname" : "PavarottiTwo",
     "name" : "LuchanoTwo",
     "patronymic" : "Petrovna",
@@ -37,6 +36,16 @@
     "name" : "ZName",
     "patronymic" : "ZPatronymic",
     "mobileNumber" : "+380665794433",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
+    "userId" : 1
+  }, {
+    "contactId" : 6,
+    "surname" : "BSurnameBee",
+    "name" : "Bname",
+    "patronymic" : "BPatronymic",
+    "mobileNumber" : "+380665794450",
     "homePhone" : "",
     "address" : "",
     "email" : "",

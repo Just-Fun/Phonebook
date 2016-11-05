@@ -11,79 +11,13 @@ import java.util.List;
 public class UserStore {
 
     private String name = "users";
-    int countUsers;
+    private int countUsers;
     private  List<User> users;
 
     public UserStore() {
         if (users == null) {
             users = new ArrayList<>();
         }
-    }
-
-    public int getCountUsers() {
-        return countUsers;
-    }
-
-    public void setCountUsers(int countUsers) {
-        this.countUsers = countUsers;
-    }
-
-    public UserStore(List<User> users) {
-        this.users = users;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public  List<User> getUsers() {
-        return users;
-    }
-
-    public  void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List list() {
-        return users;
-    }
-
-    public User get(Integer id) {
-
-        for (User c : users) {
-            if (c.getUserId().equals(id)) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-    public Integer delete(Integer id) {
-
-        for (User user : users) {
-            if (user.getUserId().equals(id)) {
-                users.remove(user);
-                return id;
-            }
-        }
-        return null;
-    }
-
-    public User update(Integer id, User userNew) {
-
-        for (User userOld : users) {
-            if (userOld.getUserId().equals(id)) {
-                userNew.setUserId(userOld.getUserId());
-                users.remove(userOld);
-                users.add(userNew);
-                return userNew;
-            }
-        }
-        return null;
     }
 
     public void addUser(User user) {
@@ -109,5 +43,63 @@ public class UserStore {
             }
         }
         return null;
+    }
+
+    // For future if would like to edit users
+    public User get(int id) {
+
+        for (User c : users) {
+            if (c.getUserId().equals(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public void delete(int id) {
+
+        for (User user : users) {
+            if (user.getUserId().equals(id)) {
+                users.remove(user);
+                return;
+            }
+        }
+    }
+
+    public User update(Integer id, User userNew) {
+
+        for (User userOld : users) {
+            if (userOld.getUserId().equals(id)) {
+                userNew.setUserId(userOld.getUserId());
+                users.remove(userOld);
+                users.add(userNew);
+                return userNew;
+            }
+        }
+        return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private int getCountUsers() {
+        return countUsers;
+    }
+
+    private void setCountUsers(int countUsers) {
+        this.countUsers = countUsers;
+    }
+
+    public  List<User> getUsers() {
+        return users;
+    }
+
+    public  void setUsers(List<User> users) {
+        this.users = users;
     }
 }

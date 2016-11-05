@@ -12,7 +12,7 @@ import java.util.List;
 public class ContactStore {
     private String name = "contacts";
     // TODO synch?
-    int countContacts;
+    private int countContacts;
     private List<Contact> contacts;
 
     public ContactStore() {
@@ -20,36 +20,6 @@ public class ContactStore {
             contacts = new ArrayList<>();
         }
     }
-
-    public ContactStore(String name, List<Contact> contacts) {
-        this.name = name;
-        this.contacts = contacts;
-    }
-
-    public int getCountContacts() {
-        return countContacts;
-    }
-
-    public void setCountContacts(int countContacts) {
-        this.countContacts = countContacts;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
-
 
     void insertContact(Contact contact) {
         int id = getCountContacts();
@@ -127,5 +97,29 @@ public class ContactStore {
         fields.add(contact.getHomePhone());
         fields.add(contact.getEmail());
         fields.add(contact.getAddress());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private int getCountContacts() {
+        return countContacts;
+    }
+
+    private void setCountContacts(int countContacts) {
+        this.countContacts = countContacts;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 }

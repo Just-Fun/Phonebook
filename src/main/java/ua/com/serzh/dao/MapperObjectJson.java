@@ -12,13 +12,13 @@ import java.io.IOException;
 public class MapperObjectJson {
 
     // Convert JSON string from file to Object
-    public static Object getObjectFromFile(String pathName, Object object, String className) {
+    public static Object getObjectFromFile(String pathName, String className) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             File file = new File(pathName);
 
-            object = mapper.readValue(file, Class.forName(className));
+            Object object = mapper.readValue(file, Class.forName(className));
 
             return object;
         } catch (EOFException e) {
