@@ -10,29 +10,36 @@
   <!--  <context:annotation-config/>
     <context:component-scan base-package="ua.com.serzh"/>-->
 
-    <bean id="userDao" class="ua.com.serzh.dao.UserDaoJSON">
+    <!--TODO create some switcher between storage -->
+
+    <!--Store in a local file(JSON)-->
+
+    <!--<bean id="userDao" class="ua.com.serzh.dao.UserDaoJSON">
     </bean>
 
     <bean id="contactDao" class="ua.com.serzh.dao.ContactDaoJSON">
-    </bean>
+    </bean>-->
 
-    <!--<bean id="userDao" class="ua.com.serzh.dao.UserDaoImpl">
+    <!--Store in a database-->
+
+    <bean id="userDao" class="ua.com.serzh.dao.UserDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
     <bean id="contactDao" class="ua.com.serzh.dao.ContactDaoImpl">
         <property name="dataSource" ref="dataSource" />
-    </bean>-->
+    </bean>
+
 
     <bean id="contactManager" class="ua.com.serzh.service.ContactManager">
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
-        <property name="driverClassName" value="${driverClassName}" />
-        <property name="url" value="${url}" />
-        <property name="username" value="${username}" />
-        <property name="password" value="${password}" />
+        <property name="driverClassName" value="${DRIVER_CLASS_NAME}" />
+        <property name="url" value="${DB_URL}" />
+        <property name="username" value="${DB_USER_NAME}" />
+        <property name="password" value="${DB_USER_PASSWORD}" />
 
     </bean>
 
