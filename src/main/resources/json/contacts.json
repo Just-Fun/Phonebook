@@ -1,6 +1,6 @@
 {
   "name" : "contacts",
-  "countContacts" : 3,
+  "countContacts" : 5,
   "contacts" : [ {
     "contactId" : 1,
     "surname" : "ASurname",
@@ -20,6 +20,26 @@
     "homePhone" : "+380444563345",
     "address" : "Kyiv, Sviatkova 15",
     "email" : "pa@gmail.com",
+    "userId" : 1
+  }, {
+    "contactId" : 4,
+    "surname" : "BeSurnameBeee",
+    "name" : "Bname",
+    "patronymic" : "BPatronymic",
+    "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
+    "userId" : 1
+  }, {
+    "contactId" : 5,
+    "surname" : "ZSurname",
+    "name" : "ZName",
+    "patronymic" : "ZPatronymic",
+    "mobileNumber" : "+380665794433",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
     "userId" : 1
   } ]
 }

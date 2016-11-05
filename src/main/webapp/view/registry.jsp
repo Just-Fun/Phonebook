@@ -3,6 +3,9 @@
 <html>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
+  <%--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
     <link type="text/css" rel="stylesheet" href="${ctx}/resources/css/main.css"/>
 
     <title>Sign in</title>
@@ -12,6 +15,9 @@
 <form action="registry" method="POST">
     <table>
         <tr>
+           <%-- <td style="color: black">
+                User name &lt;%&ndash;${requestScope.name}&ndash;%&gt;
+            </td>--%>
             <td><input type="text" name="name" size="30"
                        placeholder="Enter name" value="${requestScope.name}"></td>
             <c:if test="${empty requestScope.validUserName}">
@@ -37,13 +43,13 @@
                     <td style="color: black">
                         User name <%--${requestScope.name}--%>
                     </td>
-                    <td style="color: blue">
-                        ${requestScope.name}
-                    </td>
                 </c:otherwise>
             </c:choose>
         </tr>
         <tr>
+           <%-- <td style="color: black">
+                Password
+            </td>--%>
             <td><input type="password" name="password" size="30"
                        placeholder="Enter password" value="${requestScope.password}"></td>
             <c:if test="${empty requestScope.correctPassword}">
@@ -68,6 +74,9 @@
             </c:choose>
         </tr>
         <tr>
+           <%-- <td style="color: black">
+                Confirm password
+            </td>--%>
 
             <td><input type="password" name="confirmPassword" size="30"
                        placeholder="Confirm password" value="${requestScope.confirmPassword}"></td>
