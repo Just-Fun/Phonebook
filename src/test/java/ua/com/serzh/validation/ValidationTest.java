@@ -89,4 +89,15 @@ public class ValidationTest {
         assertEquals(false, validate("+0442839357", regex));
         assertEquals(false, validate("0442839357", regex));
     }
+
+    @Test
+    public void testValidateLettersAndDigits() throws Exception {
+        assertEquals(true, validate("Vasiliy", Validation.getFiveLettersOrDigits()));
+        assertEquals(true, validate("12345", Validation.getFiveLettersOrDigits()));
+        assertEquals(true, validate("Vas123", Validation.getFiveLettersOrDigits()));
+        assertEquals(true, validate("Vasi_123", Validation.getFiveLettersOrDigits()));
+
+        assertEquals(false, validate("Vas", Validation.getFiveLettersOrDigits()));
+        assertEquals(false, validate("Va@si_123", Validation.getFiveLettersOrDigits()));
+    }
 }
