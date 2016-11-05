@@ -4,7 +4,9 @@ import ua.com.serzh.entities.Contact;
 import ua.com.serzh.utils.Utils;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
 
@@ -41,7 +43,10 @@ public class ContactDaoJSON implements ContactDao {
 
     @Override
     public List<Contact> allUserContacts(int userId) {
-        return contactStore.allUserContacts(userId);
+        // TODO sort
+        List<Contact> contacts = contactStore.allUserContacts(userId);
+
+        return sortContacts(contacts);
     }
 
     @Override
@@ -58,7 +63,22 @@ public class ContactDaoJSON implements ContactDao {
 
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
-        return contactStore.searchContactByAnyField(searchQuery, userId);
+        // TODO sort
+        List<Contact> contacts = contactStore.searchContactByAnyField(searchQuery, userId);
+
+        return sortContacts(contacts);
+    }
+
+    private List<Contact> sortContacts(List<Contact> contacts) {
+        Comparator<Contact> comparator = Comparator
+                .comparing(Contact::getSurname)
+                .thenComparing(Contact::getName);
+
+        List<Contact> result = contacts.parallelStream()
+                .sorted(comparator)
+                .collect(Collectors.toList());
+
+        return result;
     }
 
     @Override
