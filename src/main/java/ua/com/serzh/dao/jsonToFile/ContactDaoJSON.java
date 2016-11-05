@@ -7,6 +7,7 @@ import ua.com.serzh.utils.Utils;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
@@ -15,12 +16,17 @@ import java.util.stream.Collectors;
 //@Component
 public class ContactDaoJSON implements ContactDao {
 
-    String pathUsersJson = Utils.getProperties().getProperty("path_contactcs.json");
+//    String pathUsersJson = Utils.getProperties().getProperty("path_contactcs.json");
+    String pathUsersJson;
 
     ContactStore contactStore;
 
     public ContactDaoJSON() throws IOException {
         String mappingClassName = ContactStore.class.getName();
+
+        Utils utils = new Utils();
+        Properties properties = utils.getProperties();
+        pathUsersJson = properties.getProperty("path_contactcs.json");
 
         contactStore = (ContactStore) MapperObjectJson.getObjectFromFile(pathUsersJson, mappingClassName);
 

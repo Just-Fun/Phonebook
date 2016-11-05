@@ -5,6 +5,7 @@ import ua.com.serzh.entities.User;
 import ua.com.serzh.utils.Utils;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.*;
 import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.writeJsonToFile;
@@ -14,12 +15,17 @@ import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.writeJsonToFile;
  */
 public class UserDaoJSON implements UserDao {
 
-    private String pathName = Utils.getProperties().getProperty("path_users.json");
+//    private String pathName = Utils.getProperties().getProperty("path_users.json");
+    private String pathName;
 
     private UserStore userStore;
 
     public UserDaoJSON() throws IOException {
         String mappingClassName = UserStore.class.getName();
+
+        Utils utils = new Utils();
+        Properties properties = utils.getProperties();
+        pathName = properties.getProperty("path_users.json");
 
         userStore = (UserStore) getObjectFromFile(pathName, mappingClassName);
 

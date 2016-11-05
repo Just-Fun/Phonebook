@@ -1,19 +1,9 @@
 {
   "name" : "contacts",
-  "countContacts" : 8,
+  "countContacts" : 9,
   "contacts" : [ {
-    "contactId" : 1,
-    "surname" : "ASurname",
-    "name" : "AName",
-    "patronymic" : "APatronymic",
-    "mobileNumber" : "+380665794450",
-    "homePhone" : "",
-    "address" : "",
-    "email" : "name@gmail.com",
-    "userId" : 1
-  }, {
     "contactId" : 2,
-    "surname" : "Pavarotti",
+    "surname" : "PavarottiTwo",
     "name" : "Luchano",
     "patronymic" : "Albertovich",
     "mobileNumber" : "+380664563345",
@@ -53,7 +43,7 @@
     "userId" : 1
   }, {
     "contactId" : 7,
-    "surname" : "Pavarotti",
+    "surname" : "PavarottiSeven",
     "name" : "Bname",
     "patronymic" : "Patronymic",
     "mobileNumber" : "+380665794450",
@@ -67,6 +57,26 @@
     "name" : "DName",
     "patronymic" : "DPatronymic",
     "mobileNumber" : "+380665794422",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
+    "userId" : 1
+  }, {
+    "contactId" : 1,
+    "surname" : "ASurnameA",
+    "name" : "AName",
+    "patronymic" : "APatronymic",
+    "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "name@gmail.com",
+    "userId" : 1
+  }, {
+    "contactId" : 9,
+    "surname" : "Surname",
+    "name" : "Name",
+    "patronymic" : "Patronymic",
+    "mobileNumber" : "+380665794450",
     "homePhone" : "",
     "address" : "",
     "email" : "",

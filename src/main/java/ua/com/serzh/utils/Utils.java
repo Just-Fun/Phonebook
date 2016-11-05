@@ -11,9 +11,9 @@ import java.util.Properties;
  * Created by Serzh on 11/5/16.
  */
 public class Utils {
-    private static Properties props;
+    private Properties props;
 
-    public static Properties getProperties() throws IOException {
+    public Properties getProperties() throws IOException {
         if (props != null) {
             return props;
         } else {
