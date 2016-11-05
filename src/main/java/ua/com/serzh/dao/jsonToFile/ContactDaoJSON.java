@@ -1,5 +1,6 @@
 package ua.com.serzh.dao.jsonToFile;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.utils.Utils;
@@ -16,15 +17,20 @@ import java.util.stream.Collectors;
 //@Component
 public class ContactDaoJSON implements ContactDao {
 
+   /* public ContactDaoJSON() {
+    }*/
+
 //    String pathUsersJson = Utils.getProperties().getProperty("path_contactcs.json");
     String pathUsersJson;
-
+    private Utils utils;
     ContactStore contactStore;
 
-    public ContactDaoJSON() throws IOException {
+    @Autowired
+    public ContactDaoJSON(Utils utils) throws IOException {
+        this.utils = utils;
         String mappingClassName = ContactStore.class.getName();
 
-        Utils utils = new Utils();
+//        Utils utils = new Utils();
         Properties properties = utils.getProperties();
         pathUsersJson = properties.getProperty("path_contactcs.json");
 
