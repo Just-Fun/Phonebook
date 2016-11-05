@@ -12,16 +12,10 @@ import java.util.Properties;
  * Created by Serzh on 11/5/16.
  */
 public class Utils implements InitializingBean {
-    private Properties props;
 
     public Properties getProperties() throws IOException {
-        if (props != null) {
-            return props;
-        } else {
             Resource resource = new ClassPathResource("/db.properties");
-            props = PropertiesLoaderUtils.loadProperties(resource);
-            return props;
-        }
+           return PropertiesLoaderUtils.loadProperties(resource);
     }
 
     @Override
