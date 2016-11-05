@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * Created by Serzh on 10/31/16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = ("classpath:test-application-context.xml"))
+@ContextConfiguration(locations = ("classpath:db-test-application-context.xml"))
 public class MainControllerTest {
 
     @Autowired

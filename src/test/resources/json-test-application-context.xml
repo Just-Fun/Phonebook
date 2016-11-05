@@ -12,7 +12,7 @@
     <context:component-scan base-package="ua.com.serzh"/>
 
     <bean id="userDao" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="ua.com.serzh.dao.UserDaoImpl"/>
+        <constructor-arg value="ua.com.serzh.dao.jsonToFile.UserDaoJSON"/>
     </bean>
 
        <bean id="contactDao" class="org.mockito.Mockito" factory-method="mock">
