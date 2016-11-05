@@ -24,9 +24,8 @@ public class MapperObjectJson {
         } catch (EOFException e) {
             return null;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
-        return object;
     }
 
     public static void writeJsonToFile(Object object, String pathName) {
