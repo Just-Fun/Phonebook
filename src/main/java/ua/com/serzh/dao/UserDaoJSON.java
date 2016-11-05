@@ -1,25 +1,26 @@
 package ua.com.serzh.dao;
 
 import ua.com.serzh.entities.User;
+import ua.com.serzh.utils.Utils;
+
+import java.io.IOException;
 
 import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
 
 /**
  * Created by Serzh on 11/4/16.
  */
-public /*abstract*/ class UserDaoJSON implements UserDao {
+public class UserDaoJSON implements UserDao {
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-    }
-
-    static String pathName = "src/main/resources/json/users.json";
+    String pathName = Utils.getProperties().getProperty("path_users.json");
 
     UserStore userStore;
 
-    public UserDaoJSON() {
+    public UserDaoJSON() throws IOException {
         String mappingClassName = UserStore.class.getName();
-        userStore = (UserStore) MapperObjectJson.getObjectFromFile(pathName, userStore, mappingClassName);
+
+        userStore = (UserStore) MapperObjectJson.getObjectFromFile(pathName, mappingClassName);
+
         if (userStore == null) {
             userStore = new UserStore();
         }
@@ -39,5 +40,9 @@ public /*abstract*/ class UserDaoJSON implements UserDao {
     @Override
     public User searchByName(String name) {
         return userStore.searchByName(name);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
     }
 }

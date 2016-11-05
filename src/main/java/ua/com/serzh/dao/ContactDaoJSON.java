@@ -1,7 +1,9 @@
 package ua.com.serzh.dao;
 
 import ua.com.serzh.entities.Contact;
+import ua.com.serzh.utils.Utils;
 
+import java.io.IOException;
 import java.util.List;
 
 import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
@@ -9,20 +11,18 @@ import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
 /**
  * Created by Serzh on 11/4/16.
  */
-public /*abstract*/ class ContactDaoJSON implements ContactDao {
+//@Component
+public class ContactDaoJSON implements ContactDao {
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-    }
+    String pathUsersJson = Utils.getProperties().getProperty("path_contactcs.json");
 
     ContactStore contactStore;
 
-    static String pathName = "src/main/resources/json/contacts.json";
-
-    public ContactDaoJSON() {
+    public ContactDaoJSON() throws IOException {
         String mappingClassName = ContactStore.class.getName();
-        contactStore = (ContactStore) MapperObjectJson.getObjectFromFile(pathName, contactStore, mappingClassName);
+
+        contactStore = (ContactStore) MapperObjectJson.getObjectFromFile(pathUsersJson, mappingClassName);
+
         if (contactStore == null) {
             contactStore = new ContactStore();
         }
@@ -36,7 +36,7 @@ public /*abstract*/ class ContactDaoJSON implements ContactDao {
     @Override
     public void insertContact(Contact contact) {
         contactStore.insertContact(contact);
-        writeJsonToFile(contactStore, pathName);
+        writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
@@ -47,17 +47,21 @@ public /*abstract*/ class ContactDaoJSON implements ContactDao {
     @Override
     public void updateContact(Contact contactNew) {
         contactStore.updateContact(contactNew);
-        writeJsonToFile(contactStore, pathName);
+        writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public void deleteContact(Contact contactToDel) {
         contactStore.deleteContact(contactToDel);
-        writeJsonToFile(contactStore, pathName);
+        writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
         return contactStore.searchContactByAnyField(searchQuery, userId);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
     }
 }
