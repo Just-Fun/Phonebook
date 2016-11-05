@@ -1,4 +1,4 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.jsonToFile;
 
 import org.apache.commons.lang3.StringUtils;
 import ua.com.serzh.entities.Contact;
@@ -107,11 +107,11 @@ public class ContactStore {
         this.name = name;
     }
 
-    private int getCountContacts() {
+    public int getCountContacts() {
         return countContacts;
     }
 
-    private void setCountContacts(int countContacts) {
+    public void setCountContacts(int countContacts) {
         this.countContacts = countContacts;
     }
 

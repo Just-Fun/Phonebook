@@ -1,4 +1,4 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.jsonToFile;
 
 import ua.com.serzh.entities.User;
 
@@ -87,11 +87,11 @@ public class UserStore {
         this.name = name;
     }
 
-    private int getCountUsers() {
+    public int getCountUsers() {
         return countUsers;
     }
 
-    private void setCountUsers(int countUsers) {
+    public void setCountUsers(int countUsers) {
         this.countUsers = countUsers;
     }
 
