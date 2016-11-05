@@ -1,0 +1,25 @@
+{
+  "name" : "contacts",
+  "countContacts" : 3,
+  "contacts" : [ {
+    "contactId" : 1,
+    "surname" : "ASurname",
+    "name" : "AName",
+    "patronymic" : "APatronymic",
+    "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "name@gmail.com",
+    "userId" : 1
+  }, {
+    "contactId" : 1,
+    "surname" : "PavarottiTwo",
+    "name" : "LuchanoTwo",
+    "patronymic" : "Petrovna",
+    "mobileNumber" : "+380664563345",
+    "homePhone" : "+380444563345",
+    "address" : "Kyiv, Sviatkova 15",
+    "email" : "pa@gmail.com",
+    "userId" : 1
+  } ]
+}
