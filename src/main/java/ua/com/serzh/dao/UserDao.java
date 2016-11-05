@@ -7,7 +7,7 @@ import ua.com.serzh.entities.User;
  * Created by Serzh on 10/31/16.
  */
 public interface UserDao extends InitializingBean {
-    void insertUser(User user);
+    void addUser(User user);
 
     User searchByNameAndPassword(String name, String password);
 

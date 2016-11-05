@@ -11,12 +11,9 @@ import java.util.List;
 public interface ContactDao extends InitializingBean {
     void insertContact(Contact contact);
 
-    List<Contact> searchContactByName(String name, int userId);
+//    List<Contact> searchContactByName(String name, int userId);
 
     Contact searchContactById(int contactId);
-
-    // 2nd variant, just in case
-    Contact searchContactById2(int contactId);
 
     List<Contact> allUserContacts(int userId);
 

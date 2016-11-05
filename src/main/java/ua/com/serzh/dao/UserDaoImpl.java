@@ -12,10 +12,9 @@ import ua.com.serzh.entities.User;
 public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
     @Override
-    public void insertUser(User user) {
+    public void addUser(User user) {
         String sql = "INSERT INTO users (name, password) VALUES (?,?)";
         getJdbcTemplate().update(sql, user.getName(), user.getPassword());
-
     }
 
     @Override

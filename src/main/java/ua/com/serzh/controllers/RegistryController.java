@@ -64,7 +64,7 @@ public class RegistryController extends HttpServlet {
 
         if (user == null && isValidName && isValidPassword && isPasswordsMatch) {
             user = new User(name, password);
-            userDao.insertUser(user);
+            userDao.addUser(user);
             return "login";
         } else {
             if (user != null) {

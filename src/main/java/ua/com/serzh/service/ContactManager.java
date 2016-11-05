@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Serzh on 10/25/16.
  */
 public class ContactManager {
-    Contact contact;
+    private Contact contact;
 
     public ContactManager() {
     }
@@ -63,7 +63,7 @@ public class ContactManager {
             if ("Cancel".equals(req.getParameter("cancel"))) {
                 session.setAttribute("delete", false);
             } else {
-                boolean delete = deleteContact(req, contactDao, session, user);
+                boolean delete = deleteContact(req, contactDao, session);
                 if (delete) {
                     session.setAttribute("listChanged", true);
                     showContacts(contactDao, user, session);
@@ -76,7 +76,7 @@ public class ContactManager {
         }
     }
 
-    public void showContacts(ContactDao contactDao, User user, HttpSession session) {
+    private void showContacts(ContactDao contactDao, User user, HttpSession session) {
         Boolean listChanged = (Boolean) session.getAttribute("listChanged");
         if (listChanged == null) {
             listChanged = false;
@@ -90,7 +90,7 @@ public class ContactManager {
         session.setAttribute("listChanged", false);
     }
 
-    private boolean deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session, User user) {
+    private boolean deleteContact(HttpServletRequest req, ContactDao contactDao, HttpSession session) {
         String contactId = req.getParameter("select");
 
         if (contactId != null) {

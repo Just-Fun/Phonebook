@@ -21,11 +21,11 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
                 contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId());
     }
 
-    @Override
+ /*   @Override
     public List<Contact> searchContactByName(String name, int userId) {
         String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
         return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
-    }
+    }*/
 
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
@@ -43,7 +43,6 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
     }
 
     // 2nd variant, just in case
-    @Override
     public Contact searchContactById2(int contactId) {
         String sql = "SELECT * FROM contacts WHERE contact_id = ?";
         return (Contact) getJdbcTemplate().queryForObject(sql, new Object[]{contactId}, new ContactRowMapper());

@@ -64,9 +64,9 @@ public class RegistryControllerTest {
 
         String result = registryController.registryPost(request);
 
-        verify(userDao).insertUser(user.capture());
+        verify(userDao).addUser(user.capture());
         // just in case
-        verify(userDao).insertUser(Mockito.anyObject());
+        verify(userDao).addUser(Mockito.anyObject());
 
         assertEquals("login", result);
 
