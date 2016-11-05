@@ -8,9 +8,6 @@ import ua.com.serzh.utils.Utils;
 import java.io.IOException;
 import java.util.Properties;
 
-import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.*;
-import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.writeJsonToFile;
-
 /**
  * Created by Serzh on 11/4/16.
  */
@@ -45,7 +42,7 @@ public class UserDaoJSON implements UserDao {
     @Override
     public void addUser(User user) {
         userStore.addUser(user);
-        writeJsonToFile(userStore, pathName);
+       mapper.writeJsonToFile(userStore, pathName);
     }
 
     @Override

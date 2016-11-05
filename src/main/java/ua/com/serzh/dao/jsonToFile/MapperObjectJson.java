@@ -28,7 +28,7 @@ public class MapperObjectJson {
         }
     }
 
-    public static void writeJsonToFile(Object object, String pathName) {
+    public void writeJsonToFile(Object object, String pathName) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             File file = new File(pathName);

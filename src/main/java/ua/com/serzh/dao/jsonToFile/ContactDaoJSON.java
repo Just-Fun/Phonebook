@@ -52,7 +52,7 @@ public class ContactDaoJSON implements ContactDao {
     @Override
     public void insertContact(Contact contact) {
         contactStore.insertContact(contact);
-        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
@@ -64,13 +64,13 @@ public class ContactDaoJSON implements ContactDao {
     @Override
     public void updateContact(Contact contactNew) {
         contactStore.updateContact(contactNew);
-        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public void deleteContact(Contact contactToDel) {
         contactStore.deleteContact(contactToDel);
-        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
