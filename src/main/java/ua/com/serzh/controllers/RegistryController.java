@@ -47,7 +47,7 @@ public class RegistryController extends HttpServlet {
         boolean confirmPasswordEmpty = confirmPassword.isEmpty();
 
         if (!nameEmpty) {
-            isValidName = Validation.validate(name, "[a-zA-Z]{3,}");
+            isValidName = Validation.validate(name, Validation.getThreeLetters());
         }
 
         if (isValidName) {
@@ -55,7 +55,7 @@ public class RegistryController extends HttpServlet {
         }
 
         if (!passwordEmpty) {
-            isValidPassword = Validation.validate(password, Validation.getFiveLettersPattern());
+            isValidPassword = Validation.validate(password, Validation.getFiveLettersOrDigits());
         }
 
         if (!passwordEmpty && !confirmPasswordEmpty) {
