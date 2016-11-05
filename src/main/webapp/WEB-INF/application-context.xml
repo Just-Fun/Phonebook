@@ -16,13 +16,18 @@
 
     <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON">
         <constructor-arg ref="utils"/>
+        <constructor-arg ref="mapper"/>
     </bean>
 
     <bean id="contactDao" class="ua.com.serzh.dao.jsonToFile.ContactDaoJSON">
         <constructor-arg ref="utils"/>
+        <constructor-arg ref="mapper"/>
     </bean>
 
     <bean id="utils" class="ua.com.serzh.utils.Utils">
+    </bean>
+
+    <bean id="mapper" class="ua.com.serzh.dao.jsonToFile.MapperObjectJson">
     </bean>
 
     <!--Store in a database-->

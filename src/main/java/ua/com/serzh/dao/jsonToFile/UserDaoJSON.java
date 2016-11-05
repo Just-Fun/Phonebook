@@ -18,25 +18,24 @@ public class UserDaoJSON implements UserDao {
   /*  public UserDaoJSON() {
     }*/
 
-    //    private String pathName = Utils.getProperties().getProperty("path_users.json");
     private String pathName;
 
     private Utils utils;
+    private  MapperObjectJson mapper;
 
     private UserStore userStore;
 
-    @Autowired(required = false)
-    public UserDaoJSON(Utils utils) throws IOException {
+    @Autowired/*(required = false)*/
+    public UserDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
-
-//        utils = new Utils();
+        this.mapper = mapper;
 
         String mappingClassName = UserStore.class.getName();
 
         Properties properties = utils.getProperties();
         pathName = properties.getProperty("path_users.json");
 
-        userStore = (UserStore) getObjectFromFile(pathName, mappingClassName);
+        userStore = (UserStore) mapper.getObjectFromFile(pathName, mappingClassName);
 
         if (userStore == null) {
             userStore = new UserStore();

@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MapperObjectJson {
 
     // Convert JSON string from file to Object
-    public static Object getObjectFromFile(String pathName, String className) {
+    public Object getObjectFromFile(String pathName, String className) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {

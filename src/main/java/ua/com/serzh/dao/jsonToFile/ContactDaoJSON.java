@@ -16,25 +16,28 @@ import java.util.stream.Collectors;
  */
 //@Component
 public class ContactDaoJSON implements ContactDao {
-
-   /* public ContactDaoJSON() {
+    /* public ContactDaoJSON() {
     }*/
 
-//    String pathUsersJson = Utils.getProperties().getProperty("path_contactcs.json");
-    String pathUsersJson;
     private Utils utils;
-    ContactStore contactStore;
+    private  MapperObjectJson mapper;
 
-    @Autowired
-    public ContactDaoJSON(Utils utils) throws IOException {
+    private  ContactStore contactStore;
+    private String pathUsersJson;
+
+    @Autowired/*(required = false)*/
+    public ContactDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
-        String mappingClassName = ContactStore.class.getName();
+        this.mapper = mapper;
 
-//        Utils utils = new Utils();
         Properties properties = utils.getProperties();
         pathUsersJson = properties.getProperty("path_contactcs.json");
 
-        contactStore = (ContactStore) MapperObjectJson.getObjectFromFile(pathUsersJson, mappingClassName);
+//        MapperObjectJson mapper = new MapperObjectJson();
+
+        String mappingClassName = ContactStore.class.getName();
+
+        contactStore = (ContactStore) mapper.getObjectFromFile(pathUsersJson, mappingClassName);
 
         if (contactStore == null) {
             contactStore = new ContactStore();
