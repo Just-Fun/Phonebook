@@ -80,6 +80,9 @@
 
         <table class="contact_table">
             <tr>
+                <c:if test="${!sessionScope.add && !sessionScope.edit && !sessionScope.delete}">
+                    <th></th>
+                </c:if>
                 <th>Surname</th>
                 <th>Name</th>
                 <th>Patronymic</th>
