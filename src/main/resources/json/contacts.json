@@ -1,5 +1,6 @@
 {
   "name" : "contacts",
+  "countContacts" : 8,
   "contacts" : [ {
     "contactId" : 1,
     "surname" : "ASurname",
@@ -22,7 +23,7 @@
     "userId" : 1
   }, {
     "contactId" : 4,
-    "surname" : "BeSurnameBeee",
+    "surname" : "BeSurnameFour",
     "name" : "Bname",
     "patronymic" : "BPatronymic",
     "mobileNumber" : "+380665794450",
@@ -42,8 +43,8 @@
     "userId" : 1
   }, {
     "contactId" : 6,
-    "surname" : "BSurnameBee",
-    "name" : "Bname",
+    "surname" : "BSurname",
+    "name" : "BnameB",
     "patronymic" : "BPatronymic",
     "mobileNumber" : "+380665794450",
     "homePhone" : "",
@@ -51,11 +52,21 @@
     "email" : "",
     "userId" : 1
   }, {
-    "contactId" : 1,
+    "contactId" : 7,
     "surname" : "Pavarotti",
     "name" : "Bname",
     "patronymic" : "Patronymic",
     "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
+    "userId" : 1
+  }, {
+    "contactId" : 8,
+    "surname" : "DSurname",
+    "name" : "DName",
+    "patronymic" : "DPatronymic",
+    "mobileNumber" : "+380665794422",
     "homePhone" : "",
     "address" : "",
     "email" : "",
