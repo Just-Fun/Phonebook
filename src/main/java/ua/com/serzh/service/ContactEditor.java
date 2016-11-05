@@ -3,7 +3,7 @@ package ua.com.serzh.service;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.entities.User;
-import ua.com.serzh.validation.Validation;
+import ua.com.serzh.utils.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

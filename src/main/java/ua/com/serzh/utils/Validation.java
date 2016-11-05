@@ -1,4 +1,4 @@
-package ua.com.serzh.validation;
+package ua.com.serzh.utils;
 
 /**
  * Created by Serzh on 10/25/16.

@@ -1,9 +1,10 @@
 package ua.com.serzh.validation;
 
 import org.junit.Test;
+import ua.com.serzh.utils.Validation;
 
 import static org.junit.Assert.*;
-import static ua.com.serzh.validation.Validation.validate;
+import static ua.com.serzh.utils.Validation.validate;
 
 /**
  * Created by Serzh on 10/31/16.

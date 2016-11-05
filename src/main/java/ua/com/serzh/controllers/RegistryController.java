@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
-import ua.com.serzh.validation.Validation;
+import ua.com.serzh.utils.Validation;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
