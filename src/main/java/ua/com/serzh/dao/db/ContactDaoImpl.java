@@ -1,7 +1,8 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.db;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.entities.ContactRowMapper;
 

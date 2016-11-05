@@ -1,4 +1,4 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.jsonToFile;
 
 import org.codehaus.jackson.map.ObjectMapper;
 

@@ -1,25 +1,27 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.jsonToFile;
 
+import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.utils.Utils;
 
 import java.io.IOException;
 
-import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
+import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.*;
+import static ua.com.serzh.dao.jsonToFile.MapperObjectJson.writeJsonToFile;
 
 /**
  * Created by Serzh on 11/4/16.
  */
 public class UserDaoJSON implements UserDao {
 
-    String pathName = Utils.getProperties().getProperty("path_users.json");
+    private String pathName = Utils.getProperties().getProperty("path_users.json");
 
-    UserStore userStore;
+    private UserStore userStore;
 
     public UserDaoJSON() throws IOException {
         String mappingClassName = UserStore.class.getName();
 
-        userStore = (UserStore) MapperObjectJson.getObjectFromFile(pathName, mappingClassName);
+        userStore = (UserStore) getObjectFromFile(pathName, mappingClassName);
 
         if (userStore == null) {
             userStore = new UserStore();

@@ -1,8 +1,9 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.db;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 
 /**

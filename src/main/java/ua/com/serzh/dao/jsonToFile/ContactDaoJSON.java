@@ -1,5 +1,6 @@
-package ua.com.serzh.dao;
+package ua.com.serzh.dao.jsonToFile;
 
+import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.utils.Utils;
 
@@ -7,8 +8,6 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static ua.com.serzh.dao.MapperObjectJson.writeJsonToFile;
 
 /**
  * Created by Serzh on 11/4/16.
@@ -38,34 +37,30 @@ public class ContactDaoJSON implements ContactDao {
     @Override
     public void insertContact(Contact contact) {
         contactStore.insertContact(contact);
-        writeJsonToFile(contactStore, pathUsersJson);
+        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public List<Contact> allUserContacts(int userId) {
-        // TODO sort
         List<Contact> contacts = contactStore.allUserContacts(userId);
-
         return sortContacts(contacts);
     }
 
     @Override
     public void updateContact(Contact contactNew) {
         contactStore.updateContact(contactNew);
-        writeJsonToFile(contactStore, pathUsersJson);
+        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public void deleteContact(Contact contactToDel) {
         contactStore.deleteContact(contactToDel);
-        writeJsonToFile(contactStore, pathUsersJson);
+        MapperObjectJson.writeJsonToFile(contactStore, pathUsersJson);
     }
 
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
-        // TODO sort
         List<Contact> contacts = contactStore.searchContactByAnyField(searchQuery, userId);
-
         return sortContacts(contacts);
     }
 
