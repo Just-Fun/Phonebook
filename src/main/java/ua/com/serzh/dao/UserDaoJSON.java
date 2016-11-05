@@ -13,7 +13,7 @@ public /*abstract*/ class UserDaoJSON implements UserDao {
     public void afterPropertiesSet() throws Exception {
     }
 
-    static String pathName = "src/main/resources/users.json";
+    static String pathName = "src/main/resources/json/users.json";
 
     UserStore userStore;
 

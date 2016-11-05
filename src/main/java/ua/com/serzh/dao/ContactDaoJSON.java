@@ -18,7 +18,7 @@ public /*abstract*/ class ContactDaoJSON implements ContactDao {
 
     ContactStore contactStore;
 
-    static String pathName = "src/main/resources/contacts.json";
+    static String pathName = "src/main/resources/json/contacts.json";
 
     public ContactDaoJSON() {
         String mappingClassName = ContactStore.class.getName();
