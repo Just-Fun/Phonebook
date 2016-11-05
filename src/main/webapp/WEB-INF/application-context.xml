@@ -14,20 +14,20 @@
 
     <!--Store in a local file(JSON)-->
 
-    <bean id="userDao" class="ua.com.serzh.dao.UserDaoJSON">
+    <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON">
     </bean>
 
-    <bean id="contactDao" class="ua.com.serzh.dao.ContactDaoJSON">
+    <bean id="contactDao" class="ua.com.serzh.dao.jsonToFile.ContactDaoJSON">
     </bean>
 
     <!--Store in a database-->
 <!--
 
-    <bean id="userDao" class="ua.com.serzh.dao.UserDaoImpl">
+    <bean id="userDao" class="ua.com.serzh.dao.db.UserDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="contactDao" class="ua.com.serzh.dao.ContactDaoImpl">
+    <bean id="contactDao" class="ua.com.serzh.dao.db.ContactDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 -->
