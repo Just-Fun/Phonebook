@@ -9,7 +9,7 @@ import ua.com.serzh.entities.User;
 public class CreateEntity {
 
     public static User createUser1() {
-        User user = new User("Luchano", "first");
+        User user = new User("Luciano", "first");
         user.setUserId(1);
 
         return user;
