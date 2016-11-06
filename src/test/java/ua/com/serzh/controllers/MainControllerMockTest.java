@@ -67,14 +67,12 @@ public class MainControllerMockTest {
     public void testMain() throws Exception {
 
         User user = setStuff();
-        Integer pageNumber = 1;
         session.setAttribute("add", true);
 
         String result = mainController.main(request, session);
 
         verify(session, atLeastOnce()).getAttribute("user");
         verify(contactManager).action(request, contactDao, session, user);
-//        verify(contactManager).pagination(request, contactDao, session, user, pageNumber);
 
         assertEquals(result, "main");
     }

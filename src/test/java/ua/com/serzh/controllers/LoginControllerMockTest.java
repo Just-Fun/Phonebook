@@ -55,7 +55,6 @@ public class LoginControllerMockTest {
 
         when(request.getParameter("name")).thenReturn(name);
         when(request.getParameter("password")).thenReturn(password);
-//        when(userDao.searchByNameAndPassword(name, password)).thenReturn(user);
         loginController.menu(request);
         verify(userDao, atLeast(1)).searchByNameAndPassword(name, password);
     }

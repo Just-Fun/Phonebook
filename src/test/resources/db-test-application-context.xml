@@ -7,7 +7,6 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-
     <context:annotation-config/>
     <context:component-scan base-package="ua.com.serzh"/>
 
@@ -35,6 +34,5 @@
     <bean id="mapper" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="ua.com.serzh.dao.jsonToFile.MapperObjectJson"/>
     </bean>
-
 
 </beans>

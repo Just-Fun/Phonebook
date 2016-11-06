@@ -11,14 +11,12 @@ public class CreateEntity {
     public static User createUser1() {
         User user = new User("Luciano", "first");
         user.setUserId(1);
-
         return user;
     }
 
     public static User createUser2() {
         User user = new User("Domingo", "second");
         user.setUserId(2);
-
         return user;
     }
 
@@ -35,8 +33,6 @@ public class CreateEntity {
         Contact contact = new Contact(
                 surname, name, patronymic, mobileNumber, homePhone, address, email, user.getUserId());
 
-//        contact.setContactId(1);
-
         return contact;
     }
 
@@ -52,8 +48,6 @@ public class CreateEntity {
 
         Contact contact = new Contact(
                 surname, name, patronymic, mobileNumber, homePhone, address, email, user.getUserId());
-
-//        contact.setContactId(2);
 
         return contact;
     }
