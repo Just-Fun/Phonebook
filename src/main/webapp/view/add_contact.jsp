@@ -26,9 +26,6 @@
                     <td style="color: black">
                         Surname
                     </td>
-                    <td style="color: blue">
-                            <%--${requestScope.surname}--%>
-                    </td>
                 </c:otherwise>
             </c:choose>
         </tr>
@@ -53,9 +50,6 @@
                 <c:otherwise>
                     <td style="color: black">
                         Name
-                    </td>
-                    <td style="color: blue">
-                            <%--${requestScope.name}--%>
                     </td>
                 </c:otherwise>
             </c:choose>
@@ -82,9 +76,6 @@
                     <td style="color: black">
                         Patronymic
                     </td>
-                    <td style="color: blue">
-                            <%--${requestScope.patronymic}--%>
-                    </td>
                 </c:otherwise>
             </c:choose>
         </tr>
@@ -110,9 +101,6 @@
                     <td style="color: black">
                         Mobile Number
                     </td>
-                    <td style="color: blue">
-                            <%--${requestScope.mobileNumber}--%>
-                    </td>
                 </c:otherwise>
             </c:choose>
         </tr>
@@ -133,9 +121,6 @@
                     <td style="color: black">
                         Home Phone
                     </td>
-                    <td style="color: blue">
-                            <%--${requestScope.homePhone}--%>
-                    </td>
                 </c:otherwise>
             </c:choose>
         </tr>
@@ -145,9 +130,6 @@
                        placeholder="address" value="${requestScope.address}"></td>
             <td style="color: black">
                 Address
-            </td>
-            <td style="color: blue">
-                <%--${requestScope.address}--%>
             </td>
         </tr>
 
@@ -166,9 +148,6 @@
                 <c:otherwise>
                     <td style="color: black">
                         e-mail
-                    </td>
-                    <td style="color: blue">
-                            <%--${requestScope.email}--%>
                     </td>
                 </c:otherwise>
             </c:choose>

@@ -1,3 +1,4 @@
+<%--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:forEach var="contact" items="${sessionScope.contacts}">
     <tr>
@@ -13,8 +14,8 @@
                 </td>
             </c:when>
         </c:choose>
-         <%--TODO whats this? --%>
-        <td>${contact.name}</td>
-        <td>${contact.mobileNumber}</td>
+
+      &lt;%&ndash;  <td>${contact.name}</td>
+        <td>${contact.mobileNumber}</td>&ndash;%&gt;
     </tr>
-</c:forEach>
+</c:forEach>--%>

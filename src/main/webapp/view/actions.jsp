@@ -8,7 +8,5 @@
     <td>
         <input type="submit" name="button" value="Delete">
     </td>
-
-
 </tr>
 

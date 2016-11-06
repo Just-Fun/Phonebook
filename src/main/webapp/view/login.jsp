@@ -23,7 +23,6 @@
                 <table>
                     <tr>
                         <td><input type="text" name="name" size="30"
-                        <%--TODO login istead of Enter--%>
                                    placeholder="Login" value="${requestScope.name}"></td>
                         <c:if test="${empty requestScope.rightInput}">
                             <c:set var="rightInput" value="true" scope="request"/>
