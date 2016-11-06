@@ -11,11 +11,11 @@ Information about the user in the system:
 The stored information (one record):
 ```
 Name (required, at least 4 characters)
-Name (required, at least 4 characters)
-Middle Name (required, at least 4 characters)
-Mobile Phone (required)
+Surname (required, at least 4 characters)
+Middle name (required, at least 4 characters)
+Mobile phone (required)
 Home phone number (not required)
-Address (optional)
+address (optional)
 e-mail (not mandatory, common validation)
 ```
 
@@ -33,7 +33,7 @@ View all data with the ability to filter by any field (not fully fit).
 Add / Edit / Delete stored records
 ```
 
-The system is available only to authorized users. If the user is not logged in, when you try to open any page it redirects to the login page.
+The system is available only to authorized users. If the user is not logged in, when they try to open any page it redirects to the login page.
 
 ## Getting Started
 
@@ -77,9 +77,7 @@ CREATE INDEX contact_user_idx ON contacts (user_id);
 
 ### Prerequisites
 
-resources/db.properties
 1. Change `DB_USER_NAME`, `DB_USER_PASSWORD` and `DB_URL` in properties file(`resources/db.properties`).
-If you changed `database name` during creating database also change `databaseName`.
 
 2.In project implemented two options to choose the data warehouse: 
   
