@@ -77,6 +77,7 @@ CREATE INDEX contact_user_idx ON contacts (user_id);
 
 ### Prerequisites
 
+
 1. Change `DB_USER_NAME`, `DB_USER_PASSWORD` and `DB_URL` in properties file(`resources/db.properties`).
 
 2. In project implemented two options to choose the data warehouse: 
