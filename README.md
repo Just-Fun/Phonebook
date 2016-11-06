@@ -90,11 +90,13 @@ CREATE INDEX contact_user_idx ON contacts (user_id);
    1.for database (MySQL):
   
    choose `Store in a local file(JSON)`
+   
    comment out `Store in a database (MySQL)`
   
    2.for file storage (JSON):
   
    choose `Store in a database (MySQL)`
+   
    comment out `Store in a local file(JSON)`
   
 
