@@ -1,20 +1,67 @@
 package ua.com.serzh.dao.jsonToFile;
 
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ua.com.serzh.utils.Utils;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Serzh on 11/5/16.
  */
-public class ContactDaoJSONTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = ("classpath:json-test-application-context.xml"))
+public class ContactDaoJsonIntegrationTest {
+
+    private static String testUsersFile = "src/test/resources/json/test-contacts.json";
+
+
+    @Autowired
+    private ContactDaoJSON contactDaoJSON;
+
+    @Autowired
+    private UserStore userStore;
+
+    @Autowired
+    private Utils utils;
+
+    @Autowired
+    private MapperObjectJson mapper;
+
+    @BeforeClass
+    public static void init() throws IOException {
+//        cleanFile();
+    }
+
+    @After
+    public void clean() {
+//        cleanFile();
+//        contactDaoJSON.cleanUserStore();
+    }
+
+    @Test
+    public void shouldAutowiredDependencies() {
+        assertNotNull(contactDaoJSON);
+        assertNotNull(userStore);
+        assertNotNull(utils);
+        assertNotNull(mapper);
+    }
+
     @Test
     public void searchContactById() throws Exception {
 
     }
 
     @Test
-    public void insertContact() throws Exception {
+    public void addContact() throws Exception {
+
 
     }
 

@@ -1,5 +1,6 @@
 package ua.com.serzh.dao.jsonToFile;
 
+import org.springframework.stereotype.Component;
 import ua.com.serzh.entities.User;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Created by Serzh on 11/4/16.
  */
+@Component // Temp for tests
 public class UserStore {
 
     private String name = "users";
