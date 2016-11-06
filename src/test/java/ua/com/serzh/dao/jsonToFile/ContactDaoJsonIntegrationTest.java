@@ -7,9 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ua.com.serzh.entities.Contact;
+import ua.com.serzh.entities.User;
+import ua.com.serzh.help.CreateEntity;
 import ua.com.serzh.utils.Utils;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,8 +25,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = ("classpath:json-test-application-context.xml"))
 public class ContactDaoJsonIntegrationTest {
 
-    private static String testUsersFile = "src/test/resources/json/test-contacts.json";
-
+    private static String testContactsFile = "src/test/resources/json/test-contacts.json";
 
     @Autowired
     private ContactDaoJSON contactDaoJSON;
@@ -37,13 +41,13 @@ public class ContactDaoJsonIntegrationTest {
 
     @BeforeClass
     public static void init() throws IOException {
-//        cleanFile();
+        cleanFile();
     }
 
     @After
     public void clean() {
 //        cleanFile();
-//        contactDaoJSON.cleanUserStore();
+        contactDaoJSON.cleanContactStore();
     }
 
     @Test
@@ -62,7 +66,59 @@ public class ContactDaoJsonIntegrationTest {
     @Test
     public void addContact() throws Exception {
 
+        User user = CreateEntity.createUser1();
+        user.setUserId(1);
+        Contact contact = CreateEntity.createContact1(user);
 
+        contactDaoJSON.insertContact(contact);
+
+        ContactStore contactStore = (ContactStore) mapper.getObjectFromFile(testContactsFile, ContactStore.class.getName());
+
+        assertEquals(1, contactStore.getCountContacts());
+        assertEquals("contacts", contactStore.getName());
+
+        List<Contact> users = contactStore.getContacts();
+
+        Contact joli = users.get(0);
+        assertEquals("1", joli.getContactId().toString());
+        assertEquals("Joli", joli.getSurname());
+        assertEquals("Angelina", joli.getName());
+        assertEquals("Petrovna", joli.getPatronymic());
+        assertEquals("+380664563345", joli.getMobileNumber());
+        assertEquals("+380444563345", joli.getHomePhone());
+        assertEquals("Kyiv, Sviatkova 15", joli.getAddress());
+        assertEquals("joli@.gmail.com", joli.getEmail());
+        assertEquals("1", joli.getUserId().toString());
+    }
+
+    @Test
+    public void addTwoContactsTest() throws Exception {
+
+        User user = CreateEntity.createUser1();
+        user.setUserId(1);
+        Contact contact = CreateEntity.createContact1(user);
+        Contact contact2 = CreateEntity.createContact2(user);
+
+        contactDaoJSON.insertContact(contact);
+        contactDaoJSON.insertContact(contact2);
+
+        ContactStore contactStore = (ContactStore) mapper.getObjectFromFile(testContactsFile, ContactStore.class.getName());
+
+        assertEquals(2, contactStore.getCountContacts());
+
+        List<Contact> users = contactStore.getContacts();
+
+        Contact joli = users.get(0);
+        assertEquals("1", joli.getContactId().toString());
+        assertEquals("Joli", joli.getSurname());
+        assertEquals("Angelina", joli.getName());
+        assertEquals("1", joli.getUserId().toString());
+
+        Contact joli2 = users.get(1);
+        assertEquals("2", joli2.getContactId().toString());
+        assertEquals("Joli2", joli2.getSurname());
+        assertEquals("Angelina2", joli2.getName());
+        assertEquals("1", joli2.getUserId().toString());
     }
 
     @Test
@@ -156,4 +212,13 @@ public class ContactDaoJsonIntegrationTest {
 
 //        writeToFile(contactStore);
 //}
+
+    private static void cleanFile() {
+        try {
+            new FileOutputStream(testContactsFile, false).close();
+//            new FileWriter(testUsersFile, false).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

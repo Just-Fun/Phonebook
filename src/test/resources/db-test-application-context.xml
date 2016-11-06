@@ -32,5 +32,9 @@
         <constructor-arg value="ua.com.serzh.utils.Utils"/>
     </bean>
 
+    <bean id="mapper" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="ua.com.serzh.dao.jsonToFile.MapperObjectJson"/>
+    </bean>
+
 
 </beans>
