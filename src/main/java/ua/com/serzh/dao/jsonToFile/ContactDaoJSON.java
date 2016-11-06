@@ -8,36 +8,37 @@ import ua.com.serzh.utils.Utils;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
  * Created by Serzh on 11/4/16.
  */
-//@Component
+//@Component !!!!!!!!!!!!!
 public class ContactDaoJSON implements ContactDao {
-    /* public ContactDaoJSON() {
-    }*/
+     public ContactDaoJSON() {
+    }
+    private String pathContactsFile;
+    String fileName = "path_contacts.json";
 
     private Utils utils;
-    private  MapperObjectJson mapper;
+    private MapperObjectJson mapper;
 
-    private  ContactStore contactStore;
-    private String pathUsersJson;
+    private ContactStore contactStore;
 
-    @Autowired/*(required = false)*/
+    @Autowired
     public ContactDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
         this.mapper = mapper;
 
-        Properties properties = utils.getProperties();
-        pathUsersJson = properties.getProperty("path_contactcs.json");
+        setup();
+    }
 
-//        MapperObjectJson mapper = new MapperObjectJson();
+    private void setup() throws IOException {
+
+        pathContactsFile = utils.getProperties(fileName);
 
         String mappingClassName = ContactStore.class.getName();
-
-        contactStore = (ContactStore) mapper.getObjectFromFile(pathUsersJson, mappingClassName);
+        contactStore = (ContactStore) mapper.getObjectFromFile(pathContactsFile, mappingClassName);
 
         if (contactStore == null) {
             contactStore = new ContactStore();
@@ -52,7 +53,7 @@ public class ContactDaoJSON implements ContactDao {
     @Override
     public void insertContact(Contact contact) {
         contactStore.insertContact(contact);
-        mapper.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathContactsFile);
     }
 
     @Override
@@ -64,13 +65,13 @@ public class ContactDaoJSON implements ContactDao {
     @Override
     public void updateContact(Contact contactNew) {
         contactStore.updateContact(contactNew);
-        mapper.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathContactsFile);
     }
 
     @Override
     public void deleteContact(Contact contactToDel) {
         contactStore.deleteContact(contactToDel);
-        mapper.writeJsonToFile(contactStore, pathUsersJson);
+        mapper.writeJsonToFile(contactStore, pathContactsFile);
     }
 
     @Override

@@ -13,13 +13,22 @@ import java.util.Properties;
  */
 public class Utils implements InitializingBean {
 
-    public Properties getProperties() throws IOException {
-            Resource resource = new ClassPathResource("/db.properties");
-           return PropertiesLoaderUtils.loadProperties(resource);
+    public Utils() {
+    }
+
+     String path = "/db.properties";
+
+    public Utils(String path) {
+        this.path = path;
+    }
+
+    public String getProperties(String fileName) throws IOException {
+        Resource resource = new ClassPathResource(path);
+        Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+        return properties.getProperty(fileName);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
     }
 }

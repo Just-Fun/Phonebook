@@ -1,6 +1,6 @@
 {
   "name" : "contacts",
-  "countContacts" : 9,
+  "countContacts" : 10,
   "contacts" : [ {
     "contactId" : 2,
     "surname" : "PavarottiTwo",
@@ -74,6 +74,16 @@
   }, {
     "contactId" : 9,
     "surname" : "Surname",
+    "name" : "Name",
+    "patronymic" : "Patronymic",
+    "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
+    "userId" : 1
+  }, {
+    "contactId" : 10,
+    "surname" : "ZSurnCheck",
     "name" : "Name",
     "patronymic" : "Patronymic",
     "mobileNumber" : "+380665794450",

@@ -1,38 +1,44 @@
 package ua.com.serzh.dao.jsonToFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.utils.Utils;
 
 import java.io.IOException;
-import java.util.Properties;
+import java.util.ArrayList;
 
 /**
  * Created by Serzh on 11/4/16.
  */
+@Component
 public class UserDaoJSON implements UserDao {
-  /*  public UserDaoJSON() {
+   /* public UserDaoJSON() {
     }*/
 
-    private String pathName;
+    private String pathUsersFile;
+    private String fileName = "path_users.json";
 
     private Utils utils;
-    private  MapperObjectJson mapper;
+    private MapperObjectJson mapper;
 
     private UserStore userStore;
 
-    @Autowired/*(required = false)*/
+    @Autowired
     public UserDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
         this.mapper = mapper;
 
+        setup();
+    }
+
+    private void setup() throws IOException {
+
+        pathUsersFile = utils.getProperties(fileName);
+
         String mappingClassName = UserStore.class.getName();
-
-        Properties properties = utils.getProperties();
-        pathName = properties.getProperty("path_users.json");
-
-        userStore = (UserStore) mapper.getObjectFromFile(pathName, mappingClassName);
+        userStore = (UserStore) mapper.getObjectFromFile(pathUsersFile, mappingClassName);
 
         if (userStore == null) {
             userStore = new UserStore();
@@ -42,7 +48,7 @@ public class UserDaoJSON implements UserDao {
     @Override
     public void addUser(User user) {
         userStore.addUser(user);
-       mapper.writeJsonToFile(userStore, pathName);
+        mapper.writeJsonToFile(userStore, pathUsersFile);
     }
 
     @Override
@@ -54,6 +60,13 @@ public class UserDaoJSON implements UserDao {
     public User searchByName(String name) {
         return userStore.searchByName(name);
     }
+
+    // for tests
+    public void cleanUserStore() {
+        userStore.setCountUsers(0);
+        userStore.setUsers(new ArrayList<>());
+    }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
