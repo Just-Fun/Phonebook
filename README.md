@@ -21,11 +21,11 @@ e-mail (not mandatory, common validation)
 
 ##The project consists of the page:
 
-Check in
+1. Check in
 
-Authorization - login (username / password)
+2. Authorization - login (username / password)
 
-Home page:
+3. Home page:
 ```
 Sign Out
 Working with stored data:
@@ -79,22 +79,22 @@ CREATE INDEX contact_user_idx ON contacts (user_id);
 
 1. Change `DB_USER_NAME`, `DB_USER_PASSWORD` and `DB_URL` in properties file(`resources/db.properties`).
 
-2.In project implemented two options to choose the data warehouse: 
+2. In project implemented two options to choose the data warehouse: 
   
   Selection is made in the file:
   `WEB-INF/application-context.xml`
   
   Select beans `userDao` and `contactDao`:
   
-  1. for database (MySQL):
+   1. for database (MySQL):
   
-  choose `Store in a local file(JSON)`
-  and comment out `Store in a database (MySQL)`
+   choose `Store in a local file(JSON)`
+   comment out `Store in a database (MySQL)`
   
-  2. for file storage (JSON):
+   2. for file storage (JSON):
   
-  choose `Store in a database (MySQL)`
-  and comment out `Store in a local file(JSON)`
+   choose `Store in a database (MySQL)`
+   comment out `Store in a local file(JSON)`
   
 
 
