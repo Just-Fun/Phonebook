@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ("classpath:db-test-application-context.xml"))
-public class LoginControllerTest {
+public class LoginControllerMockTest {
 
     @Autowired
     private UserDao userDao;

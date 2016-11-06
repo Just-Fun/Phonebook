@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ("classpath:db-test-application-context.xml"))
-public class RegistryControllerTest {
+public class RegistryControllerMockTest {
 
     @Autowired
     private UserDao userDao;
