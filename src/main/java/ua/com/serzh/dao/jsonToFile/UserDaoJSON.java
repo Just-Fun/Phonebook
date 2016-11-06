@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by Serzh on 11/4/16.
  */
-@Component
+//@Component
 public class UserDaoJSON implements UserDao {
    /* public UserDaoJSON() {
     }*/
@@ -66,7 +66,6 @@ public class UserDaoJSON implements UserDao {
         userStore.setCountUsers(0);
         userStore.setUsers(new ArrayList<>());
     }
-
 
     @Override
     public void afterPropertiesSet() throws Exception {

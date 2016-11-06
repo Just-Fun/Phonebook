@@ -1,6 +1,7 @@
 package ua.com.serzh.dao.jsonToFile;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,9 +45,14 @@ public class ContactDaoJsonIntegrationTest {
         cleanFile();
     }
 
+    @Before
+    public void setup() {
+        addNewContact();
+    }
+
     @After
     public void clean() {
-//        cleanFile();
+        cleanFile();
         contactDaoJSON.cleanContactStore();
     }
 
@@ -60,21 +66,16 @@ public class ContactDaoJsonIntegrationTest {
 
     @Test
     public void searchContactById() throws Exception {
-
+        Contact contact = contactDaoJSON.searchContactById(1);
+        assertEquals("Angelina", contact.getName());
     }
 
     @Test
     public void addContact() throws Exception {
 
-        User user = CreateEntity.createUser1();
-        user.setUserId(1);
-        Contact contact = CreateEntity.createContact1(user);
-
-        contactDaoJSON.insertContact(contact);
-
         ContactStore contactStore = (ContactStore) mapper.getObjectFromFile(testContactsFile, ContactStore.class.getName());
 
-        assertEquals(1, contactStore.getCountContacts());
+        assertEquals(2, contactStore.getCountContacts());
         assertEquals("contacts", contactStore.getName());
 
         List<Contact> users = contactStore.getContacts();
@@ -93,14 +94,6 @@ public class ContactDaoJsonIntegrationTest {
 
     @Test
     public void addTwoContactsTest() throws Exception {
-
-        User user = CreateEntity.createUser1();
-        user.setUserId(1);
-        Contact contact = CreateEntity.createContact1(user);
-        Contact contact2 = CreateEntity.createContact2(user);
-
-        contactDaoJSON.insertContact(contact);
-        contactDaoJSON.insertContact(contact2);
 
         ContactStore contactStore = (ContactStore) mapper.getObjectFromFile(testContactsFile, ContactStore.class.getName());
 
@@ -124,94 +117,63 @@ public class ContactDaoJsonIntegrationTest {
     @Test
     public void allUserContacts() throws Exception {
 
+        List<Contact> contacts = contactDaoJSON.allUserContacts(1);
+        assertEquals(2, contacts.size());
+        assertEquals("Joli", contacts.get(0).getSurname());
+        assertEquals("Joli2", contacts.get(1).getSurname());
     }
 
     @Test
     public void updateContact() throws Exception {
+        Contact contact = contactDaoJSON.searchContactById(1);
+        contact.setName("Cleopatra");
 
+        contactDaoJSON.updateContact(contact);
+
+        Contact contact1 = contactDaoJSON.searchContactById(1);
+        assertEquals("Cleopatra", contact1.getName());
     }
 
     @Test
     public void deleteContact() throws Exception {
+        Contact contact = contactDaoJSON.searchContactById(1);
+        contactDaoJSON.deleteContact(contact);
+
+        List<Contact> contacts = contactDaoJSON.allUserContacts(1);
+
+        assertEquals(1, contacts.size());
+        assertNotEquals("Joli", contacts.get(0).getSurname());
+        assertEquals("Joli2", contacts.get(0).getSurname());
 
     }
 
     @Test
     public void searchContactByAnyField() throws Exception {
+        List jol = contactDaoJSON.searchContactByAnyField("Jol", 1);
+        List joli2 = contactDaoJSON.searchContactByAnyField("Joli2", 1);
+        List petrovna = contactDaoJSON.searchContactByAnyField("Petrovna", 1);
+        List email = contactDaoJSON.searchContactByAnyField("gmail.com", 1);
+        List wrong = contactDaoJSON.searchContactByAnyField("Same Text", 1);
+        List empty = contactDaoJSON.searchContactByAnyField(null, 1);
 
+        assertEquals(2, jol.size());
+        assertEquals(1, joli2.size());
+        assertEquals(2, petrovna.size());
+        assertEquals(2, email.size());
+        assertEquals(0, wrong.size());
+        assertEquals(0, empty.size());
     }
 
-    @Test
-    public void main() throws Exception {
 
-    }
-
-    /* public static void main(String[] args) {
-        ContactDaoJSON contactDaoJSON = new ContactDaoJSON();
-
-//        List<Contact> contacts = contactStore.getContacts();
-
-/*        contacts.forEach(contact -> System.out.println("id: " + contact.getContactId() + " - " + contact.getSurname()));
-        System.out.println("--------------------");*/
-
-    //Test deleteContact
-/*        Contact contact = contactDaoJSON.searchContactById(9);
-        contactDaoJSON.deleteContact(contact);*/
-
-    //Test searchContactById
-    /*    Contact contact = contactDaoJSON.searchContactById(10);
-        contact.setSurname("Alpachino");
-        contact.setName("Some");
-        contactDaoJSON.updateContact(contact);*/
-
-    //Test allUserContacts
-       /* List<Contact> list = contactDaoJSON.allUserContacts(2);
-        list.forEach(contact -> System.out.println(contact.getSurname()));*/
-
-    // Test searchContactById
-       /* Contact contact = contactStore.searchContactById(2);
-        System.out.println(contact.getSurname());*/
-
-    // Test insertContact
-/*        User user = CreateEntity.createUser1();
+    private void addNewContact() {
+        User user = CreateEntity.createUser1();
+        user.setUserId(1);
         Contact contact = CreateEntity.createContact1(user);
-        contact.setSurname("PavarottiSub");
-        contact.setName("LuchanoSub");
+        Contact contact2 = CreateEntity.createContact2(user);
 
-       contactDaoJSON.insertContact(contact);*/
-
-//        writeToFile(contactStore);
-
-    // Test searchContactByAnyField
-//        List<Contact> joli = contactDaoJSON.searchContactByAnyField("Joli", 1);
-   /*     List<Contact> joli = contactDaoJSON.searchContactByAnyField("luch", 1);
-
-        for (Contact contact : joli) {
-            System.out.println("id: " + contact.getContactId() + " - " + contact.getSurname());
-        }*/
-
-//      contactStore.deleteContact
-
-/*        for (Contact contact : contacts) {
-            if (contact.getContactId() == 2) {
-                contact.setSurname("Aniston");
-            }
-        }
-        contacts.forEach(contact -> System.out.println("id: " + contact.getContactId() + " - " + contact.getSurname()));
-
-        System.out.println("Change name........");
-
-        for (Contact contact : contacts) {
-            if (contact.getContactId() == 2) {
-                contact.setSurname("JoliNew");
-            }
-        }
-        contacts.forEach(contact -> System.out.println("id: " + contact.getContactId() + " - " + contact.getSurname()));
-
-        System.out.println("--------------------------------");*/
-
-//        writeToFile(contactStore);
-//}
+        contactDaoJSON.insertContact(contact);
+        contactDaoJSON.insertContact(contact2);
+    }
 
     private static void cleanFile() {
         try {

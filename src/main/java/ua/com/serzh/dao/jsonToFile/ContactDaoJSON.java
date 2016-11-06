@@ -1,11 +1,13 @@
 package ua.com.serzh.dao.jsonToFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.utils.Utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Serzh on 11/4/16.
  */
-//@Component !!!!!!!!!!!!!
+//@Component //!!!!!!!!!!!!!
 public class ContactDaoJSON implements ContactDao {
      public ContactDaoJSON() {
     }
@@ -94,5 +96,11 @@ public class ContactDaoJSON implements ContactDao {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+    }
+
+    // for tests
+    public void cleanContactStore() {
+        contactStore.setCountContacts(0);
+        contactStore.setContacts(new ArrayList<>());
     }
 }

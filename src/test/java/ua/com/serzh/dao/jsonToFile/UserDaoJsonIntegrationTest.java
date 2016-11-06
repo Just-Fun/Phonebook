@@ -42,6 +42,11 @@ public class UserDaoJsonIntegrationTest {
         cleanFile();
     }
 
+    @Before
+    public void setup() {
+        addUser();
+    }
+
     @After
     public void clean() {
         cleanFile();
@@ -58,9 +63,6 @@ public class UserDaoJsonIntegrationTest {
 
     @Test
     public void addUserTest() throws Exception {
-        User user = CreateEntity.createUser1();
-        userDaoJSON.addUser(user);
-
         UserStore userStore = (UserStore) mapper.getObjectFromFile(testUsersFile, UserStore.class.getName());
         assertEquals(1, userStore.getCountUsers());
         assertEquals("users", userStore.getName());
@@ -74,9 +76,7 @@ public class UserDaoJsonIntegrationTest {
 
     @Test
     public void addTwoUsersTest() throws Exception {
-        User user = CreateEntity.createUser1();
         User user2 = CreateEntity.createUser2();
-        userDaoJSON.addUser(user);
         userDaoJSON.addUser(user2);
 
         UserStore userStore = (UserStore) mapper.getObjectFromFile(testUsersFile, UserStore.class.getName());
@@ -96,8 +96,6 @@ public class UserDaoJsonIntegrationTest {
 
     @Test
     public void searchByNameAndPasswordTest() throws Exception {
-        User user = CreateEntity.createUser1();
-        userDaoJSON.addUser(user);
 
         User luciano = userDaoJSON.searchByNameAndPassword("Luciano", "first");
         assertEquals("Luciano", luciano.getName());
@@ -114,13 +112,11 @@ public class UserDaoJsonIntegrationTest {
         User luciano = userDaoJSON.searchByName("Santiago");
         assertEquals("Santiago", luciano.getName());
         assertEquals("first", luciano.getPassword());
-        assertEquals("1", luciano.getUserId().toString());
+        assertEquals("2", luciano.getUserId().toString());
     }
 
     @Test
     public void searchByNameAndPassword() throws Exception {
-        User user = CreateEntity.createUser1();
-        userDaoJSON.addUser(user);
 
         User luciano = userDaoJSON.searchByNameAndPassword("Luciano", "first2");
         assertEquals(null, luciano);
@@ -128,17 +124,19 @@ public class UserDaoJsonIntegrationTest {
 
     @Test
     public void searchByNameTestNull() throws Exception {
-        User user = CreateEntity.createUser1();
-        userDaoJSON.addUser(user);
 
         User luciano = userDaoJSON.searchByName("Luciano2");
         assertEquals(null, luciano);
     }
 
+    private void addUser() {
+        User user = CreateEntity.createUser1();
+        userDaoJSON.addUser(user);
+    }
+
     private static void cleanFile() {
         try {
             new FileOutputStream(testUsersFile, false).close();
-//            new FileWriter(testUsersFile, false).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
