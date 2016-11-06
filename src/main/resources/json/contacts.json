@@ -23,7 +23,7 @@
     "userId" : 1
   }, {
     "contactId" : 5,
-    "surname" : "ZSurname",
+    "surname" : "ZSurnameZ",
     "name" : "ZName",
     "patronymic" : "ZPatronymic",
     "mobileNumber" : "+380665794433",
@@ -43,7 +43,7 @@
     "userId" : 1
   }, {
     "contactId" : 7,
-    "surname" : "PavarottiSeven",
+    "surname" : "PavarottiSix",
     "name" : "Bname",
     "patronymic" : "Patronymic",
     "mobileNumber" : "+380665794450",
