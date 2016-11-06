@@ -16,7 +16,7 @@ public class Utils implements InitializingBean {
     public Utils() {
     }
 
-     String path = "/db.properties";
+    private String path = "/config.properties";
 
     public Utils(String path) {
         this.path = path;

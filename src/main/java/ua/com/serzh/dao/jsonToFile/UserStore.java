@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Serzh on 11/4/16.
  */
-@Component // Temp for tests
+@Component
 public class UserStore {
 
     private String name = "users";

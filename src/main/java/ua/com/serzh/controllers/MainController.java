@@ -56,7 +56,6 @@ public class MainController extends HttpServlet {
             session.setAttribute("delete", true);
         }
 
-        Integer pageNumber = (Integer) session.getAttribute("pageNumber");
         contactManager.action(req, contactDao, session, user);
 
         return "main";

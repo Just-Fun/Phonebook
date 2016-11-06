@@ -1,6 +1,6 @@
 {
   "name" : "users",
-  "countUsers" : 7,
+  "countUsers" : 9,
   "users" : [ {
     "userId" : 1,
     "name" : "serzh",
@@ -28,6 +28,14 @@
   }, {
     "userId" : 7,
     "name" : "check",
+    "password" : "123456"
+  }, {
+    "userId" : 8,
+    "name" : "checkTwo",
+    "password" : "1234567"
+  }, {
+    "userId" : 9,
+    "name" : "checkA",
     "password" : "123456"
   } ]
 }

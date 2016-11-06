@@ -13,6 +13,7 @@ import java.util.List;
  * Created by Serzh on 10/25/16.
  */
 public class ContactManager {
+    //TODO autowired
     private Contact contact;
 
     public ContactManager() {
@@ -51,7 +52,6 @@ public class ContactManager {
                 session.setAttribute("edit", false);
             } else {
 
-                //TODO autowired
                 boolean edit = new ContactEditor().editContact(req, session, contactDao);
                 if (edit) {
                     session.setAttribute("listChanged", true);

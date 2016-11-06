@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ContactEditor {
 
-    Contact contact;
+    private Contact contact;
 
     private boolean validSurname = false;
     private boolean validName = false;

@@ -2,7 +2,6 @@ package ua.com.serzh.dao.jsonToFile;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,11 +17,8 @@ public class MapperObjectJson {
         try {
             File file = new File(pathName);
 
-            Object object = mapper.readValue(file, Class.forName(className));
+            return mapper.readValue(file, Class.forName(className));
 
-            return object;
-        } catch (EOFException e) {
-            return null;
         } catch (IOException | ClassNotFoundException e) {
             return null;
         }
@@ -35,10 +31,10 @@ public class MapperObjectJson {
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, object);
 
             //Convert object to JSON string and pretty print
-            String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
 
             // 2nd variant - not pretty but compact
-//            String jsonInString = mapper.writeValueAsString(object);
+//            mapper.writeValueAsString(object);
 
         } catch (IOException e) {
             e.printStackTrace();

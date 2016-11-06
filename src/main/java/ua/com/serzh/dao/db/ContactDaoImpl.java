@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by Serzh on 10/25/16.
  */
-//@Component
 public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
 
     @Override
@@ -21,12 +20,6 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
         getJdbcTemplate().update(sql, contact.getSurname(), contact.getName(), contact.getPatronymic(), contact.getMobileNumber(),
                 contact.getHomePhone(), contact.getAddress(), contact.getEmail(), contact.getUserId());
     }
-
- /*   @Override
-    public List<Contact> searchContactByName(String name, int userId) {
-        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
-        return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
-    }*/
 
     @Override
     public List searchContactByAnyField(String searchQuery, Integer userId) {
@@ -68,5 +61,10 @@ public class ContactDaoImpl extends JdbcDaoSupport implements ContactDao {
     public void deleteContact(Contact contact) {
         String sql = "DELETE FROM contacts WHERE contact_id = ?";
         getJdbcTemplate().update(sql, contact.getContactId());
+    }
+
+    public List<Contact> searchContactByName(String name, int userId) {
+        String sql = String.format("SELECT * FROM contacts WHERE user_id = %d AND name LIKE '%s%%'", userId, name);
+        return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Contact.class));
     }
 }

@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
-import ua.com.serzh.service.ContactManager;
 
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**

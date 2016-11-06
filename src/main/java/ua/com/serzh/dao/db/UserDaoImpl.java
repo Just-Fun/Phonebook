@@ -9,7 +9,6 @@ import ua.com.serzh.entities.User;
 /**
  * Created by Serzh on 10/25/16.
  */
-//@Component
 public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
     @Override

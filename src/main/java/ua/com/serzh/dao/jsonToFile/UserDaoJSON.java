@@ -1,7 +1,6 @@
 package ua.com.serzh.dao.jsonToFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.utils.Utils;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 /**
  * Created by Serzh on 11/4/16.
  */
-//@Component
 public class UserDaoJSON implements UserDao {
    /* public UserDaoJSON() {
     }*/

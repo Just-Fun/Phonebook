@@ -1,6 +1,6 @@
 {
   "name" : "contacts",
-  "countContacts" : 10,
+  "countContacts" : 11,
   "contacts" : [ {
     "contactId" : 1,
     "surname" : "PavarottiTwo",
@@ -12,18 +12,8 @@
     "email" : "pa@gmail.com",
     "userId" : 1
   }, {
-    "contactId" : 2,
-    "surname" : "BeSurnameFour",
-    "name" : "Bname",
-    "patronymic" : "BPatronymic",
-    "mobileNumber" : "+380665794450",
-    "homePhone" : "",
-    "address" : "",
-    "email" : "",
-    "userId" : 1
-  }, {
     "contactId" : 3,
-    "surname" : "ZSurnameZA",
+    "surname" : "ZSurnameZ",
     "name" : "ZName",
     "patronymic" : "ZPatronymic",
     "mobileNumber" : "+380665794433",
@@ -80,6 +70,16 @@
     "homePhone" : "+380445786754",
     "address" : "",
     "email" : "nameCheck@gmail.com",
+    "userId" : 1
+  }, {
+    "contactId" : 11,
+    "surname" : "FSurname",
+    "name" : "FName",
+    "patronymic" : "FPatronymic",
+    "mobileNumber" : "+380665794450",
+    "homePhone" : "",
+    "address" : "",
+    "email" : "",
     "userId" : 1
   } ]
 }

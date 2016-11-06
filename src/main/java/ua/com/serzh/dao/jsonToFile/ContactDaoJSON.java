@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 /**
  * Created by Serzh on 11/4/16.
  */
-//@Component //!!!!!!!!!!!!!
 public class ContactDaoJSON implements ContactDao {
      public ContactDaoJSON() {
     }
