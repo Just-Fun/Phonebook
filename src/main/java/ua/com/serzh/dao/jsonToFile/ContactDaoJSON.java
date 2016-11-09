@@ -1,7 +1,6 @@
 package ua.com.serzh.dao.jsonToFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ua.com.serzh.dao.ContactDao;
 import ua.com.serzh.entities.Contact;
 import ua.com.serzh.utils.Utils;
@@ -30,11 +29,9 @@ public class ContactDaoJSON implements ContactDao {
     public ContactDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
         this.mapper = mapper;
-
-        setup();
     }
 
-    private void setup() throws IOException {
+    private void init() throws IOException {
 
         pathContactsFile = utils.getProperties(fileName);
 

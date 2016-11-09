@@ -27,11 +27,9 @@ public class UserDaoJSON implements UserDao {
     public UserDaoJSON(Utils utils, MapperObjectJson mapper) throws IOException {
         this.utils = utils;
         this.mapper = mapper;
-
-        setup();
     }
 
-    private void setup() throws IOException {
+    private void init() throws IOException {
 
         pathUsersFile = utils.getProperties(fileName);
 

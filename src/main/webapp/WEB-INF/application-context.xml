@@ -11,12 +11,12 @@
 
     <!--Store in a local file(JSON)-->
 
-    <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON">
+    <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON" init-method="init">
         <constructor-arg ref="utils"/>
         <constructor-arg ref="mapper"/>
     </bean>
 
-    <bean id="contactDao" class="ua.com.serzh.dao.jsonToFile.ContactDaoJSON">
+    <bean id="contactDao" class="ua.com.serzh.dao.jsonToFile.ContactDaoJSON" init-method="init">
         <constructor-arg ref="utils"/>
         <constructor-arg ref="mapper"/>
     </bean>
