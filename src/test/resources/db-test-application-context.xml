@@ -22,11 +22,6 @@
         <constructor-arg value="ua.com.serzh.service.ContactManager"/>
     </bean>
 
-
-    <bean id="userDaoJSON" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="ua.com.serzh.dao.jsonToFile.UserDaoJSON"/>
-    </bean>
-
     <bean id="utils" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="ua.com.serzh.utils.Utils"/>
     </bean>
