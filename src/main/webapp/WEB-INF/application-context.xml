@@ -9,6 +9,7 @@
 
     <!--TODO create some switcher between storage -->
 
+    <!--Begin of the 'switcher' -->
     <!--Store in a local file(JSON)-->
 
     <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON" init-method="init">
@@ -33,7 +34,7 @@
     </bean>
 -->
 
-
+<!--  End of the 'switcher' -->
 
     <bean id="utils" class="ua.com.serzh.utils.Utils">
     </bean>
