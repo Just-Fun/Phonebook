@@ -7,12 +7,15 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
+    <context:annotation-config/>
+
     <!--TODO create some switcher between storage -->
 
     <!--Begin of the 'switcher' -->
     <!--Store in a local file(JSON)-->
 
-    <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON" init-method="init">
+    <!--<bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON" init-method="init">-->
+    <bean id="userDao" class="ua.com.serzh.dao.jsonToFile.UserDaoJSON">
         <constructor-arg ref="utils"/>
         <constructor-arg ref="mapper"/>
     </bean>
