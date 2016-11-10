@@ -5,6 +5,7 @@ import ua.com.serzh.dao.UserDao;
 import ua.com.serzh.entities.User;
 import ua.com.serzh.utils.Utils;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ public class UserDaoJSON implements UserDao {
         this.mapper = mapper;
     }
 
+    @PostConstruct
     private void init() throws IOException {
 
         pathUsersFile = utils.getProperties(fileName);
